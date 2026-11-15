@@ -1,0 +1,46 @@
+✖ closing waits beyond 2.5 seconds for save; failure allows a successful retry (2.3515ms)
+✖ closing on the last move preserves the same assessment, score and personal task as normal completion (24.77975ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 123.285167
+
+✖ failing tests:
+
+test at tests/close-race.test.mjs:17:1
+✖ closing waits beyond 2.5 seconds for save; failure allows a successful retry (2.3515ms)
+  AssertionError [ERR_ASSERTION]: must not close while save has no result
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/close-race.test.mjs:28:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/close-race.test.mjs:48:1
+✖ closing on the last move preserves the same assessment, score and personal task as normal completion (24.77975ms)
+  AssertionError [ERR_ASSERTION]: do not grade before the last engine answer
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/close-race.test.mjs:50:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

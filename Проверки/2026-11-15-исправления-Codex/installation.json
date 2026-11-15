@@ -1,0 +1,14 @@
+{
+  "version": "1.4.2",
+  "backup": "/Users/roman/.local/share/chess-coach/backups/1.4.1-before-Codex-20261115-205202.app",
+  "matches": {
+    "main.cjs": true,
+    "preload.cjs": true,
+    "src/store.cjs": true,
+    "dist/app.js": true,
+    "dist/style.css": true
+  },
+  "progressUnchangedDuringInstall": true,
+  "progressSha256": "d2bf1aeadb0727d137a4c177ecc02fd6c4859fc7f2cef17577c22fb9b6a3805b",
+  "progressUnchangedAfterLaunchAndQuit": true
+}

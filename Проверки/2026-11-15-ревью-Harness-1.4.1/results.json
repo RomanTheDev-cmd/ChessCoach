@@ -1,0 +1,37 @@
+{
+  "offset": {
+    "dx": 0,
+    "dy": 160
+  },
+  "fastSaveFailure": {
+    "closed": false,
+    "cancelled": true
+  },
+  "slowSaveFailure": {
+    "closed": true,
+    "cancelled": true
+  },
+  "lastMoveNormal": {
+    "assessments": 1,
+    "historyCount": 1,
+    "passed": true,
+    "score": 83,
+    "errors": 1
+  },
+  "lastMoveClose": {
+    "assessments": 0,
+    "historyCount": 1,
+    "passed": true,
+    "score": 100,
+    "errors": 0
+  },
+  "freshBuildMatches": true,
+  "installMatches": {
+    "main.cjs": true,
+    "preload.cjs": true,
+    "src/store.cjs": true,
+    "dist/app.js": true,
+    "dist/style.css": true,
+    "package.json": false
+  }
+}

@@ -4051,7 +4051,38 @@ function advancePuzzle(game, line, index, { alternative = false, mateAllowed = f
   return { correct: true, index: next, done: next >= line.length, reply };
 }
 
+// src/ui.mjs
+function moveOffset(src, dst) {
+  return { dx: src.left - dst.left, dy: src.top - dst.top };
+}
+function shouldRecordInterrupt(session) {
+  return !!session && !session.saved && (session.page > 0 || session.phase === "train" || session.phase === "quiz" || session.phase === "demo" || session.phase === "done");
+}
+function runStudyOperation(session, operation) {
+  if (!session) return Promise.resolve();
+  session.operations ??= /* @__PURE__ */ new Set();
+  const pending = operation();
+  session.operations.add(pending);
+  return pending.finally(() => session.operations.delete(pending));
+}
+async function waitForStudyOperations(session) {
+  while (session.operations?.size) await Promise.all([...session.operations]);
+}
+
 // src/app.mjs
+window.addEventListener("error", (e) => {
+  try {
+    window.coach?.log("error", "uncaught: " + (e.message || "") + " @ " + (e.filename || "") + ":" + (e.lineno || 0));
+  } catch {
+  }
+});
+window.addEventListener("unhandledrejection", (e) => {
+  try {
+    const r = e.reason;
+    window.coach?.log("error", "unhandled: " + (r && r.stack || r));
+  } catch {
+  }
+});
 var $ = (s) => document.querySelector(s);
 var esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 var icons = { home: '<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>', play: '<path d="m7 3 14 9L7 21z"/>', task: '<path d="M5 4h14v17H5zM9 2h6v4H9zM8 11l2 2 5-5M8 17h8"/>', book: '<path d="M3 4c4-1 7 0 9 2 2-2 5-3 9-2v16c-4-1-7 0-9 2-2-2-5-3-9-2zM12 6v16"/>', chart: '<path d="M4 3v18h17M8 16v-4m5 4V8m5 8V4"/>', sound: '<path d="m11 4-6 5H2v6h3l6 5zM15 8c3 2 3 6 0 8M18 4c6 5 6 11 0 16"/>', mute: '<path d="m11 4-6 5H2v6h3l6 5zM16 9l6 6m0-6-6 6"/>', arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>', repeat: '<path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-2l2 3M4 16l2 3a7 7 0 0 0 12-2"/>' };
@@ -4092,6 +4123,7 @@ var audio = null;
 var engineFailure = "";
 engine.ready.catch((e) => {
   engineFailure = e.message;
+  window.coach?.log("error", "engine: " + e.message);
   render();
 });
 function toast(t) {
@@ -4104,8 +4136,11 @@ function toast(t) {
 async function save() {
   try {
     await window.coach.save(state);
+    return true;
   } catch (e) {
+    window.coach?.log("error", "save: " + e.message);
     toast("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441: " + e.message);
+    return false;
   }
 }
 function lessonIsOpen() {
@@ -4139,6 +4174,7 @@ async function say(text, { manual = false, key = text } = {}) {
     voiceStatus = "";
     renderTranscript();
   } catch (e) {
+    window.coach?.log("warn", "tts: " + e.message);
     if (serial === voiceSerial) {
       voiceStatus = "\u041E\u0437\u0432\u0443\u0447\u043A\u0430 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430: " + e.message;
       renderTranscript();
@@ -4170,6 +4206,46 @@ function renderTranscript() {
   if (!el) return;
   el.innerHTML = `<button data-action="voice" title="${state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A"}" aria-label="${state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A"}" aria-pressed="${state.voice}">${icon(state.voice ? "sound" : "mute")}</button><button data-action="speak" title="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" aria-label="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" ${state.voice ? "" : "disabled"}>${icon("repeat")}</button><div><p>${esc(transcript)}</p>${voiceStatus ? '<div class="voice-note">' + esc(voiceStatus) + "</div>" : ""}</div>`;
 }
+var pendingMove = null;
+function queueMove(from, to) {
+  try {
+    const sq = document.querySelector('.square[data-square="' + from + '"]'), img = sq?.querySelector("img"), src = img?.getAttribute("src") || "";
+    let castle = null;
+    if (/wK\.svg|bK\.svg/.test(src) && Math.abs(from.charCodeAt(0) - to.charCodeAt(0)) === 2) {
+      const rank2 = from[1];
+      castle = to[0] === "g" ? { from: "h" + rank2, to: "f" + rank2 } : { from: "a" + rank2, to: "d" + rank2 };
+    }
+    pendingMove = { from, to, castle };
+  } catch {
+  }
+}
+function slidePiece(from, to) {
+  const board2 = document.querySelector(".board");
+  if (!board2) return;
+  const dest = board2.querySelector('.square[data-square="' + to + '"]'), srcSq = board2.querySelector('.square[data-square="' + from + '"]');
+  if (!dest || !srcSq) return;
+  const img = dest.querySelector("img");
+  if (!img) return;
+  const d = dest.getBoundingClientRect(), s = srcSq.getBoundingClientRect();
+  if (!d.width || !s.width) return;
+  img.style.transition = "none";
+  const off = moveOffset(s, d);
+  img.style.transform = "translate(" + off.dx + "px," + off.dy + "px)";
+  img.style.zIndex = "2";
+  requestAnimationFrame(() => {
+    img.style.transition = "transform .23s cubic-bezier(.2,.7,.3,1)";
+    img.style.transform = "translate(0,0)";
+  });
+  setTimeout(() => {
+    img.style.transition = "";
+    img.style.zIndex = "";
+  }, 320);
+}
+function animateMove(a) {
+  if (!a) return;
+  slidePiece(a.from, a.to);
+  if (a.castle) slidePiece(a.castle.from, a.castle.to);
+}
 var btn = (text, action, type = "", disabled = false) => `<button class="btn ${type}" data-action="${action}" ${disabled ? "disabled" : ""}>${text}</button>`;
 function nav(id, label, img) {
   return `<button class="${route === id ? "active" : ""}" data-nav="${id}">${icon(img)}${label}</button>`;
@@ -4181,6 +4257,11 @@ function render() {
   }
   $("#app").innerHTML = `<div class="shell"><aside class="sidebar"><button class="brand" data-nav="home">\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043D\u0435\u0440</button><div class="brand-sub">\u0423\u0447\u0438\u0442\u0435\u0441\u044C \u043D\u0430 \u0441\u0432\u043E\u0438\u0445 \u0445\u043E\u0434\u0430\u0445</div><nav>${nav("tasks", "\u0417\u0430\u0434\u0430\u0447\u0438", "task")}${nav("play", "\u0418\u0433\u0440\u0430", "play")}${nav("openings", "\u0414\u0435\u0431\u044E\u0442\u044B", "book")}${nav("learn", "\u0428\u043A\u043E\u043B\u0430 \u0448\u0430\u0445\u043C\u0430\u0442", "home")}${nav("progress", "\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441", "chart")}</nav><div class="side-bottom"><button data-nav="appearance" class="appearance-link">\u0412\u0438\u0434 \u0434\u043E\u0441\u043A\u0438</button><p>\u041D\u0430 \u044D\u0442\u043E\u043C Mac \xB7 TeraTTSv2</p></div></aside><main class="main">${engineFailure ? '<div class="message error">' + esc(engineFailure) + "</div>" : ""}${view()}${lessonIsOpen() ? '<div class="transcript" id="transcript" aria-live="polite"></div>' : ""}</main></div>`;
   renderTranscript();
+  if (ready && pendingMove) {
+    const a = pendingMove;
+    pendingMove = null;
+    requestAnimationFrame(() => animateMove(a));
+  }
 }
 var counted = () => calibrationGames(state).length;
 var level = () => counted() < 3 ? `\u0417\u043D\u0430\u043A\u043E\u043C\u0441\u0442\u0432\u043E: ${Math.min(3, counted())} \u0438\u0437 3 \u043F\u0430\u0440\u0442\u0438\u0439` : `\u041E\u0446\u0435\u043D\u043A\u0430 \u0442\u0440\u0435\u043D\u0435\u0440\u0430: \u2248 ${opponentRating(state)}`;
@@ -4268,7 +4349,7 @@ function openingsView() {
   return courseView({ state, course, study, head, btn, board, moveList, esc, icon });
 }
 function progressView() {
-  return `${head("\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441", "\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043F\u0430\u0440\u0442\u0438\u0439, \u043E\u0448\u0438\u0431\u043E\u043A \u0438 \u0437\u0430\u0434\u0430\u0447.", counted() < 3 ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u0443\u0442\u043E\u0447\u043D\u044F\u0435\u0442\u0441\u044F" : "\u041F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C")}<div class="statsline"><span><strong>${counted() >= 3 ? "\u2248 " + opponentRating(state) : "\u2014"}</strong>\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441 \u0443\u0447\u0451\u0442\u043E\u043C \u0437\u0430\u0434\u0430\u0447</span><span><strong>${state.games.length}</strong>\u043F\u0430\u0440\u0442\u0438\u0439</span><span><strong>${state.attempts.filter((a) => a.correct).length}</strong>\u0440\u0435\u0448\u0435\u043D\u0438\u0439</span><span><strong>${state.mistakes.length}</strong>\u043F\u043E\u0437\u0438\u0446\u0438\u0439 \u0438\u0437 \u043E\u0448\u0438\u0431\u043E\u043A</span></div>${calibrationControls()}${chartsHTML()}<div class="overview"><section><h2>\u041D\u0430\u0432\u044B\u043A\u0438 \u043F\u043E \u0442\u0435\u043C\u0430\u043C</h2>${skillsHTML()}<p class="small muted">\u041F\u0440\u043E\u0446\u0435\u043D\u0442 \u2014 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u0442\u0435\u043C\u044B, \u0440\u044F\u0434\u043E\u043C \u0447\u0438\u0441\u043B\u043E \u043D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0439. \u0412 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0442\u0435\u0440\u0438 \u043E\u0446\u0435\u043D\u043A\u0438; \u0432 \u0437\u0430\u0434\u0430\u0447\u0430\u0445 \u2014 \u0432\u0435\u0440\u043D\u043E\u0441\u0442\u044C, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0438. \u042D\u0442\u043E \u043D\u0435 \u043F\u0440\u043E\u0446\u0435\u043D\u0442 \u0442\u043E\u0447\u043D\u043E\u0441\u0442\u0438 \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u0441\u0435\u0440\u0432\u0438\u0441\u0430.</p><div class="divider"></div><h3>\u041A\u0430\u043A \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u043D\u0430\u0433\u0440\u0443\u0437\u043A\u0430</h3><p class="muted">\u041E\u0448\u0438\u0431\u043A\u0438 \u0432 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0441\u043E\u0437\u0434\u0430\u044E\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438. \u0421\u043B\u0430\u0431\u044B\u0435 \u0442\u0435\u043C\u044B \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u044E\u0442\u0441\u044F \u0447\u0430\u0449\u0435. \u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u043F\u043E\u0432\u044B\u0448\u0430\u044E\u0442 \u043E\u0446\u0435\u043D\u043A\u0443 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0441\u043D\u0438\u0436\u0430\u044E\u0442 \u0432\u0435\u0441 \u0443\u0441\u043F\u0435\u0445\u0430. \u041F\u043E\u0432\u0442\u043E\u0440 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u043D\u0430\u043A\u0440\u0443\u0447\u0438\u0432\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C.</p>${btn("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043A\u043E\u043F\u0438\u044E \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430", "export", "quiet")}<div class="divider"></div><h3>\u041E \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438</h3><p class="small muted">\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043D\u0435\u0440 1.2 \xB7 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F Mac.<br>\u041F\u0440\u0430\u0432\u0438\u043B\u0430: chess.js (BSD-2-Clause). \u0410\u043D\u0430\u043B\u0438\u0437: Stockfish.js 19, GPL-3.0, \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043F\u043E\u0438\u0441\u043A. \u0424\u0438\u0433\u0443\u0440\u044B: Maestro (CC BY-NC-SA 4.0, \u043B\u0438\u0447\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435), Alpha (Eric Bentzen, \u043B\u0438\u0447\u043D\u043E\u0435 \u043D\u0435\u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435). \u0413\u043E\u043B\u043E\u0441: TeraTTSv2 by TeraSpace, ru_m1.</p><p class="small"><a href="https://github.com/nmrugg/stockfish.js" target="_blank">Stockfish \u0438 \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434</a> \xB7 <a href="https://huggingface.co/TeraSpace/TeraTTSv2" target="_blank">TeraTTSv2</a> \xB7 <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0444\u0438\u0433\u0443\u0440</a></p></section><section><h2>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0438 \u0440\u0430\u0437\u0431\u043E\u0440\u044B</h2>${historyHTML()}</section></div>`;
+  return `${head("\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441", "\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043F\u0430\u0440\u0442\u0438\u0439, \u043E\u0448\u0438\u0431\u043E\u043A \u0438 \u0437\u0430\u0434\u0430\u0447.", counted() < 3 ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u0443\u0442\u043E\u0447\u043D\u044F\u0435\u0442\u0441\u044F" : "\u041F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C")}<div class="statsline"><span><strong>${counted() >= 3 ? "\u2248 " + opponentRating(state) : "\u2014"}</strong>\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441 \u0443\u0447\u0451\u0442\u043E\u043C \u0437\u0430\u0434\u0430\u0447</span><span><strong>${state.games.length}</strong>\u043F\u0430\u0440\u0442\u0438\u0439</span><span><strong>${state.attempts.filter((a) => a.correct).length}</strong>\u0440\u0435\u0448\u0435\u043D\u0438\u0439</span><span><strong>${state.mistakes.length}</strong>\u043F\u043E\u0437\u0438\u0446\u0438\u0439 \u0438\u0437 \u043E\u0448\u0438\u0431\u043E\u043A</span></div>${calibrationControls()}${chartsHTML()}<div class="overview"><section><h2>\u041D\u0430\u0432\u044B\u043A\u0438 \u043F\u043E \u0442\u0435\u043C\u0430\u043C</h2>${skillsHTML()}<p class="small muted">\u041F\u0440\u043E\u0446\u0435\u043D\u0442 \u2014 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u0442\u0435\u043C\u044B, \u0440\u044F\u0434\u043E\u043C \u0447\u0438\u0441\u043B\u043E \u043D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0439. \u0412 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0442\u0435\u0440\u0438 \u043E\u0446\u0435\u043D\u043A\u0438; \u0432 \u0437\u0430\u0434\u0430\u0447\u0430\u0445 \u2014 \u0432\u0435\u0440\u043D\u043E\u0441\u0442\u044C, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0438. \u042D\u0442\u043E \u043D\u0435 \u043F\u0440\u043E\u0446\u0435\u043D\u0442 \u0442\u043E\u0447\u043D\u043E\u0441\u0442\u0438 \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u0441\u0435\u0440\u0432\u0438\u0441\u0430.</p><div class="divider"></div><h3>\u041A\u0430\u043A \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u043D\u0430\u0433\u0440\u0443\u0437\u043A\u0430</h3><p class="muted">\u041E\u0448\u0438\u0431\u043A\u0438 \u0432 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0441\u043E\u0437\u0434\u0430\u044E\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438. \u0421\u043B\u0430\u0431\u044B\u0435 \u0442\u0435\u043C\u044B \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u044E\u0442\u0441\u044F \u0447\u0430\u0449\u0435. \u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u043F\u043E\u0432\u044B\u0448\u0430\u044E\u0442 \u043E\u0446\u0435\u043D\u043A\u0443 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0441\u043D\u0438\u0436\u0430\u044E\u0442 \u0432\u0435\u0441 \u0443\u0441\u043F\u0435\u0445\u0430. \u041F\u043E\u0432\u0442\u043E\u0440 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u043D\u0430\u043A\u0440\u0443\u0447\u0438\u0432\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C.</p>${btn("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043A\u043E\u043F\u0438\u044E \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430", "export", "quiet")}${btn("\u0416\u0443\u0440\u043D\u0430\u043B \u043E\u0448\u0438\u0431\u043E\u043A", "open-log", "quiet")}<div class="divider"></div><h3>\u041E \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438</h3><p class="small muted">\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043D\u0435\u0440 1.4.1 \xB7 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F Mac.<br>\u041F\u0440\u0430\u0432\u0438\u043B\u0430: chess.js (BSD-2-Clause). \u0410\u043D\u0430\u043B\u0438\u0437: Stockfish.js 19, GPL-3.0, \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043F\u043E\u0438\u0441\u043A. \u0424\u0438\u0433\u0443\u0440\u044B: Maestro (CC BY-NC-SA 4.0, \u043B\u0438\u0447\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435), Alpha (Eric Bentzen, \u043B\u0438\u0447\u043D\u043E\u0435 \u043D\u0435\u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435). \u0413\u043E\u043B\u043E\u0441: TeraTTSv2 by TeraSpace, ru_m1.</p><p class="small"><a href="https://github.com/nmrugg/stockfish.js" target="_blank">Stockfish \u0438 \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434</a> \xB7 <a href="https://huggingface.co/TeraSpace/TeraTTSv2" target="_blank">TeraTTSv2</a> \xB7 <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0444\u0438\u0433\u0443\u0440</a></p></section><section><h2>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0438 \u0440\u0430\u0437\u0431\u043E\u0440\u044B</h2>${historyHTML()}</section></div>`;
 }
 function reviewView() {
   if (!reviewGame) return "<p>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u0440\u0442\u0438\u044E \u0432 \u0438\u0441\u0442\u043E\u0440\u0438\u0438.</p>";
@@ -4320,12 +4401,12 @@ function appendMove(m) {
   state.active.moves.push(u);
   last = [m.from, m.to];
   selected = null;
+  queueMove(m.from, m.to);
   save();
 }
 async function computerMove() {
   if (!state.active || state.active.finished || busy) return;
   busy = true;
-  render();
   try {
     let g = state.active, c = playChess;
     let skill = Math.max(0, Math.min(20, Math.round((g.opponent - 550) / 75)));
@@ -4344,6 +4425,7 @@ async function computerMove() {
     }
   } catch (e) {
     engineFailure = e.message;
+    window.coach?.log("error", "engine move: " + e.message);
     toast(e.message);
   }
   busy = false;
@@ -4381,6 +4463,7 @@ async function analyze() {
   } catch (e) {
     analysisError = e.message;
     analysisProgress = "";
+    window.coach?.log("error", "analysis: " + e.message);
     toast("\u0420\u0430\u0437\u0431\u043E\u0440 \u043F\u0440\u0435\u0440\u0432\u0430\u043D. \u041F\u0430\u0440\u0442\u0438\u044E \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u043B; \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u0440\u0430\u0437\u0431\u043E\u0440.");
   }
   busy = false;
@@ -4411,6 +4494,7 @@ async function attemptTask(move) {
     taskFeedback = phrases.wrong;
     say(phrases.wrong, { key: "task:" + task.id + ":wrong" });
   } else {
+    queueMove(move.from, move.to);
     taskPly = result.index;
     taskDone = result.done;
     if (taskDone) {
@@ -4470,6 +4554,7 @@ async function clickSquare(sq, promotion) {
   else {
     const u = m.from + m.to + (m.promotion || "");
     if (u === lesson.line[0]) {
+      queueMove(m.from, m.to);
       lessonDone = true;
       recordAttempt(state, { id: "lesson-" + lesson.id, theme: lesson.theme, rating: 700 }, { correct: true, hints: lessonHelp, tries: lessonTries });
       await save();
@@ -4633,6 +4718,11 @@ $("#app").addEventListener("click", async (e) => {
       case "go-progress":
         navigate("progress");
         break;
+      case "open-log": {
+        const r = await window.coach.openLog();
+        toast(r === "revealed" ? "\u0416\u0443\u0440\u043D\u0430\u043B \u043E\u0448\u0438\u0431\u043E\u043A \u043F\u043E\u043A\u0430\u0437\u0430\u043D \u0432 Finder." : "\u0416\u0443\u0440\u043D\u0430\u043B \u043E\u0448\u0438\u0431\u043E\u043A \u043E\u0442\u043A\u0440\u044B\u0442.");
+        break;
+      }
       case "next-task":
         stopNarration();
         loadTask();
@@ -4739,12 +4829,22 @@ function calibrationControls() {
 }
 async function leaveStudy() {
   const old = study;
+  if (old) {
+    old.leaving = true;
+    try {
+      await waitForStudyOperations(old);
+    } catch (e) {
+      old.leaving = false;
+      throw e;
+    }
+    if (study !== old) return;
+  }
   study = null;
   stopNarration();
   selected = null;
   pendingPromotion = null;
-  if (old && !old.saved && (old.page || old.phase === "train" || old.phase === "quiz" || old.phase === "demo")) {
-    recordCourseSession(state, old.course, old.unit, old.result(false));
+  if (shouldRecordInterrupt(old)) {
+    recordCourseSession(state, old.course, old.unit, old.result(old.phase === "done"));
     await save();
   }
 }
@@ -4853,9 +4953,12 @@ async function courseAction(action) {
       break;
   }
 }
-async function courseSquare(sq, promotion) {
+function courseSquare(sq, promotion) {
+  return runStudyOperation(study, () => courseSquareMove(sq, promotion));
+}
+async function courseSquareMove(sq, promotion) {
   const s = study;
-  if (!s || s.phase !== "train" || s.busy || s.game.turn() !== s.course.side) return;
+  if (!s || s.leaving || s.phase !== "train" || s.busy || s.game.turn() !== s.course.side) return;
   const c = s.game, p = c.get(sq);
   if (pendingPromotion && !promotion) return;
   if (!selected) {
@@ -4889,6 +4992,7 @@ async function courseSquare(sq, promotion) {
     let before;
     if (s.unit.type === "sparring") before = await engine.search(c.fen(), { time: 180 });
     if (study !== s) return;
+    queueMove(u.slice(0, 2), u.slice(2, 4));
     const result = s.attempt(u);
     last = [result.move.from, result.move.to];
     if (s.unit.type === "sparring") {
@@ -4918,21 +5022,49 @@ async function courseSquare(sq, promotion) {
     if (study === s) render();
   }
 }
-async function courseComputer(s) {
+function courseComputer(s) {
+  return runStudyOperation(s, () => courseComputerMove(s));
+}
+async function courseComputerMove(s) {
   if (study !== s || s.phase !== "train" || s.game.turn() === s.course.side) return;
   s.busy = true;
-  render();
   try {
     const result = await engine.search(s.game.fen(), { time: 230, skill: Math.max(0, Math.min(20, Math.round((opponentRating(state) - 550) / 75))) });
     if (study !== s) return;
     const move = s.reply(result.move);
     last = [move.from, move.to];
+    queueMove(move.from, move.to);
     if (s.phase === "done") await finishStudy(s);
   } finally {
     s.busy = false;
     if (study === s) render();
   }
 }
+var closeFlushed = false;
+window.coach?.onCloseRequest(async () => {
+  if (closeFlushed) return;
+  closeFlushed = true;
+  if (!ready) {
+    window.coach.confirmClose();
+    return;
+  }
+  try {
+    await leaveStudy();
+  } catch (e) {
+    closeFlushed = false;
+    window.coach.cancelClose();
+    toast("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0443\u0440\u043E\u043A: " + e.message);
+    return;
+  }
+  const ok = await save();
+  if (ok) {
+    window.coach.confirmClose();
+  } else {
+    closeFlushed = false;
+    window.coach.cancelClose();
+    toast("\u041F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u043D\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0451\u043D \u2014 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043D\u0435 \u0437\u0430\u043A\u0440\u044B\u0442\u043E. \u041E\u0441\u0432\u043E\u0431\u043E\u0434\u0438\u0442\u0435 \u043C\u0435\u0441\u0442\u043E \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0441\u043D\u043E\u0432\u0430.");
+  }
+});
 /*! Bundled license information:
 
 chess.js/dist/esm/chess.js:

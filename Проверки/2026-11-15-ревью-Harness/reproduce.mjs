@@ -1,0 +1,23 @@
+import fs from 'node:fs';import vm from 'node:vm';
+const root='/Users/roman/Library/Mobile Documents/com~apple~CloudDocs/Главная рабочая папка ИИ/Проекты/Шахматный тренер';
+const source=fs.readFileSync(root+'/src/app.mjs','utf8');
+const line=prefix=>source.split('\n').find(s=>s.startsWith(prefix));
+const result={};
+const img={style:{}},rects={e2:{left:100,top:500,width:80},e4:{left:100,top:340,width:80}};
+const board={querySelector(selector){const sq=selector.match(/data-square="(.*?)"/)[1];return{querySelector:()=>img,getBoundingClientRect:()=>rects[sq]};}};
+const a=vm.createContext({document:{querySelector:()=>board},requestAnimationFrame:()=>{},setTimeout:()=>{}});
+vm.runInContext(line('function slidePiece')+";slidePiece('e2','e4');",a);
+const numbers=img.style.transform.match(/translate\(([-\d.]+)px,([-\d.]+)px\)/);
+result.animation={fromY:500,toY:340,initialTranslateY:Number(numbers[2]),actualInitialY:340+Number(numbers[2]),expectedInitialY:500};
+const closeBody=source.match(/window\.coach\?\.onCloseRequest\(async\(\)=>\{(.+)\}\);/)[1];
+let confirmed=0;const saveFailure=vm.createContext({state:{},ready:true,closeFlushed:false,leaveStudy:async()=>{},toast:()=>{},window:{coach:{save:async()=>{throw Error('ENOSPC');},log:()=>{},confirmClose:()=>confirmed++}},console:{error:()=>{}}});
+await vm.runInContext(line('async function save()')+';async function closeNow(){'+closeBody+'};closeNow();',saveFailure);
+result.saveFailure={writeRejected:'ENOSPC',closeConfirmed:confirmed===1};
+const {OpeningSession}=await import(root+'/src/opening-session.mjs');const {courses}=await import(root+'/src/opening-courses.mjs');const {fresh}=await import(root+'/src/core.mjs');const {recordCourseSession}=await import(root+'/src/opening-progress.mjs');
+const fixture=JSON.parse(fs.readFileSync(root+'/tests/fixtures/opening-practice.json','utf8'));
+const c=courses[0],u=c.units.at(-1),s=new OpeningSession(c,u);s.practice();for(const move of fixture.moves){if(s.game.turn()===c.side)s.attempt(move);else s.reply(move);}
+const state=fresh();state.openingCourses={[c.id]:{completed:c.units.slice(0,7).map(u=>u.id),history:[]}};
+let confirmedRace=0;const race=vm.createContext({study:s,state,ready:true,closeFlushed:false,stopNarration:()=>{},selected:null,pendingPromotion:null,recordCourseSession,save:async()=>{},console:{error:()=>{}},window:{coach:{confirmClose:()=>confirmedRace++}}});
+await vm.runInContext(line('async function leaveStudy()')+';async function closeNow(){'+closeBody+'};closeNow();',race);
+result.finishRace={phaseBefore:s.phase,page:s.page,moveCount:s.game.history().length,historyCount:state.openingCourses[c.id].history.length,studyCleared:race.study===null,closeConfirmed:confirmedRace===1};
+console.log(JSON.stringify(result,null,2));fs.writeFileSync('/tmp/chess-harness-review/reproductions.json',JSON.stringify(result,null,2));

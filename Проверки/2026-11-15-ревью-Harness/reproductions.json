@@ -1,0 +1,21 @@
+{
+  "animation": {
+    "fromY": 500,
+    "toY": 340,
+    "initialTranslateY": -160,
+    "actualInitialY": 180,
+    "expectedInitialY": 500
+  },
+  "saveFailure": {
+    "writeRejected": "ENOSPC",
+    "closeConfirmed": true
+  },
+  "finishRace": {
+    "phaseBefore": "done",
+    "page": 0,
+    "moveCount": 23,
+    "historyCount": 0,
+    "studyCleared": true,
+    "closeConfirmed": true
+  }
+}

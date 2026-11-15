@@ -1,2 +1,2 @@
 const {contextBridge,ipcRenderer}=require('electron');
-contextBridge.exposeInMainWorld('coach',{load:()=>ipcRenderer.invoke('load'),save:data=>ipcRenderer.invoke('save',data),speak:text=>ipcRenderer.invoke('speak',text),export:()=>ipcRenderer.invoke('export')});
+contextBridge.exposeInMainWorld('coach',{load:()=>ipcRenderer.invoke('load'),save:data=>ipcRenderer.invoke('save',data),speak:text=>ipcRenderer.invoke('speak',text),export:()=>ipcRenderer.invoke('export'),onCloseRequest:cb=>ipcRenderer.on('flush-before-close',cb),confirmClose:()=>ipcRenderer.send('close-ready'),cancelClose:()=>ipcRenderer.send('close-cancel'),testClose:()=>ipcRenderer.send('test-close'),log:(level,msg)=>ipcRenderer.send('log',level,msg),openLog:()=>ipcRenderer.invoke('open-log')});
