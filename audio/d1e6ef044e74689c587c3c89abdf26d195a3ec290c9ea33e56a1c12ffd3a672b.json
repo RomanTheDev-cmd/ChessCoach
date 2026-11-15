@@ -1,0 +1,15 @@
+{
+  "text": "Рокируйте и обеспечьте королю защиту.",
+  "spoken": "Рокир+уйте и обесп+ечьте корол+ю защ+иту.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f5b922039ee1dcf53333fbd27c2097033a98cb5b07263020b7e4a621a62cd3d7",
+  "hearing_reviewed": false
+}

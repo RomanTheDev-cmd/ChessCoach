@@ -1,0 +1,15 @@
+{
+  "text": "Уход одной фигуры может открыть линию для другой.",
+  "spoken": "Ух+од одн+ой фиг+уры м+ожет откр+ыть л+инию для друг+ой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8cab6e52e7d50e35667d3d47dbe4f1a10c01daaec46f7adef6793583653f6561",
+  "hearing_reviewed": false
+}

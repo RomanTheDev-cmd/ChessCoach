@@ -1,0 +1,7 @@
+import {Chess} from 'chess.js';
+import {classify} from './core.mjs';
+import {uciMove,spokenMove} from './engine.mjs';
+import {phrases} from './data.mjs';
+export async function analyzeGame(g,engine,progress=()=>{}){const c=new Chess(),rows=[];
+for(let ply=0;ply<g.moves.length;ply++){let fen=c.fen(),color=c.turn();if(color!==g.color){uciMove(c,g.moves[ply]);continue;}progress(rows.length+1,Math.ceil(g.moves.length/2));const before=await engine.search(fen,{time:200}),m=uciMove(c,g.moves[ply]);let after=c.isCheckmate()?{score:-100000}:c.isDraw()?{score:0}:await engine.search(c.fen(),{time:180});let loss=Math.max(0,Math.min(1000,(before.score??0)+(after.score??0)));if(g.moves[ply]===before.move)loss=0;let theme=classify(fen,before,ply);let response=null;try{if(after.pv?.[0])response=uciMove(new Chess(c.fen()),after.pv[0]);}catch{}if(response?.captured&&loss>=90)theme='tactics';let reason=loss>=160?'Ход заметно ухудшает позицию. Проверьте угрозы соперника и сравните своё решение с лучшим продолжением.':loss>=60?'Здесь было более точное продолжение. Обратите внимание на активность фигур и безопасность короля.':phrases.good;if(loss>=60&&response?.captured)reason='После вашего хода соперник мог взять фигуру: '+spokenMove(c,after.pv[0])+'. Сравните своё решение с лучшим продолжением.';let variation=[],vc=new Chess(fen);for(let u of (before.pv||[]).slice(0,5)){try{variation.push(uciMove(vc,u).san);}catch{break;}}rows.push({ply,fen,color,san:m.san,uci:g.moves[ply],best:before.move,variation,loss,theme,reason});}
+return rows;}

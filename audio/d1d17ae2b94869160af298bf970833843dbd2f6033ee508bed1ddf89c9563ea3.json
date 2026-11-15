@@ -1,0 +1,15 @@
+{
+  "text": "Другой легальный вариант не является нарушением. Сначала оцените конкретную позицию.",
+  "spoken": "Друг+ой лег+альный вари+ант не явл+яется наруш+ением. Снач+ала оцен+ите конкр+етную поз+ицию.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "eecfc569e01729acb7207d6515dc47c2d6a059d69e76358bcb7a9b0c8054fb89",
+  "hearing_reviewed": false
+}

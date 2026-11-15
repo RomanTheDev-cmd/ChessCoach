@@ -1,0 +1,15 @@
+{
+  "text": "Развитие фигур и борьба за центр.",
+  "spoken": "Разв+итие фиг+ур и борьб+а за центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "531aee28cdffe69429a0f398407c2c7dfea1cbfa71a519cf00180eff53e940de",
+  "hearing_reviewed": false
+}

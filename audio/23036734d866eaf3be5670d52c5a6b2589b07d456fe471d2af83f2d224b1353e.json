@@ -1,0 +1,15 @@
+{
+  "text": "Защитите центральную пешку и откройте дорогу слону.",
+  "spoken": "Защит+ите центр+альную п+ешку и откр+ойте дор+огу слон+у.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b7bed5649d10c41432587182c9b228b04705db6682c69eec87f93fbb3b9a742e",
+  "hearing_reviewed": false
+}

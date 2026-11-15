@@ -1,0 +1,15 @@
+{
+  "text": "Вместо слона чёрные сначала развивают второго коня.",
+  "spoken": "Вм+есто слон+а чёрные снач+ала развив+ают втор+ого кон+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "5f1afce456a6c5ebc1199f16c36bd5673f251df0c2f8b91f6649b7fcfaa9e32b",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте слона на большую диагональ.",
+  "spoken": "Развив+айте слон+а на больш+ую диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "07bdd87461a73e3033b71611a919a31c1aaf5a0a4ad5330cda4a0f999ad98bcb",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте своего слона на активную диагональ.",
+  "spoken": "Развив+айте своег+о слон+а на акт+ивную диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ba018d90b4b93d7beaa37c341764f37614e1be2cd728cb94e8afe0f554625c02",
+  "hearing_reviewed": false
+}

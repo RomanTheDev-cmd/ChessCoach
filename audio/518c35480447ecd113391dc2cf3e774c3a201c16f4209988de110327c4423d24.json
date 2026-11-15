@@ -1,0 +1,15 @@
+{
+  "text": "Подготовьте рокировку развитием второго слона.",
+  "spoken": "Подгот+овьте рокир+овку разв+итием втор+ого слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "57cb30456e046647b999d21321046b7d1d9a8a616534a8c0c0d49aaf77dfb55c",
+  "hearing_reviewed": false
+}

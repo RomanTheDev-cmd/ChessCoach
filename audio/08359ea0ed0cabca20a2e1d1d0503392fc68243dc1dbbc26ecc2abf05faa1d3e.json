@@ -1,0 +1,15 @@
+{
+  "text": "Считать любой другой ход нарушением правил.",
+  "spoken": "Счит+ать люб+ой друг+ой ход наруш+ением пр+авил.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b780434b88f5e1301bdca187cbee07697141f3c3b4a74b03d171de51e988240f",
+  "hearing_reviewed": false
+}

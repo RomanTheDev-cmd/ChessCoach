@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте слона и готовьте рокировку.",
+  "spoken": "Развив+айте слон+а и гот+овьте рокир+овку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "13e0bbffe423337fb27e63f1db401a078cd82273e96dc6067dbaaff317d9d977",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные снимают напряжение взятием.",
+  "spoken": "Чёрные сним+ают напряж+ение вз+ятием.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "66d43699988844843cf88a9ec2668b1a9a5a4da6cf620ab347a3e71c046ab38b",
+  "hearing_reviewed": false
+}

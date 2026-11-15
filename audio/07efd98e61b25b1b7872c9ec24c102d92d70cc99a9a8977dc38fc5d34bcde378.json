@@ -1,0 +1,15 @@
+{
+  "text": "Давление на слабый пункт у короля означает обязательную жертву?",
+  "spoken": "Давл+ение на сл+абый пункт у корол+я означ+ает обяз+ательную ж+ертву?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a4929f1f3828dfe1fb79d6a0e4b4ec669f4d6ce0b1537fcc0682fdf9c7ceadf3",
+  "hearing_reviewed": false
+}

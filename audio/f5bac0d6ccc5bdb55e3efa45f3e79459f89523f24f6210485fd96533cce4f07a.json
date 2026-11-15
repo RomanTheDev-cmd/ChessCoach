@@ -1,0 +1,15 @@
+{
+  "text": "Рокируйте и переходите к планам середины игры.",
+  "spoken": "Рокир+уйте и переход+ите к пл+анам серед+ины игр+ы.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "78f49c6ffeaf1e37e4114ef2f2ca6492774ecf6fc75f104950ffed3d9f9acca8",
+  "hearing_reviewed": false
+}

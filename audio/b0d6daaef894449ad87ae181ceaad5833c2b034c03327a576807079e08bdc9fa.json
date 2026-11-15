@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы ослабить чёрный центр и развить фигуры.",
+  "spoken": "Чт+обы осл+абить чёрный центр и разв+ить фиг+уры.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "888ad492d1f667101050da25c37de2d48363ae89f1ce288a8c6b5aef53c18769",
+  "hearing_reviewed": false
+}

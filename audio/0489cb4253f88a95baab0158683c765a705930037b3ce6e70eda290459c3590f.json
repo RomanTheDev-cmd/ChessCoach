@@ -1,0 +1,15 @@
+{
+  "text": "Укрепите центр.",
+  "spoken": "Укреп+ите центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "da00c11da7d81a41aa090062438080e01102e2b63bb35983c1a1a8d9647b5e84",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Атакуйте ценную фигуру так, чтобы после её отхода выиграть другую.",
+  "spoken": "Атак+уйте ц+енную фиг+уру так, чт+обы п+осле её отх+ода в+ыиграть друг+ую.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e545a1fab5cc6c4fef95740f251ae5aff5f50bb351ed60251dce2c247106602f",
+  "hearing_reviewed": false
+}

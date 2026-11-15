@@ -1,0 +1,15 @@
+{
+  "text": "Что делать, если соперник отклонился от изученного варианта?",
+  "spoken": "Что д+елать, +если соп+ерник отклон+ился от из+ученного вари+анта?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "87272cc866dc951937eecdca943b7e5eb3ef232d39c30f59327583fb48273dc3",
+  "hearing_reviewed": false
+}

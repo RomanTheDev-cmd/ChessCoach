@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Незащищённая фигура стала целью тактического удара.",
+  "spoken": "в+ерно. Зад+ача решен+а. Незащищённая фиг+ура ст+ала ц+елью такт+ического уд+ара.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "0e3f2100a21db8aa2e59e3598a3ef6848bc06b5ec8257de41b251da2693d8a44",
+  "hearing_reviewed": false
+}

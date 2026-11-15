@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Ферзь не защищён. Ладья забирает его и выигрывает материал.",
+  "spoken": "в+ерно. Зад+ача решен+а. Ферзь не защищён. Ладь+я забир+ает ев+о и вы+игрывает матери+ал.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "0cc9fc28838035da195a03eca6780533f1c35959b2805db5b87edf8cd074d339",
+  "hearing_reviewed": false
+}

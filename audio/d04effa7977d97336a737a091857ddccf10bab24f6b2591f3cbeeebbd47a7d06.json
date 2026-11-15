@@ -1,0 +1,15 @@
+{
+  "text": "Зачем белые предлагают пешку це?",
+  "spoken": "Зач+ем б+елые предлаг+ают п+ешку це?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "faf220b55fa26b6440ff2949ca0778c5f5d43440516dd79057d44103f2dea2f3",
+  "hearing_reviewed": false
+}

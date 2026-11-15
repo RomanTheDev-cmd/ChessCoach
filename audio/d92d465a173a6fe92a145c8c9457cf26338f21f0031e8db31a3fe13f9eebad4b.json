@@ -1,0 +1,15 @@
+{
+  "text": "Ферзь может взять пешку рядом с королём.",
+  "spoken": "Ферзь м+ожет взять п+ешку р+ядом с королём.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f626fbfcd9fc19b3c9b7457a1ba14885b77fd911c4b67dc9ae598c3073d83bce",
+  "hearing_reviewed": false
+}

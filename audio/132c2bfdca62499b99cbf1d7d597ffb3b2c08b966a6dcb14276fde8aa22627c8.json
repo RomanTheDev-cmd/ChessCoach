@@ -1,0 +1,15 @@
+{
+  "text": "Не пускайте фигуры белых на активное поле. Дальше завершайте развитие.",
+  "spoken": "Не пуск+айте фиг+уры б+елых на акт+ивное п+оле. Д+альше заверш+айте разв+итие.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fc03c568e50d5edb61b24d67863ef99d859fd3a671518e57a29bb46f454910d9",
+  "hearing_reviewed": false
+}

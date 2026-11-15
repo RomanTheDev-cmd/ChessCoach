@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные сразу атакуют центр.",
+  "spoken": "Чёрные ср+азу атак+уют центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3965705318718999d4622c06ed414ba452e381e8df5673b45c8bbd528e3d2417",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Найдите выигрыш ферзя за один ход.",
+  "spoken": "Найд+ите в+ыигрыш ферз+я за од+ин ход.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "6233774243f195940ad04bf8762a6e4edc801dc1958eafe0ba47e5d4906107a3",
+  "hearing_reviewed": false
+}

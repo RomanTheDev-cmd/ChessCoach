@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте второго слона к центру.",
+  "spoken": "Развив+айте втор+ого слон+а к ц+ентру.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "73d4dbbdf647b1cf6abf284b23f67adb1825260431ca9710aba2c9ea9e921b2e",
+  "hearing_reviewed": false
+}

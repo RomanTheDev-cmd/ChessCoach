@@ -1,0 +1,15 @@
+{
+  "text": "Конь может выйти на эф три.",
+  "spoken": "Конь м+ожет в+ыйти на +эф три.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ecd11343c763a1729639a8ab3edb3fd0b86a5ba8613bf289406d1cd5c8bf35d6",
+  "hearing_reviewed": false
+}

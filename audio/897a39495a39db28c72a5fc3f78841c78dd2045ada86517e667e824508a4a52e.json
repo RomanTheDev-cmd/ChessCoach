@@ -1,0 +1,15 @@
+{
+  "text": "Играть прежние ходы независимо от угроз.",
+  "spoken": "Игр+ать пр+ежние ход+ы незав+исимо от угр+оз.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "96a2194d63121386c4931fdc16e70bb407d0eb10107bfa50a0669eb3f52f4414",
+  "hearing_reviewed": false
+}

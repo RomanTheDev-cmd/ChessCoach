@@ -1,0 +1,15 @@
+{
+  "text": "Только номер хода.",
+  "spoken": "Т+олько н+омер ход+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "85f55073856d72d691742590b197c0a0870d683198187cfeb9fb889edd23143d",
+  "hearing_reviewed": false
+}

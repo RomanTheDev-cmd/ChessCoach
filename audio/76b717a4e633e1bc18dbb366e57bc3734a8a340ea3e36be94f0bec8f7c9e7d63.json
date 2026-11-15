@@ -1,0 +1,15 @@
+{
+  "text": "Ищите конкретную работу для фигур и учитывайте угрозы соперника.",
+  "spoken": "Ищ+ите конкр+етную раб+оту для фиг+ур и уч+итывайте угр+озы соп+ерника.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "949c34aba8370f3cd75a41d01ede3de2f45e9f2fd4cef3be3383c77e55748ee2",
+  "hearing_reviewed": false
+}

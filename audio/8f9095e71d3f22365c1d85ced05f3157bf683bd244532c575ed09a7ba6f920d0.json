@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы обязательно отдать его за пешку.",
+  "spoken": "Чт+обы обяз+ательно отд+ать ев+о за п+ешку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a5ec88eb21d115ae51ab1910049cac1ec7a91a836234ca069951b3722adfcbcb",
+  "hearing_reviewed": false
+}

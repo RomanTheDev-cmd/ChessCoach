@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы сразу разменять всех коней.",
+  "spoken": "Чтобы ср+азу размен+ять всех кон+ей.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "016488e021fe54d8647bfcc18182ba220dcdcb335231fb41e69d5a2f324d7d91",
+  "hearing_reviewed": false
+}

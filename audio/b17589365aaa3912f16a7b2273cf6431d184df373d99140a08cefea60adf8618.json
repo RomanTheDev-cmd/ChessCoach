@@ -1,0 +1,15 @@
+{
+  "text": "Проверьте безопасность короля на последней горизонтали.",
+  "spoken": "Пров+ерьте безоп+асность корол+я на посл+едней горизонт+али.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "925d956bbb427a95516f11106b344d7b09bd832a48e128fbeee57669ba067272",
+  "hearing_reviewed": false
+}

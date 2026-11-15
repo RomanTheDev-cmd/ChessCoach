@@ -1,0 +1,15 @@
+{
+  "text": "Сделайте короткую рокировку.",
+  "spoken": "Сд+елайте кор+откую рокир+овку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e6166a1b064ba5215b4edd3b3e63e02cc6fd9a8a05554c86f2049199cf6d673b",
+  "hearing_reviewed": false
+}

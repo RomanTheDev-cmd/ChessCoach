@@ -1,0 +1,15 @@
+{
+  "text": "Верните пешку и сохраните центральную пару.",
+  "spoken": "Верн+ите п+ешку и сохран+ите центр+альную п+ару.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "44e0b4ffdfb2a5b5f327c7664ae8a08de2556e8114086eb0c361cf518b0dc7e3",
+  "hearing_reviewed": false
+}

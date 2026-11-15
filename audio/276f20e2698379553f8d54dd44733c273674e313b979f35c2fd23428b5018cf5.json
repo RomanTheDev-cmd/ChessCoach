@@ -1,0 +1,15 @@
+{
+  "text": "Дайте слону поле для отступления. Дальше развивайте коней и короля.",
+  "spoken": "Д+айте слон+у п+оле для отступл+ения. Д+альше развив+айте кон+ей и корол+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fd176e069a5e9cad7a4b94bd634fdce45bceab53bf7b6d487e01aa0e37fc38bf",
+  "hearing_reviewed": false
+}

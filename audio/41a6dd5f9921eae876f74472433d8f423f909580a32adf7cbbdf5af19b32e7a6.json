@@ -1,0 +1,15 @@
+{
+  "text": "Предложение пешки служит борьбе за центральные поля.",
+  "spoken": "Предлож+ение п+ешки сл+ужит борьб+е за центр+альные пол+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ee7d8e4e3a238abef499acf517383e11b0a3b5862ba090bafc0140f706699aa1",
+  "hearing_reviewed": false
+}

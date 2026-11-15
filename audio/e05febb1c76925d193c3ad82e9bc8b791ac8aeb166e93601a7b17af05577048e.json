@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные развивают слона.",
+  "spoken": "Чёрные развив+ают слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b31fcbcaad7be6943c80da7f9c57450bcd754bec6bf5bcc4b741ee69376ace4c",
+  "hearing_reviewed": false
+}

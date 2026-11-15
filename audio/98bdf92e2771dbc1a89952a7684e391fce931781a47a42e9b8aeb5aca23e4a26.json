@@ -1,0 +1,15 @@
+{
+  "text": "Нужно ли возвращать предложенную пешку немедленно любой ценой?",
+  "spoken": "Н+ужно ли возвращ+ать предл+оженную п+ешку нем+едленно люб+ой цен+ой?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f809236c94df81eb8fe99fcfff62103b450f8ff37faa2d9e217e3c3dd6c41acd",
+  "hearing_reviewed": false
+}

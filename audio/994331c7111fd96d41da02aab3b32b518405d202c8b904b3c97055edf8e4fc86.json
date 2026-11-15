@@ -1,0 +1,15 @@
+{
+  "text": "Партия завершена. Теперь разберём ваши ходы и подберём полезные задачи.",
+  "spoken": "П+артия завершен+а. Теп+ерь разберём в+аши ход+ы и подберём пол+езные зад+ачи.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "db83fbf323b9f9c1a4320158835e2e4f3913ba2cd381dc9117e0793895f4aafc",
+  "hearing_reviewed": false
+}

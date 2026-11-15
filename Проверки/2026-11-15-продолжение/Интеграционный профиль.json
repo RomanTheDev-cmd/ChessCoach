@@ -1,0 +1,729 @@
+{
+  "version": 1,
+  "calibration": {
+    "id": "initial",
+    "startedAt": 0
+  },
+  "rating": 1224,
+  "games": [
+    {
+      "id": "opera",
+      "color": "b",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c8g4",
+        "d4e5",
+        "g4f3",
+        "d1f3",
+        "d6e5",
+        "f1c4",
+        "g8f6",
+        "f3b3",
+        "d8e7",
+        "b1c3",
+        "c7c6",
+        "c1g5",
+        "b7b5",
+        "c3b5",
+        "c6b5",
+        "c4b5",
+        "b8d7",
+        "e1c1",
+        "a8d8",
+        "d1d7",
+        "d8d7",
+        "h1d1",
+        "e7e6",
+        "b5d7",
+        "f6d7",
+        "b3b8",
+        "d7b8",
+        "d1d8"
+      ],
+      "date": 1794724024092,
+      "opponent": 900,
+      "terminal": true,
+      "finished": true,
+      "result": 0,
+      "review": [
+        {
+          "ply": 1,
+          "color": "b",
+          "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+          "uci": "e7e5",
+          "san": "e5",
+          "best": "e7e5",
+          "bestSan": "e5",
+          "variation": [
+            "e5",
+            "Nf3",
+            "Nc6",
+            "d4",
+            "exd4"
+          ],
+          "replyVariation": [
+            "Nf3",
+            "Nc6"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 3,
+          "color": "b",
+          "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+          "uci": "d7d6",
+          "san": "d6",
+          "best": "b8c6",
+          "bestSan": "Nc6",
+          "variation": [
+            "Nc6",
+            "d4",
+            "exd4",
+            "Nxd4",
+            "Nf6"
+          ],
+          "replyVariation": [
+            "d4",
+            "Nf6"
+          ],
+          "loss": 21,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 5,
+          "color": "b",
+          "fen": "rnbqkbnr/ppp2ppp/3p4/4p3/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq - 0 3",
+          "uci": "c8g4",
+          "san": "Bg4",
+          "best": "b8d7",
+          "bestSan": "Nd7",
+          "variation": [
+            "Nd7",
+            "Bc4"
+          ],
+          "replyVariation": [
+            "dxe5",
+            "Nd7"
+          ],
+          "loss": 46,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 7,
+          "color": "b",
+          "fen": "rn1qkbnr/ppp2ppp/3p4/4P3/4P1b1/5N2/PPP2PPP/RNBQKB1R b KQkq - 0 4",
+          "uci": "g4f3",
+          "san": "Bxf3",
+          "best": "b8d7",
+          "bestSan": "Nd7",
+          "variation": [
+            "Nd7",
+            "exd6",
+            "Bxd6",
+            "h3",
+            "Bh5"
+          ],
+          "replyVariation": [
+            "Qxf3",
+            "dxe5",
+            "Bc4",
+            "Qf6",
+            "Qh3"
+          ],
+          "loss": 38,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 9,
+          "color": "b",
+          "fen": "rn1qkbnr/ppp2ppp/3p4/4P3/4P3/5Q2/PPP2PPP/RNB1KB1R b KQkq - 0 5",
+          "uci": "d6e5",
+          "san": "dxe5",
+          "best": "d6e5",
+          "bestSan": "dxe5",
+          "variation": [
+            "dxe5",
+            "Qb3",
+            "Nd7",
+            "Be3",
+            "Bc5"
+          ],
+          "replyVariation": [
+            "Qb3",
+            "Nd7"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 11,
+          "color": "b",
+          "fen": "rn1qkbnr/ppp2ppp/8/4p3/2B1P3/5Q2/PPP2PPP/RNB1K2R b KQkq - 1 6",
+          "uci": "g8f6",
+          "san": "Nf6",
+          "best": "d8f6",
+          "bestSan": "Qf6",
+          "variation": [
+            "Qf6",
+            "Qb3"
+          ],
+          "replyVariation": [
+            "Qb3",
+            "Bc5",
+            "Bxf7+",
+            "Ke7",
+            "Bc4"
+          ],
+          "loss": 82,
+          "theme": "opening",
+          "reason": "Этот ход уступает более точному продолжению по короткому анализу движка. Сравните работу фигур и расчётные линии после обоих решений."
+        },
+        {
+          "ply": 13,
+          "color": "b",
+          "fen": "rn1qkb1r/ppp2ppp/5n2/4p3/2B1P3/1Q6/PPP2PPP/RNB1K2R b KQkq - 3 7",
+          "uci": "d8e7",
+          "san": "Qe7",
+          "best": "f8c5",
+          "bestSan": "Bc5",
+          "variation": [
+            "Bc5",
+            "Bxf7+",
+            "Ke7",
+            "Bd5",
+            "Nbd7"
+          ],
+          "replyVariation": [
+            "Qxb7",
+            "Qb4+",
+            "Qxb4",
+            "Bxb4+",
+            "c3"
+          ],
+          "loss": 19,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 15,
+          "color": "b",
+          "fen": "rn2kb1r/ppp1qppp/5n2/4p3/2B1P3/1QN5/PPP2PPP/R1B1K2R b KQkq - 5 8",
+          "uci": "c7c6",
+          "san": "c6",
+          "best": "c7c6",
+          "bestSan": "c6",
+          "variation": [
+            "c6",
+            "Bg5",
+            "Qc7",
+            "a4",
+            "Bc5"
+          ],
+          "replyVariation": [
+            "Bg5",
+            "Qc7",
+            "a4",
+            "Bc5",
+            "Bxf6"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 17,
+          "color": "b",
+          "fen": "rn2kb1r/pp2qppp/2p2n2/4p1B1/2B1P3/1QN5/PPP2PPP/R3K2R b KQkq - 1 9",
+          "uci": "b7b5",
+          "san": "b5",
+          "best": "e7c7",
+          "bestSan": "Qc7",
+          "variation": [
+            "Qc7",
+            "O-O-O"
+          ],
+          "replyVariation": [
+            "Nxb5",
+            "Qb4+",
+            "Qxb4",
+            "Bxb4+",
+            "c3"
+          ],
+          "loss": 126,
+          "theme": "tactics",
+          "reason": "После вашего хода соперник может взять пешку: конь на бэ пять. По расчёту движка это продолжение ухудшает вашу позицию."
+        },
+        {
+          "ply": 19,
+          "color": "b",
+          "fen": "rn2kb1r/p3qppp/2p2n2/1N2p1B1/2B1P3/1Q6/PPP2PPP/R3K2R b KQkq - 0 10",
+          "uci": "c6b5",
+          "san": "cxb5",
+          "best": "e7b4",
+          "bestSan": "Qb4+",
+          "variation": [
+            "Qb4+",
+            "Qxb4",
+            "Bxb4+",
+            "c3",
+            "cxb5"
+          ],
+          "replyVariation": [
+            "Bxb5+",
+            "Kd8"
+          ],
+          "loss": 232,
+          "theme": "tactics",
+          "reason": "После вашего хода соперник может взять пешку: слон на бэ пять. По расчёту движка это продолжение ухудшает вашу позицию."
+        },
+        {
+          "ply": 21,
+          "color": "b",
+          "fen": "rn2kb1r/p3qppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/R3K2R b KQkq - 0 11",
+          "uci": "b8d7",
+          "san": "Nbd7",
+          "best": "e8d8",
+          "bestSan": "Kd8",
+          "variation": [
+            "Kd8",
+            "O-O-O+",
+            "Kc7",
+            "Rd3",
+            "Qb4"
+          ],
+          "replyVariation": [
+            "O-O-O",
+            "Qc5",
+            "Bxf6",
+            "gxf6",
+            "Bxd7+"
+          ],
+          "loss": 110,
+          "theme": "tactics",
+          "reason": "Этот ход уступает более точному продолжению по короткому анализу движка. Сравните работу фигур и расчётные линии после обоих решений."
+        },
+        {
+          "ply": 23,
+          "color": "b",
+          "fen": "r3kb1r/p2nqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR3R b kq - 2 12",
+          "uci": "a8d8",
+          "san": "Rd8",
+          "best": "e7c5",
+          "bestSan": "Qc5",
+          "variation": [
+            "Qc5",
+            "Bxf6",
+            "gxf6",
+            "Bxd7+",
+            "Ke7"
+          ],
+          "replyVariation": [
+            "Rxd7",
+            "Nxd7",
+            "Bxe7",
+            "Bxe7",
+            "Rd1"
+          ],
+          "loss": 15,
+          "theme": "tactics",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 25,
+          "color": "b",
+          "fen": "3rkb1r/p2Rqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2K4R b k - 0 13",
+          "uci": "d8d7",
+          "san": "Rxd7",
+          "best": "f6d7",
+          "bestSan": "Nxd7",
+          "variation": [
+            "Nxd7",
+            "Bxe7",
+            "Bxe7",
+            "Rd1",
+            "O-O"
+          ],
+          "replyVariation": [
+            "Rd1",
+            "h5",
+            "Bxd7+",
+            "Nxd7",
+            "Bxe7"
+          ],
+          "loss": 87,
+          "theme": "tactics",
+          "reason": "Этот ход уступает более точному продолжению по короткому анализу движка. Сравните работу фигур и расчётные линии после обоих решений."
+        },
+        {
+          "ply": 27,
+          "color": "b",
+          "fen": "4kb1r/p2rqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 b k - 1 14",
+          "uci": "e7e6",
+          "san": "Qe6",
+          "best": "h7h5",
+          "bestSan": "h5",
+          "variation": [
+            "h5",
+            "Qa4",
+            "Qd6",
+            "Rxd6",
+            "Bxd6"
+          ],
+          "replyVariation": [
+            "Bxd7+",
+            "Qxd7",
+            "Qb8+",
+            "Ke7",
+            "Qxe5+"
+          ],
+          "loss": 352,
+          "theme": "tactics",
+          "reason": "После вашего хода соперник может взять ладью: слон на дэ семь. По расчёту движка это продолжение ухудшает вашу позицию."
+        },
+        {
+          "ply": 29,
+          "color": "b",
+          "fen": "4kb1r/p2B1ppp/4qn2/4p1B1/4P3/1Q6/PPP2PPP/2KR4 b k - 0 15",
+          "uci": "f6d7",
+          "san": "Nxd7",
+          "best": "e6d7",
+          "bestSan": "Qxd7",
+          "variation": [
+            "Qxd7",
+            "Qb8+",
+            "Ke7",
+            "Qxe5+",
+            "Kd8"
+          ],
+          "replyVariation": [
+            "Qb8+",
+            "Nxb8",
+            "Rd8#"
+          ],
+          "loss": 1000,
+          "theme": "mate",
+          "reason": "После этого хода движок нашёл принудительный мат за соперника. Посмотрите его расчётное продолжение и способ избежать угрозы."
+        },
+        {
+          "ply": 31,
+          "color": "b",
+          "fen": "1Q2kb1r/p2n1ppp/4q3/4p1B1/4P3/8/PPP2PPP/2KR4 b k - 1 16",
+          "uci": "d7b8",
+          "san": "Nxb8",
+          "best": "d7b8",
+          "bestSan": "Nxb8",
+          "variation": [
+            "Nxb8",
+            "Rd8#"
+          ],
+          "replyVariation": [
+            "Rd8#"
+          ],
+          "loss": 0,
+          "theme": "mate",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        }
+      ],
+      "loss": 133,
+      "counted": true,
+      "ratingBefore": 1295,
+      "ratingAfter": 1224
+    },
+    {
+      "id": "black",
+      "color": "b",
+      "moves": [
+        "f2f3",
+        "e7e5",
+        "g2g4",
+        "d8h4"
+      ],
+      "date": 1794724023704,
+      "opponent": 900,
+      "terminal": true,
+      "finished": true,
+      "result": 1,
+      "review": [
+        {
+          "ply": 1,
+          "color": "b",
+          "fen": "rnbqkbnr/pppppppp/8/8/8/5P2/PPPPP1PP/RNBQKBNR b KQkq - 0 1",
+          "uci": "e7e5",
+          "san": "e5",
+          "best": "e7e5",
+          "bestSan": "e5",
+          "variation": [
+            "e5",
+            "e3"
+          ],
+          "replyVariation": [
+            "e4",
+            "Bc5",
+            "Nc3",
+            "Nf6",
+            "Na4"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 3,
+          "color": "b",
+          "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq - 0 2",
+          "uci": "d8h4",
+          "san": "Qh4#",
+          "best": "d8h4",
+          "bestSan": "Qh4#",
+          "variation": [
+            "Qh4#"
+          ],
+          "replyVariation": [],
+          "loss": 0,
+          "theme": "mate",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        }
+      ],
+      "loss": 0,
+      "counted": true,
+      "ratingBefore": 1115,
+      "ratingAfter": 1295
+    },
+    {
+      "id": "white",
+      "color": "w",
+      "moves": [
+        "e2e4",
+        "e7e5",
+        "d1h5",
+        "b8c6",
+        "f1c4",
+        "g8f6",
+        "h5f7"
+      ],
+      "date": 1794724022403,
+      "opponent": 900,
+      "terminal": true,
+      "finished": true,
+      "result": 1,
+      "review": [
+        {
+          "ply": 0,
+          "color": "w",
+          "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+          "uci": "e2e4",
+          "san": "e4",
+          "best": "e2e4",
+          "bestSan": "e4",
+          "variation": [
+            "e4",
+            "e5"
+          ],
+          "replyVariation": [
+            "e5",
+            "Nf3"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 2,
+          "color": "w",
+          "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+          "uci": "d1h5",
+          "san": "Qh5",
+          "best": "g1f3",
+          "bestSan": "Nf3",
+          "variation": [
+            "Nf3",
+            "Nc6"
+          ],
+          "replyVariation": [
+            "Nc6",
+            "Bc4",
+            "g6",
+            "Qd1",
+            "Bg7"
+          ],
+          "loss": 56,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 4,
+          "color": "w",
+          "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR w KQkq - 2 3",
+          "uci": "f1c4",
+          "san": "Bc4",
+          "best": "f1c4",
+          "bestSan": "Bc4",
+          "variation": [
+            "Bc4",
+            "g6"
+          ],
+          "replyVariation": [
+            "g6",
+            "Qd1"
+          ],
+          "loss": 0,
+          "theme": "opening",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        },
+        {
+          "ply": 6,
+          "color": "w",
+          "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+          "uci": "h5f7",
+          "san": "Qxf7#",
+          "best": "h5f7",
+          "bestSan": "Qxf7#",
+          "variation": [
+            "Qxf7#"
+          ],
+          "replyVariation": [],
+          "loss": 0,
+          "theme": "mate",
+          "reason": "Хороший ход. Существенной потери преимущества не обнаружено."
+        }
+      ],
+      "loss": 14,
+      "counted": true,
+      "ratingBefore": 900,
+      "ratingAfter": 1115
+    }
+  ],
+  "attempts": [
+    {
+      "id": "opera-17",
+      "theme": "tactics",
+      "rating": 1295,
+      "score": 1,
+      "correct": true,
+      "hints": 0,
+      "tries": 1,
+      "calibrationId": "initial",
+      "date": 1794724029661
+    }
+  ],
+  "mistakes": [
+    {
+      "id": "opera-29",
+      "calibrationId": "initial",
+      "fen": "4kb1r/p2B1ppp/4qn2/4p1B1/4P3/1Q6/PPP2PPP/2KR4 b k - 0 15",
+      "line": [
+        "e6d7"
+      ],
+      "theme": "mate",
+      "rating": 1295,
+      "title": "Позиция из вашей партии",
+      "text": "Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.",
+      "hint": "Сначала проверьте шахи, взятия и угрозы.",
+      "explanation": "После этого хода движок нашёл принудительный мат за соперника. Посмотрите его расчётное продолжение и способ избежать угрозы.",
+      "source": "Ваша партия"
+    },
+    {
+      "id": "opera-27",
+      "calibrationId": "initial",
+      "fen": "4kb1r/p2rqppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 b k - 1 14",
+      "line": [
+        "h7h5"
+      ],
+      "theme": "tactics",
+      "rating": 1295,
+      "title": "Позиция из вашей партии",
+      "text": "Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.",
+      "hint": "Сначала проверьте шахи, взятия и угрозы.",
+      "explanation": "После вашего хода соперник может взять ладью: слон на дэ семь. По расчёту движка это продолжение ухудшает вашу позицию.",
+      "source": "Ваша партия"
+    },
+    {
+      "id": "opera-21",
+      "calibrationId": "initial",
+      "fen": "rn2kb1r/p3qppp/5n2/1B2p1B1/4P3/1Q6/PPP2PPP/R3K2R b KQkq - 0 11",
+      "line": [
+        "e8d8"
+      ],
+      "theme": "tactics",
+      "rating": 1295,
+      "title": "Позиция из вашей партии",
+      "text": "Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.",
+      "hint": "Сначала проверьте шахи, взятия и угрозы.",
+      "explanation": "Этот ход уступает более точному продолжению по короткому анализу движка. Сравните работу фигур и расчётные линии после обоих решений.",
+      "source": "Ваша партия"
+    },
+    {
+      "id": "opera-19",
+      "calibrationId": "initial",
+      "fen": "rn2kb1r/p3qppp/2p2n2/1N2p1B1/2B1P3/1Q6/PPP2PPP/R3K2R b KQkq - 0 10",
+      "line": [
+        "e7b4"
+      ],
+      "theme": "tactics",
+      "rating": 1295,
+      "title": "Позиция из вашей партии",
+      "text": "Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.",
+      "hint": "Сначала проверьте шахи, взятия и угрозы.",
+      "explanation": "После вашего хода соперник может взять пешку: слон на бэ пять. По расчёту движка это продолжение ухудшает вашу позицию.",
+      "source": "Ваша партия"
+    },
+    {
+      "id": "opera-17",
+      "calibrationId": "initial",
+      "fen": "rn2kb1r/pp2qppp/2p2n2/4p1B1/2B1P3/1QN5/PPP2PPP/R3K2R b KQkq - 1 9",
+      "line": [
+        "e7c7"
+      ],
+      "theme": "tactics",
+      "rating": 1295,
+      "title": "Позиция из вашей партии",
+      "text": "Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.",
+      "hint": "Сначала проверьте шахи, взятия и угрозы.",
+      "explanation": "После вашего хода соперник может взять пешку: конь на бэ пять. По расчёту движка это продолжение ухудшает вашу позицию.",
+      "source": "Ваша партия"
+    }
+  ],
+  "skills": {
+    "tactics": {
+      "ok": 4.199999999999999,
+      "total": 9
+    },
+    "mate": {
+      "ok": 4,
+      "total": 6
+    },
+    "opening": {
+      "ok": 12.4,
+      "total": 14
+    },
+    "endgame": {
+      "ok": 1,
+      "total": 2
+    }
+  },
+  "puzzleRatings": {
+    "tactics": 1260,
+    "mate": 900,
+    "opening": 900,
+    "endgame": 900
+  },
+  "openingProgress": {},
+  "seen": {},
+  "presentations": [],
+  "appearance": {
+    "pieces": "minimal",
+    "board": "graphite"
+  },
+  "active": null,
+  "voice": false
+}

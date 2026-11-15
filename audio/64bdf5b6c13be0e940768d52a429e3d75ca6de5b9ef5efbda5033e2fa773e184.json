@@ -1,0 +1,15 @@
+{
+  "text": "Конь с шахом может напасть на ладью в углу.",
+  "spoken": "Конь с ш+ахом м+ожет нап+асть на ладь+ю в угл+у.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c604665d666cc504c4880a2033912678e09eb11e26e63e1b7f446a28df2cd9c6",
+  "hearing_reviewed": false
+}

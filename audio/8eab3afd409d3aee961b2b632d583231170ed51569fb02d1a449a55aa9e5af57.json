@@ -1,0 +1,15 @@
+{
+  "text": "Это допустимый ход, но в задаче есть более сильное решение. Попробуйте ещё раз.",
+  "spoken": "+Это допуст+имый ход, но в зад+аче есть б+олее с+ильное реш+ение. Попр+обуйте ещё раз.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "75e3d5049df54775889f224dab975e40daf4b0af35953ea1e20c84ed6e2617ba",
+  "hearing_reviewed": false
+}

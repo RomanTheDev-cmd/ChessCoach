@@ -1,0 +1,15 @@
+{
+  "text": "Зачем изучать план соперника?",
+  "spoken": "Зач+ем изуч+ать план соп+ерника?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "25206be6b9e272fe0e1d17ac39e4b3baf81d2fb948702de2ca38262a8cdbd93c",
+  "hearing_reviewed": false
+}

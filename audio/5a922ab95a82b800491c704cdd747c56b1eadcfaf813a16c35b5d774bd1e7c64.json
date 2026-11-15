@@ -1,0 +1,15 @@
+{
+  "text": "Разменяйте фланговую пешку на центральную.",
+  "spoken": "Размен+яйте фл+анговую п+ешку на центр+альную.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9efdb7df1a7c54090a7fc0e6107d1e4a45d54a6d870280e0723b0fe92e25c90b",
+  "hearing_reviewed": false
+}

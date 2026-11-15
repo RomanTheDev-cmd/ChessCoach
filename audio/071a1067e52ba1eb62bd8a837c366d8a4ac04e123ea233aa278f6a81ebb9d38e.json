@@ -1,0 +1,15 @@
+{
+  "text": "Задача пропущена. Эта тема будет чаще встречаться в следующих занятиях.",
+  "spoken": "Зад+ача проп+ущена. +Эта т+ема б+удет ч+аще встреч+аться в сл+едующих зан+ятиях.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9db31f767329a036e62259390f4459fdc3ce6caf5a91a8f2c2dbe3e294e7722b",
+  "hearing_reviewed": false
+}

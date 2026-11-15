@@ -1,0 +1,15 @@
+{
+  "text": "Урок завершён. Можно перейти к следующему.",
+  "spoken": "ур+ок завершён. М+ожно перейт+и к сл+едующему.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a937bd95293a89e0d4ce18e73111dd0553b71d6add24bd7ec9104eaf0f60db58",
+  "hearing_reviewed": false
+}

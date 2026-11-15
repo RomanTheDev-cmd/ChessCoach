@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Слон выходит за будущую пешечную цепь и получает активную диагональ.",
+  "spoken": "в+ерно. Слон вых+одит за б+удущую п+ешечную цепь и получ+ает акт+ивную диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "162c2462d4fd5ebdbedd4bd725eb1f8fa09cae28f60aecf1524296e2bee15c35",
+  "hearing_reviewed": false
+}

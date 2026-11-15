@@ -1,0 +1,15 @@
+{
+  "text": "Изучайте объяснения ходов, затем закрепите вариант на доске.",
+  "spoken": "Изуч+айте объясн+ения ход+ов, зат+ем закреп+ите вари+ант на доск+е.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f65524d659b29396d8af3c96407f9f76b1d92cea93cf3ce6965a8d3989473f8b",
+  "hearing_reviewed": false
+}

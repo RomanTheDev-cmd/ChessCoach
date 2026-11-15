@@ -1,0 +1,15 @@
+{
+  "text": "Займите центр ферзевой пешкой.",
+  "spoken": "Займ+ите центр ф+ерзевой п+ешкой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9484145405bfa2d4f9f9478cc28c9f057f2160733f876ff17b86597303ef362c",
+  "hearing_reviewed": false
+}

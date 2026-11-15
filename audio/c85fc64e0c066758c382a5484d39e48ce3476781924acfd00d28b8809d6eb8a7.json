@@ -1,0 +1,15 @@
+{
+  "text": "Найдите шах конём, который одновременно атакует ладью.",
+  "spoken": "Найд+ите шах конём, кот+орый одновр+еменно атак+ует ладь+ю.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "6808f388a478ce92e98ca24409ed46592b96593c6407453aacc9b925f01bb486",
+  "hearing_reviewed": false
+}

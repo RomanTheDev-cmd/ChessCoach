@@ -1,0 +1,15 @@
+{
+  "text": "План соперника помогает понять, когда привычный ход уже не подходит.",
+  "spoken": "План соп+ерника помог+ает пон+ять, когд+а прив+ычный ход уж+е не подх+одит.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "cb6e8d91af75edad51699c3b5c692b49c03fec91da0e313468db1ef4fec578e5",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы замечать центральные удары и угрозы.",
+  "spoken": "Чт+обы замеч+ать центр+альные уд+ары и угр+озы.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "5a45aa76567ef2ee6b58bec16de6f7cc6c48be5b01db8b3ef9a395115210b8ab",
+  "hearing_reviewed": false
+}

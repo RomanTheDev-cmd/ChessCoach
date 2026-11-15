@@ -1,0 +1,15 @@
+{
+  "text": "Ладья может пройти на восьмую горизонталь.",
+  "spoken": "Ладь+я м+ожет пройт+и на восьм+ую горизонт+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "7a718bcdf5254d6616e9dfd4f5aeb8fd71abbd96fc5a87348be62128e5e032c5",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Проведите пешку в ферзи.",
+  "spoken": "Провед+ите п+ешку в ферз+и.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b367d905daa0575eb17293d26775d6fccc9288808223baf55ec308c3a4d17c82",
+  "hearing_reviewed": false
+}

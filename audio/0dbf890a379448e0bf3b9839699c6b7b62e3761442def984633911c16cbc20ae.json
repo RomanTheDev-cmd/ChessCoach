@@ -1,0 +1,15 @@
+{
+  "text": "Слон выходит на активную диагональ.",
+  "spoken": "Слон вых+одит на акт+ивную диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "70e9e17dd5e184e8ab5a8ae8b00a312a34825e1620138b8276d9000301514e7d",
+  "hearing_reviewed": false
+}

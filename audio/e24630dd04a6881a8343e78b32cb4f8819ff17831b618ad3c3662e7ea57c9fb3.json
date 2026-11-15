@@ -1,0 +1,15 @@
+{
+  "text": "Белые развивают коня.",
+  "spoken": "Б+елые развив+ают кон+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3877093a6f1b1927a26f8034db73df3acf3949874e7efb70ddc9d935816dd0ef",
+  "hearing_reviewed": false
+}

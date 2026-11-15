@@ -1,0 +1,15 @@
+{
+  "text": "Снимите напряжение взятием.",
+  "spoken": "Сним+ите напряж+ение вз+ятием.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e75a43aa579bc58a5a34e2bbfc3f920521292a7cb560458f50537d3e125cfbeb",
+  "hearing_reviewed": false
+}

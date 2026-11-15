@@ -1,0 +1,15 @@
+{
+  "text": "Белые развивают второго слона.",
+  "spoken": "Б+елые развив+ают втор+ого слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e2b1af03828f5daa688444ec791ac07dec6ca04bd5f8fa02ec462df3fe737eab",
+  "hearing_reviewed": false
+}

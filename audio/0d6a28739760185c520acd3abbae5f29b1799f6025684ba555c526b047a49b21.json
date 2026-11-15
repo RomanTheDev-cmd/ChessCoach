@@ -1,0 +1,15 @@
+{
+  "text": "Превратите проходную пешку в ферзя.",
+  "spoken": "Преврат+ите проходн+ую п+ешку в ферз+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9162efbc935f59a19a43d91f6785d5cd5e8c7e7380f2b083af0dfd702b73b789",
+  "hearing_reviewed": false
+}

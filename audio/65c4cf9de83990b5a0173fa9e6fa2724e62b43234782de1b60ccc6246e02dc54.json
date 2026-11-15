@@ -1,0 +1,15 @@
+{
+  "text": "Конь развивается к центру и нападает на пешку. Это полезнее раннего выхода ферзя.",
+  "spoken": "Конь развив+ается к ц+ентру и напад+ает на п+ешку. +Это пол+езнее р+аннего в+ыхода ферз+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c4ae6f37c731c1a1b5708b0bdd64186dc15a1889b2a9372a7a57bafab08d94d9",
+  "hearing_reviewed": false
+}

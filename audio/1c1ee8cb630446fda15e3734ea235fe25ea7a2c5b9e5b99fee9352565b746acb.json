@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте второго коня.",
+  "spoken": "Развив+айте втор+ого кон+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3f17b0c532a0ce3035af518817522a313af4afd9d607f84a87fd8961ad58e72a",
+  "hearing_reviewed": false
+}

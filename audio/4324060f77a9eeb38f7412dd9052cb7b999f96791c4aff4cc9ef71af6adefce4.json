@@ -1,0 +1,15 @@
+{
+  "text": "Быстрое развитие и давление на пункт f7.",
+  "spoken": "Б+ыстрое разв+итие и давл+ение на пункт +эф семь.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "301018a6095ad6da58002d9ea40135a9d66e14c9eef67293f584a1e8228ac92e",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Откройте дорогу королевскому слону.",
+  "spoken": "Откр+ойте дор+огу корол+евскому слон+у.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "491701e8ef190e4d250f7cd441e2a3350d257ca18913b9d413b486c5d11d549f",
+  "hearing_reviewed": false
+}

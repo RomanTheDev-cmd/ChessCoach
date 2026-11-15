@@ -1,0 +1,15 @@
+{
+  "text": "Подготовьте ответ в центре.",
+  "spoken": "Подгот+овьте отв+ет в ц+ентре.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "5508fd7880a01083b81df71ed1c22081c1d902ef677e7819673f16ea0df4755b",
+  "hearing_reviewed": false
+}

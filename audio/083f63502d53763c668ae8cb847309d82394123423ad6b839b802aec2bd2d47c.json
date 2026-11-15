@@ -1,0 +1,15 @@
+{
+  "text": "Откройте дорогу слону и подготовьте возврат пешки.",
+  "spoken": "Откр+ойте дор+огу слон+у и подгот+овьте возвр+ат п+ешки.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ab400a5ab775b3510e8908341936f4adc06c1d2007a20d15a4b014c80e289e60",
+  "hearing_reviewed": false
+}

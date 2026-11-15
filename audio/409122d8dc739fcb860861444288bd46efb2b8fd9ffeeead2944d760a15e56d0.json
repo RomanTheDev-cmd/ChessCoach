@@ -1,0 +1,15 @@
+{
+  "text": "Белые занимают второе центральное поле.",
+  "spoken": "Б+елые заним+ают втор+ое центр+альное п+оле.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "d108b16575fa937388ba93a55e386d3c79a433b206b3d5edcb687956ffbe44d1",
+  "hearing_reviewed": false
+}

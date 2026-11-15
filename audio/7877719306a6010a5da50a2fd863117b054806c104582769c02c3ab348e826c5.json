@@ -1,0 +1,15 @@
+{
+  "text": "Обязательная жертва слона в каждой партии.",
+  "spoken": "Обяз+ательная ж+ертва слон+а в к+аждой п+артии.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "4e2cce79194165aa6a90da3cb8cc45764e9f1f69bdfa1878f4ea752cabc7018d",
+  "hearing_reviewed": false
+}

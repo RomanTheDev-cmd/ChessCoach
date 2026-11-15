@@ -1,0 +1,15 @@
+{
+  "text": "Ладья атакует короля по последней горизонтали. Собственные пешки закрывают ему выход.",
+  "spoken": "Ладь+я атак+ует корол+я по посл+едней горизонт+али. С+обственные п+ешки закрыв+ают ем+у в+ыход.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ced3389be2b24142251cef56e09acac8d6e65d6eadddf0bedda3ace5ecc2c425",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Вариант пройден. Повторите его без подсказок, чтобы закрепить порядок ходов.",
+  "spoken": "Вари+ант пр+ойден. Повтор+ите ев+о без подск+азок, чт+обы закреп+ить пор+ядок ход+ов.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "6b71d533386914ba1837920c1fb7d8d9add19dc0f03de661182569b0ddf3c9de",
+  "hearing_reviewed": false
+}

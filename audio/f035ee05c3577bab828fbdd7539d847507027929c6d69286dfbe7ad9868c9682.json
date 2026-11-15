@@ -1,0 +1,15 @@
+{
+  "text": "Закройтесь слоном и предложите размен.",
+  "spoken": "Закр+ойтесь слон+ом и предлож+ите разм+ен.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a253b6cfcbf86756fc00ae8cd3914cb10558be3e12bcaeb9ba18efe6087a3ecb",
+  "hearing_reviewed": false
+}

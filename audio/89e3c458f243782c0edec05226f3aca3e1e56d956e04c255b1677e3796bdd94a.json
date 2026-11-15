@@ -1,0 +1,15 @@
+{
+  "text": "Проверьте, какая фигура не может уйти из-за стоящей за ней более ценной фигуры.",
+  "spoken": "Пров+ерьте, как+ая фиг+ура не м+ожет уйт+и из-за сто+ящей за ней б+олее ц+енной фиг+уры.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "6c6156e85f806ead3acad1c60cb74be27e23e66463d3162b45b45d00f57087e9",
+  "hearing_reviewed": false
+}

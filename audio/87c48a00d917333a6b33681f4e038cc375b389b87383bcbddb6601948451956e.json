@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные готовят выход слона на большую диагональ.",
+  "spoken": "Чёрные гот+овят в+ыход слон+а на больш+ую диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "2eef7c869dc3e10d4b55293ca410793739f87315f587acdfc2d9c0afa7bd5ebf",
+  "hearing_reviewed": false
+}

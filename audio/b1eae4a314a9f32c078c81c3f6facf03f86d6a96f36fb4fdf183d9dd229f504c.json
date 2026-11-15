@@ -1,0 +1,15 @@
+{
+  "text": "Даже активный фланговый план должен опираться на развитие.",
+  "spoken": "Д+аже акт+ивный фл+анговый план д+олжен опир+аться на разв+итие.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "30a3063b8a9d0fe1c58f98b2102e9f0831a9911cd478ad0a53451ed134658d81",
+  "hearing_reviewed": false
+}

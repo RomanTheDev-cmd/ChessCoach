@@ -1,0 +1,15 @@
+{
+  "text": "Рокировка уводит короля из центра и соединяет ладьи.",
+  "spoken": "Рокир+овка ув+одит корол+я из ц+ентра и соедин+яет ладь+и.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3bb0603bb887dc2f8b1e40f740a38588aea1815d270988b93d182b53c867bcc8",
+  "hearing_reviewed": false
+}

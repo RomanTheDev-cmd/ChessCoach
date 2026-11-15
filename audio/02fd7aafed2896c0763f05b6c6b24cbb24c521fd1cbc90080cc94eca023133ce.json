@@ -1,0 +1,15 @@
+{
+  "text": "Белые укрепляют центр.",
+  "spoken": "Б+елые укрепл+яют центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8a6f017399629077a59864ca39e985447b7e59c77fee401e31a4d8eeff406f34",
+  "hearing_reviewed": false
+}

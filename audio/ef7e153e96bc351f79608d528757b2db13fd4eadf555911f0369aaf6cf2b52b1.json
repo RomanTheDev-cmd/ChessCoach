@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы отказаться от рокировки.",
+  "spoken": "Чт+обы отказ+аться от рокир+овки.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "45e41194e4e9246d5a7c2d685b6f3bb8fe5b8cb273bd2080fc753b58b790e5a9",
+  "hearing_reviewed": false
+}

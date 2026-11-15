@@ -1,0 +1,15 @@
+{
+  "text": "Двойной удар коня заставляет короля отойти и оставляет ладью под боем.",
+  "spoken": "Двойн+ой уд+ар кон+я заставл+яет корол+я отойт+и и оставл+яет ладь+ю под б+оем.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c1b6ec99a01f3f841689535e3cefefb01ba55da18438eb81db7a5344d19c4956",
+  "hearing_reviewed": false
+}

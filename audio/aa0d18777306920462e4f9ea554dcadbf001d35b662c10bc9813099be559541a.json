@@ -1,0 +1,15 @@
+{
+  "text": "Проходная пешка превращается в ферзя и даёт решающее преимущество.",
+  "spoken": "Проходн+ая п+ешка превращ+ается в ферз+я и даёт реш+ающее преим+ущество.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "6ee15b57a8ba3e2dd6140725596c1ad95ab18a208320d83e36097e9fdcd60437",
+  "hearing_reviewed": false
+}

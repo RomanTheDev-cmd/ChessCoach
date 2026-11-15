@@ -1,0 +1,15 @@
+{
+  "text": "Что нужно проверить перед вскрытием центра?",
+  "spoken": "Что н+ужно пров+ерить перед вскр+ытием ц+ентра?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "04c220550f5dac1a88a4bd25a2615273b24c6fceab0efe9c82673a89b96195a9",
+  "hearing_reviewed": false
+}

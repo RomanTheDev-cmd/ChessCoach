@@ -1,0 +1,15 @@
+{
+  "text": "Готовность фигур и безопасность обоих королей.",
+  "spoken": "Гот+овность фиг+ур и безоп+асность об+оих корол+ей.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fb67cae9d0274d384c19d7dcd0ae7a5135b2c70bf85e703eb4642b6fe4c5b542",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Да, если белые заняли центр.",
+  "spoken": "Да, +если б+елые з+аняли центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ea25ce62da626f9cdb37841b994b6e00844ddb3c8f40d5985b82eaaec5ca2935",
+  "hearing_reviewed": false
+}

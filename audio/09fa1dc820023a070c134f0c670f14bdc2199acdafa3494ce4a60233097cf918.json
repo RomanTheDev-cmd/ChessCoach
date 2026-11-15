@@ -1,0 +1,15 @@
+{
+  "text": "Обязательная симметрия всех ходов.",
+  "spoken": "Обяз+ательная симм+етрия всех ход+ов.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "dde55209f441f2d337b14b83418b1d64e9e1f0051367f0b777a1894085b74a43",
+  "hearing_reviewed": false
+}

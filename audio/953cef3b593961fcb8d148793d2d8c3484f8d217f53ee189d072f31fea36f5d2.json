@@ -1,0 +1,15 @@
+{
+  "text": "Надёжная защита позволяет забыть о развитии?",
+  "spoken": "Надёжная защ+ита позвол+яет заб+ыть о разв+итии?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "32c70299f50fcdd290df28d8a124f44287a9f5545e3c3a8c7323da54d48add49",
+  "hearing_reviewed": false
+}

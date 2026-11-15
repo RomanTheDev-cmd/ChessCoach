@@ -1,0 +1,15 @@
+{
+  "text": "Укрепите центр и откройте дорогу слону.",
+  "spoken": "Укреп+ите центр и откр+ойте дор+огу слон+у.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "02baa6b5edba72b02a7661e3c6386603938d8228b7982ee5802f8598e9a044ca",
+  "hearing_reviewed": false
+}

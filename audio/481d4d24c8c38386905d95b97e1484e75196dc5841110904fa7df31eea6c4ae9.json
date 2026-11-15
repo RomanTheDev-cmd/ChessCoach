@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные предлагают размен активного слона.",
+  "spoken": "Чёрные предлаг+ают разм+ен акт+ивного слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "05edeedd4787ab61edd00fa86ad48d3a3f48ed9139a1e9d78cc27f818bc3c13e",
+  "hearing_reviewed": false
+}

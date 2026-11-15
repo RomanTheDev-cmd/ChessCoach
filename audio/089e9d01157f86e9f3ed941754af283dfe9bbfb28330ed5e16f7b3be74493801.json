@@ -1,0 +1,15 @@
+{
+  "text": "Белые защищают центр конём.",
+  "spoken": "Б+елые защищ+ают центр конём.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1cf87fc862ed67d2f28cc5943ae5b58951b6aa568c14b347e6d8ec19379d2c38",
+  "hearing_reviewed": false
+}

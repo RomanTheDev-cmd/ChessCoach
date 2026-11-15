@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "stockfish": "^19.0.1"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^45.3.2",
+    "esbuild": "^0.28.2"
+  },
+  "name": "chess-coach",
+  "version": "1.2.0",
+  "description": "Личный шахматный тренер",
+  "main": "main.cjs",
+  "author": "Roman",
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "electron .",
+    "test": "node --test tests/*.test.mjs",
+    "package": "node scripts/package.mjs"
+  }
+}

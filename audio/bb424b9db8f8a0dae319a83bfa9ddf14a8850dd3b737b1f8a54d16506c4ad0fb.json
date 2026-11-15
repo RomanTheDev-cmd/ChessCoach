@@ -1,0 +1,15 @@
+{
+  "text": "Можно ли делать только пешечные ходы на фланге?",
+  "spoken": "М+ожно ли д+елать т+олько п+ешечные ход+ы на фл+анге?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1fbc03b3b7d0d7e2c24660f3f916591895cb26824af4f1b85aac79167bc0c82a",
+  "hearing_reviewed": false
+}

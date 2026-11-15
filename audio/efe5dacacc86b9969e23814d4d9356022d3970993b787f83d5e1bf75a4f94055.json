@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте коня с давлением на центр.",
+  "spoken": "Развив+айте кон+я с давл+ением на центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "637a528b6db80f5646e207ec7ef21e2a2bfa8b720e574d8f0ebdc39f819e5a6d",
+  "hearing_reviewed": false
+}

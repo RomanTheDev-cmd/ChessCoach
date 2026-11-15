@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Конкретные ответы важнее привлекательного внешнего вида атаки.",
+  "spoken": "в+ерно. Конкр+етные отв+еты важн+ее привлек+ательного вн+ешнего в+ида ат+аки.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "822e042b298eb6a55a68e9e0570b070a0438114e783bbf6ea1f5c8598bf8a93d",
+  "hearing_reviewed": false
+}

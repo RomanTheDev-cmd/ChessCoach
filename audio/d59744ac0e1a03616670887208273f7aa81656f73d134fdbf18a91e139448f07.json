@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Чёрные оспаривают центр фланговой пешкой и получают асимметричную структуру.",
+  "spoken": "в+ерно. Чёрные осп+аривают центр фл+анговой п+ешкой и получ+ают асимметр+ичную структ+уру.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b047b19ecf1aef0ddb90c497e6ab50919c24ae0db6f6f29eb9964b4d974a5d5b",
+  "hearing_reviewed": false
+}

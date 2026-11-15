@@ -1,0 +1,15 @@
+{
+  "text": "Ищите ход, который создаёт две угрозы одновременно.",
+  "spoken": "Ищ+ите ход, кот+орый создаёт две угр+озы одновр+еменно.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f673675909d83a84f25295d7f06ab8589f76df9e048b03c3bd956447510ad06b",
+  "hearing_reviewed": false
+}

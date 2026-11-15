@@ -1,0 +1,15 @@
+{
+  "text": "Белые нападают на слона.",
+  "spoken": "Б+елые напад+ают на слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fddb92019c651a06c7bdecf08ee9d62a668c164f82756ccf9207eedd01227563",
+  "hearing_reviewed": false
+}

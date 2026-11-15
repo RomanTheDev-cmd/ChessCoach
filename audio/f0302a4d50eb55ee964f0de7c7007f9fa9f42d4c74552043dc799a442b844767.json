@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Рокировка уводит короля из центра и соединяет ладьи.",
+  "spoken": "в+ерно. Зад+ача решен+а. Рокир+овка ув+одит корол+я из ц+ентра и соедин+яет ладь+и.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9255b130e2786e48c0fd471fb2541afd840d00f594bbeec8bcc7f7ca20f828b8",
+  "hearing_reviewed": false
+}

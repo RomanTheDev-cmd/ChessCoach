@@ -1,0 +1,15 @@
+{
+  "text": "Достигнув последней горизонтали, пешка превращается в ферзя.",
+  "spoken": "Дост+игнув посл+едней горизонт+али, п+ешка превращ+ается в ферз+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a2b95ed72e450f838f7871c6efe6842d1879fcac7efc3bb685e8699b643012e5",
+  "hearing_reviewed": false
+}

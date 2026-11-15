@@ -1,0 +1,15 @@
+{
+  "text": "Что определяет план после развития?",
+  "spoken": "Что определ+яет план п+осле разв+ития?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ad1998cb410a5776f8f461db0e6e7844567cd82cb085350ebab1da4da9b6fb98",
+  "hearing_reviewed": false
+}

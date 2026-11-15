@@ -1,0 +1,15 @@
+{
+  "text": "Белые строят пешечный центр.",
+  "spoken": "Б+елые стр+оят п+ешечный центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c00f2ca3a7879ab6d7679f005c5c26152e07fdd1ae60d8cc3e44bcd1e0371e46",
+  "hearing_reviewed": false
+}

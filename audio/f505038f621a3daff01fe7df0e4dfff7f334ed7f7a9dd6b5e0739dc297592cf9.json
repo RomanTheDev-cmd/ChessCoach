@@ -1,0 +1,15 @@
+{
+  "text": "Выведите слона за пешечную цепь.",
+  "spoken": "В+ыведите слон+а за п+ешечную цепь.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "422d783cdadd0607fcfbf5c4adc5a22b32da0f2e37a253604fcabf0728d9abd7",
+  "hearing_reviewed": false
+}

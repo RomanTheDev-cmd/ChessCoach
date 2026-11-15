@@ -1,0 +1,15 @@
+{
+  "text": "Найдите сильнейшее продолжение. Сделайте 2 хода за свою сторону.",
+  "spoken": "Найд+ите сильн+ейшее продолж+ение. Сд+елайте 2 ход+а за сво+ю ст+орону.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a5312eb4096a67cc031d87b0a8ce6ae8e1171399abdc9966926a097a03f115f9",
+  "hearing_reviewed": false
+}

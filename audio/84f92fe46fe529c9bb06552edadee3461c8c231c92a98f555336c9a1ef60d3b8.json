@@ -1,0 +1,15 @@
+{
+  "text": "Система помогает организовать фигуры, но не отменяет конкретный расчёт.",
+  "spoken": "Сист+ема помог+ает организов+ать фиг+уры, но не отмен+яет конкр+етный расчёт.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "4ce6b5b84a3099c6e5c051c54fc9766cd1b6c1da07e3c51e6878d8fc4a4cf644",
+  "hearing_reviewed": false
+}

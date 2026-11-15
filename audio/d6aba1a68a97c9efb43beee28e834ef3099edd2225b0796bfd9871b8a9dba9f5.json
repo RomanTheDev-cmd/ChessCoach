@@ -1,0 +1,15 @@
+{
+  "text": "Асимметричная борьба за центр пешкой це.",
+  "spoken": "Асимметр+ичная борьб+а за центр п+ешкой це.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f0da12e265559fbf091d6644ad471899482f2017731479a249168860ceb76b2b",
+  "hearing_reviewed": false
+}

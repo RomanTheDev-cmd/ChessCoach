@@ -1,0 +1,12 @@
+{
+  "main.cjs": true,
+  "preload.cjs": true,
+  "src/store.cjs": true,
+  "scripts/voice.py": true,
+  "dist/app.js": true,
+  "dist/style.css": true,
+  "dist/index.html": true,
+  "audio_unchanged": true,
+  "version": "1.1.0",
+  "desktop_shortcut": "/Applications/Шахматный тренер.app"
+}

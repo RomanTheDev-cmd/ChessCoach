@@ -1,0 +1,15 @@
+{
+  "text": "Найдите более сильный ход в позиции из вашей практики дебюта.",
+  "spoken": "Найд+ите б+олее с+ильный ход в поз+иции из в+ашей пр+актики деб+юта.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "88ea2b447473cb6c723436b14a5e324c4a9bcfe88e36776386daf5b4d86a84da",
+  "hearing_reviewed": false
+}

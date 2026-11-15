@@ -1,0 +1,15 @@
+{
+  "text": "Проверить угрозы и улучшить работу фигур.",
+  "spoken": "Пров+ерить угр+озы и ул+учшить раб+оту фиг+ур.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a96c8d3650c0fa61065c99a4ae435ffbcb96de727c692b28fadcf5b119e57d9c",
+  "hearing_reviewed": false
+}

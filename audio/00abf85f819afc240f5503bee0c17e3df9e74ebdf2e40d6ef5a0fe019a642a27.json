@@ -1,0 +1,15 @@
+{
+  "text": "Этот ход ухудшает позицию. После практики сравните его с лучшим продолжением.",
+  "spoken": "+Этот ход ухудш+ает поз+ицию. п+осле пр+актики сравн+ите ев+о с л+учшим продолж+ением.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9a774e6c6b5812057c8ba7ec850d07ee0497156abbeb342e2746a63d65610ed0",
+  "hearing_reviewed": false
+}

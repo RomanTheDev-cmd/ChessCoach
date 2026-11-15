@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Уход фигуры открыл линию и создал угрозу другой фигурой.",
+  "spoken": "в+ерно. Зад+ача решен+а. Ух+од фиг+уры откр+ыл л+инию и с+оздал угр+озу друг+ой фиг+урой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1d2ee1ec16c1f56f985636fd66a69abf0f74efdbffd2974ff59772cb22a6a920",
+  "hearing_reviewed": false
+}

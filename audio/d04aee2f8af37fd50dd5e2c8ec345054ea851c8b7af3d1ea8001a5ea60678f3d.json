@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Ферзь ставит мат, а ваш король защищает его.",
+  "spoken": "в+ерно. Зад+ача решен+а. Ферзь ст+авит мат, а ваш кор+оль защищ+ает ев+о.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "4b0a3c3e1e1f0bf11aa948040e4a08f310baf22a1cde9e48c5dfc1daa33cc42b",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте коня вместо поспешного выхода ферзя.",
+  "spoken": "Развив+айте кон+я вм+есто посп+ешного в+ыхода ферз+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "0fbc692f54d2d72ed0f5f94b57165ba8efbaebf448bbf62d49aae7c571b4c59d",
+  "hearing_reviewed": false
+}

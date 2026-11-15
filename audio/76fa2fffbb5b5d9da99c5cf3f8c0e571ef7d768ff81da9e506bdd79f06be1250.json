@@ -1,0 +1,15 @@
+{
+  "text": "Займите центр.",
+  "spoken": "Займ+ите центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f1c4381130eaa4b68685de693526ff8df8e0b079af6b3f6386f8f313ceb3b078",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Предложите пешку, чтобы ослабить центр чёрных.",
+  "spoken": "предлож+ите п+ешку, чт+обы осл+абить центр чёрных.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e2d8d28f39d4e306cbe82577ff313285b53e562e9b0a3c5387502313b1c820bc",
+  "hearing_reviewed": false
+}

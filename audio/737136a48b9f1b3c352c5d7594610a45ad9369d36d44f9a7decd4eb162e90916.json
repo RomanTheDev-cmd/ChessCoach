@@ -1,0 +1,15 @@
+{
+  "text": "Попробуйте выполнить приём из урока.",
+  "spoken": "Попр+обуйте в+ыполнить приём из ур+ока.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f432c51edc08b8d5c986a10cf5c95cd41bc790c0521e4805ff7a0a881963fa38",
+  "hearing_reviewed": false
+}

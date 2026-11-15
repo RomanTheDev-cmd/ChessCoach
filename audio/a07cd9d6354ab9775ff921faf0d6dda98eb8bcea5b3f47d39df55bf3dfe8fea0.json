@@ -1,0 +1,15 @@
+{
+  "text": "Проверить угрозы и выбрать ход по позиции.",
+  "spoken": "Пров+ерить угр+озы и в+ыбрать ход по поз+иции.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e16342b64ef57b7d398f54b5973fb03290629a3ef77b92f46f3093c68bf3d856",
+  "hearing_reviewed": false
+}

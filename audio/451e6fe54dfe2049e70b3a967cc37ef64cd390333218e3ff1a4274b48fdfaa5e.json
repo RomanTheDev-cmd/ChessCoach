@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные завершают развитие коней. Дальше готовьте рокировку.",
+  "spoken": "Чёрные заверш+ают разв+итие кон+ей. Д+альше гот+овьте рокир+овку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "810bbc8154e02a00155b0c864edfffc513396f5389cfdb0328ab889d22c5d34e",
+  "hearing_reviewed": false
+}

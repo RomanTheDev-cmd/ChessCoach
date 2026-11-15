@@ -1,0 +1,15 @@
+{
+  "text": "Белые укрепляют центр и ограничивают прыжки коня.",
+  "spoken": "Б+елые укрепл+яют центр и огран+ичивают прыжк+и кон+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c37e8720974cd34f03d471bff442cae77915874f3efa7eabe3b81a3bbff93e90",
+  "hearing_reviewed": false
+}

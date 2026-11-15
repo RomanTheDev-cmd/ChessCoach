@@ -1,0 +1,15 @@
+{
+  "text": "Сначала сделайте ход пешкой, затем нажмите на название новой фигуры.",
+  "spoken": "Снач+ала сд+елайте ход п+ешкой, зат+ем нажм+ите на назв+ание н+овой фиг+уры.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "d547e6d096f90e34b6935ff0eed9c983c821cbed90aa46bcbc1fd64b5cd6d427",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Да, жертвовать нужно всегда.",
+  "spoken": "Да, ж+ертвовать н+ужно всегд+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "5cfaaafd906f5396d37ff5678933619cc20b818347a25bedb390327e13b24359",
+  "hearing_reviewed": false
+}

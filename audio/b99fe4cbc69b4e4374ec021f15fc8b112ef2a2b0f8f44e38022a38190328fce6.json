@@ -1,0 +1,15 @@
+{
+  "text": "Поддержите центр.",
+  "spoken": "поддерж+ите центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fce4cc3aa572209be4bbf85c81da00780379b92dd4f8bf7723b7dcb7a3642a40",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Оба короля в безопасности. Дальше завершайте развитие.",
+  "spoken": "+Оба корол+я в безоп+асности. Д+альше заверш+айте разв+итие.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3da012d0ed7a67586247f958f262f35d878bfec2ac3478d9eca073b786dfd7a5",
+  "hearing_reviewed": false
+}

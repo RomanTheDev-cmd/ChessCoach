@@ -1,0 +1,15 @@
+{
+  "text": "Проверьте незащищённые фигуры и возможные ответные взятия.",
+  "spoken": "Пров+ерьте незащищённые фиг+уры и возм+ожные отв+етные вз+ятия.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "04dc32c004d7791dc2dbd776b0c4497db68e0b6c4990f2446740e41d9dbbdd19",
+  "hearing_reviewed": false
+}

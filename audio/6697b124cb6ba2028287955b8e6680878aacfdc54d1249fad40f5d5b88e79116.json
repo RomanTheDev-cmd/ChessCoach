@@ -1,0 +1,15 @@
+{
+  "text": "Ещё один ответ соперника. Сравните его с уже изученными построениями.",
+  "spoken": "Ещё од+ин отв+ет соп+ерника. Сравн+ите ев+о с уж+е из+ученными постро+ениями.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "43a94cd1d1412d8d1a3f638f708d2fd1cf6f8977ad6eefe148aea89337fb9f19",
+  "hearing_reviewed": false
+}

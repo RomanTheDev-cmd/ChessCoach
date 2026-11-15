@@ -1,0 +1,15 @@
+{
+  "text": "Белые готовят наступление на фланге.",
+  "spoken": "Б+елые гот+овят наступл+ение на фл+анге.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1d6aef91a5913729ff3b865087ab1d394e49fc61bb9bc5641e0540e42b6c30ec",
+  "hearing_reviewed": false
+}

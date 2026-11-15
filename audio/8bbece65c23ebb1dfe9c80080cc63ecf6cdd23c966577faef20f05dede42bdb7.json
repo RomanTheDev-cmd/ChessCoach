@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Задача решена. Последовательность шахов ограничила короля и привела к мату.",
+  "spoken": "в+ерно. Зад+ача решен+а. Посл+едовательность ш+ахов огран+ичила корол+я и привел+а к м+ату.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "fda169f984fc4ab2b820065ee701c254dfc7aa16e05262bf2a92a4440cddea6d",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Чтобы навсегда отказаться от центра.",
+  "spoken": "Чт+обы навсегд+а отказ+аться от ц+ентра.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a3e8298bf4901f4059dd45e417073e88cf07fad7dd3a5788800d338a1b667965",
+  "hearing_reviewed": false
+}

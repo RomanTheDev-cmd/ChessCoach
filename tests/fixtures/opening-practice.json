@@ -1,0 +1,24 @@
+{
+  "moves": [
+    "b1d2",
+    "a7a6",
+    "f1e1",
+    "h7h6",
+    "h2h3",
+    "c5b6",
+    "d2f1",
+    "c8e6",
+    "f1g3",
+    "f6e4",
+    "d3e4"
+  ],
+  "errors": [
+    {
+      "kind": "evaluation",
+      "fen": "r2q1rk1/1pp2pp1/pbnpb2p/4p3/2B1n3/2PP1NNP/PP3PP1/R1BQR1K1 w - - 0 12",
+      "attempted": "dxe4",
+      "best": "Nxe4",
+      "loss": 176
+    }
+  ]
+}

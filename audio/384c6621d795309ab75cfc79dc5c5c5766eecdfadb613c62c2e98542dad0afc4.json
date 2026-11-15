@@ -1,0 +1,15 @@
+{
+  "text": "Белые берут пешку конём.",
+  "spoken": "Б+елые бер+ут п+ешку конём.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9f0fbca3d97161362cba8c453ed6e6b6ecb637f11e3c4699300af9db12366479",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,19 @@
+import {Chess} from 'chess.js';
+import {uciMove} from './engine.mjs';
+export class OpeningSession{
+ constructor(course,unit){this.course=course;this.unit=unit;this.id=crypto.randomUUID();this.startedAt=Date.now();this.phase=unit.type==='theory'?'read':'intro';this.page=0;this.question=0;this.answers=[];this.errors=[];this.hints=0;this.index=0;this.feedback='';this.correctAnswer=false;this.busy=false;this.saved=false;this.decisions=0;this.game=new Chess();for(const m of unit.diagramMoves||unit.startMoves||[])this.game.move(m);}
+ nextPage(){if(this.phase!=='read')throw Error('Сейчас не показан текст урока.');if(this.page<this.unit.pages.length-1)this.page++;else{this.phase='quiz';this.question=0;this.game=new Chess();for(const m of this.unit.diagramMoves||[])this.game.move(m);}}
+ answer(choice){if(this.phase!=='quiz'||this.correctAnswer)throw Error('Этот вопрос уже проверен.');const q=this.unit.questions[this.question];if(!Number.isInteger(choice)||choice<0||choice>=q.options.length)throw Error('Неизвестный ответ.');this.correctAnswer=choice===q.answer;this.feedback=q.explanation;if(this.correctAnswer)this.answers[this.question]=choice;else this.errors.push({kind:'answer',question:this.question,prompt:q.prompt,answer:q.options[choice],expected:q.options[q.answer]});return this.correctAnswer;}
+ nextQuestion(){if(this.phase!=='quiz'||!this.correctAnswer)throw Error('Сначала ответьте на вопрос.');this.feedback='';this.correctAnswer=false;if(this.question+1<this.unit.questions.length)this.question++;else this.phase='done';}
+ demo(){if(this.unit.type!=='line')throw Error('В этом уроке нет заучиваемого варианта.');this.game=new Chess();this.index=0;this.phase='demo';this.feedback=this.unit.notes[0];}
+ demoNext(){if(this.phase!=='demo'||this.index>=this.unit.moves.length)throw Error('Показ варианта завершён.');const note=this.unit.notes[this.index];this.game.move(this.unit.moves[this.index++]);this.feedback=note;return note;}
+ practice(){if(this.unit.type==='theory')throw Error('Сначала пройдите вопросы урока.');this.game=new Chess();for(const m of this.unit.startMoves||[])this.game.move(m);this.startPly=this.game.history().length;this.index=0;this.decisions=0;this.errors=[];this.hints=0;this.feedback='';this.phase='train';if(this.unit.type==='line')this.autoLine();}
+ autoLine(){if(this.index<this.unit.moves.length&&this.game.turn()!==this.course.side){this.game.move(this.unit.moves[this.index++]);}}
+ attempt(uci){if(this.phase!=='train'||this.game.turn()!==this.course.side)throw Error('Сейчас ход соперника.');const fen=this.game.fen();let move;try{move=uciMove(this.game,uci);}catch(error){this.errors.push({kind:'illegal',fen,attempted:uci,ply:this.index});throw error;}
+ if(this.unit.type==='line'){const expected=this.unit.moves[this.index];if(move.san!==expected){this.game.undo();this.errors.push({kind:'other-line',fen,attempted:move.san,expected,ply:this.index});this.feedback='Этот ход допустим по правилам, но относится к другому варианту. Найдите ход изученной линии.';return{correct:false,move};}
+ this.feedback=this.unit.notes[this.index];this.index++;this.decisions++;this.autoLine();if(this.index>=this.unit.moves.length)this.phase='done';
+ }else{this.decisions++;this.feedback='Ход принят. Соперник отвечает.';if(this.game.isGameOver()||this.decisions>=this.unit.turns)this.phase='done';}
+ return{correct:true,move};}
+ reply(uci){if(this.unit.type!=='sparring'||this.phase!=='train'||this.game.turn()===this.course.side)throw Error('Сейчас не ход соперника.');const move=uciMove(this.game,uci);if(this.game.isGameOver())this.phase='done';return move;}
+ result(passed=this.phase==='done'){const moves=this.game.history({verbose:true}).slice(this.startPly||0).map(m=>m.from+m.to+(m.promotion||''));return{sessionId:this.id,startedAt:this.startedAt,finishedAt:Date.now(),passed,answers:this.answers,errors:this.errors,hints:this.hints,moves};}
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Боритесь за центр фланговой пешкой.",
+  "spoken": "Бор+итесь за центр фл+анговой п+ешкой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "0efa2510666f55baaa848149f5d14cc0905abab0c82dcf57a7db541e02381622",
+  "hearing_reviewed": false
+}

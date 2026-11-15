@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Одинаковое название может приводить к разным структурам и планам.",
+  "spoken": "в+ерно. Один+аковое назв+ание м+ожет привод+ить к р+азным структ+урам и пл+анам.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "970f260507cde5de5214276edc27f12a6735e20cd18b6c866657435db5643e3b",
+  "hearing_reviewed": false
+}

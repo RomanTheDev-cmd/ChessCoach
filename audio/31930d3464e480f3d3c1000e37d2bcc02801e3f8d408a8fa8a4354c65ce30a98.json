@@ -1,0 +1,15 @@
+{
+  "text": "Белые выводят слона.",
+  "spoken": "Б+елые выв+одят слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "32fe7cc8bde3dbe5bdfb82aa3f1d7464713c3e3f2290f295d9a97987f554996f",
+  "hearing_reviewed": false
+}

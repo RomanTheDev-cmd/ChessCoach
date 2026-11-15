@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Само наличие слабого пункта не доказывает корректность жертвы.",
+  "spoken": "в+ерно. Сам+о нал+ичие сл+абого п+ункта не док+азывает корр+ектность ж+ертвы.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "7aadedc5066f789c6accca9a0bff385905035c9445a818c709ff2b158bf7acc8",
+  "hearing_reviewed": false
+}

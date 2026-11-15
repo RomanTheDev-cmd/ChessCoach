@@ -1,0 +1,15 @@
+{
+  "text": "Верните фигуру конём и продолжайте развитие.",
+  "spoken": "Верн+ите фиг+уру конём и продолж+айте разв+итие.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ca0ac1da222bb9eedd6dcdb5271fc948c3dbc4847c6d62d78dfe0d2143a2d7a5",
+  "hearing_reviewed": false
+}

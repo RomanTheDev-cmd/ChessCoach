@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные атакуют центр. Готовьте рокировку и следите за пешкой.",
+  "spoken": "Чёрные атак+уют центр. Гот+овьте рокир+овку и след+ите за п+ешкой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ef6c964226995fb8a954842c18eaf80a59b7f9efe4a1c8be9faeb5cfbd27d77c",
+  "hearing_reviewed": false
+}

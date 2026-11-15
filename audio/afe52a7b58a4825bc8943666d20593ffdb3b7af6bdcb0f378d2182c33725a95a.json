@@ -1,0 +1,15 @@
+{
+  "text": "Уведите короля из центра.",
+  "spoken": "Увед+ите корол+я из ц+ентра.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "7583bf0adf3d5989d55c0d3783f3c167a772e99577e06ea8ca0209f6959d352e",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные принимают предложение и ослабляют контроль над центром.",
+  "spoken": "Чёрные приним+ают предлож+ение и ослабл+яют контр+оль над ц+ентром.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "c7a6d2e520b4959f134d211f8d75bd642173f7af0d852807f3a8c218b151ad9b",
+  "hearing_reviewed": false
+}

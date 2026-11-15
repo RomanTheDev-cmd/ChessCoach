@@ -1,0 +1,15 @@
+{
+  "text": "Ладья и конь стоят на одной вертикали.",
+  "spoken": "Ладь+я и конь сто+ят на одн+ой вертик+али.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "594aa3edd452ea946b0f68c20ad0e6b16867e5b3763527dfbe6870d48ce1af3e",
+  "hearing_reviewed": false
+}

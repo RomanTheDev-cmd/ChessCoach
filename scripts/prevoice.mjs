@@ -1,0 +1,10 @@
+import {courseNarration} from '../src/opening-courses.mjs';
+import {lessons} from '../src/lessons.mjs';
+import {createInterface} from 'node:readline';
+import {spawn} from 'node:child_process';
+import {phrases,puzzles,openings} from '../src/data.mjs';
+const home=process.env.HOME;
+const child=spawn(home+'/.local/share/freelearn-video/.venv-tts-comparison/bin/python',['scripts/voice.py',process.cwd()+'/audio'],{stdio:['pipe','pipe','inherit']});
+const lines=[...new Set([...Object.values(phrases),...courseNarration,...lessons.flatMap(l=>[l.text,l.hint,l.text+' '+l.rules]),'Попробуйте выполнить приём из урока.',...puzzles.flatMap(p=>[p.text,p.hint,phrases.correct+' '+p.explanation]),...openings.flatMap(o=>o.notes),'Верно. Соперник ответил. Найдите следующий ход.','В этой позиции выберите ход изученного варианта. Другие ходы могут быть допустимы.'])];
+let i=0,errors=0;createInterface({input:child.stdout}).on('line',line=>{try{let r=JSON.parse(line);if(r.error)errors++;console.log(++i+'/'+lines.length,r.error||r.file.split('/').at(-1));}catch{errors++;}});
+lines.forEach((text,id)=>child.stdin.write(JSON.stringify({id,text})+'\n'));child.stdin.end();child.on('exit',code=>process.exitCode=code||errors?1:0);

@@ -1,0 +1,15 @@
+{
+  "text": "Откройте дорогу слону.",
+  "spoken": "Откр+ойте дор+огу слон+у.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "554af33e8a8dfe482ffa3bf496c7c1c2916053784c9cd1bd6aa6a301a871582d",
+  "hearing_reviewed": false
+}

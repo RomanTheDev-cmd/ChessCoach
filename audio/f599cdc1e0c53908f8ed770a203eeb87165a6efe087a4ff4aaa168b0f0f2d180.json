@@ -1,0 +1,15 @@
+{
+  "text": "Ладья ставит мат по первой горизонтали. Королю мешают собственные пешки.",
+  "spoken": "Ладь+я ст+авит мат по п+ервой горизонт+али. Корол+ю меш+ают с+обственные п+ешки.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "ec98d08cdec35fc20d921655c48b0ad3fd2bfb04cf12a0488d9a0d3191f95d20",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Оспорьте центр фланговой пешкой.",
+  "spoken": "Осп+орьте центр фл+анговой п+ешкой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "dee231b08a9ebe4184820613eba560744a2dd6cb5ff9c1fea1213df484d28b44",
+  "hearing_reviewed": false
+}

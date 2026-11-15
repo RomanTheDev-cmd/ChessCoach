@@ -1,0 +1,15 @@
+{
+  "text": "Игнорировать открытые линии.",
+  "spoken": "Игнор+ировать откр+ытые л+инии.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1be582b5f96f6e47c2e077659f8c3bd199c8c1b96f0338d05f8d6d3939836fca",
+  "hearing_reviewed": false
+}

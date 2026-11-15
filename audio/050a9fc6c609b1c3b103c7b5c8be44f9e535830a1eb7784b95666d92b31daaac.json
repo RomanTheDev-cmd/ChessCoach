@@ -1,0 +1,15 @@
+{
+  "text": "Проверьте шахи, взятия и угрозы. Не останавливайтесь на первом ходе.",
+  "spoken": "Пров+ерьте ш+ахи, вз+ятия и угр+озы. Не остан+авливайтесь на п+ервом х+оде.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "517d8eaa613e3184e6fdfe384e58a82f0011df64e755ca5b8baf0476c80a2224",
+  "hearing_reviewed": false
+}

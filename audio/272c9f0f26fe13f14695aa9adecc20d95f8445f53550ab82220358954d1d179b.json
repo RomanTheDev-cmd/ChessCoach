@@ -1,0 +1,15 @@
+{
+  "text": "Верно. Оцените время и развитие. Возврат пешки не должен становиться единственной целью.",
+  "spoken": "в+ерно. оцен+ите вр+емя и разв+итие. Возвр+ат п+ешки не д+олжен станов+иться ед+инственной ц+елью.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "7a7f0cfe8e0e6934c4e86475efa045675c034e5fe5db1a26f38b5b2fb7ca0d22",
+  "hearing_reviewed": false
+}

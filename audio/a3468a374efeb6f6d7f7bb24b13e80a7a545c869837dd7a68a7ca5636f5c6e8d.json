@@ -1,0 +1,15 @@
+{
+  "text": "Зачем чёрные играют пешкой на це шесть?",
+  "spoken": "Зач+ем чёрные игр+ают п+ешкой на це шесть?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a5d5b924d8896850b7b6c65661cf4f3328f90beba04362b5c5d9642d3469138a",
+  "hearing_reviewed": false
+}

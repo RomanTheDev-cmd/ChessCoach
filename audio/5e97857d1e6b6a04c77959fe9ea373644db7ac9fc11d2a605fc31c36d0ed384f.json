@@ -1,0 +1,15 @@
+{
+  "text": "Между королём и ладьёй свободно.",
+  "spoken": "Между королём и ладьёй своб+одно.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8166ce3f1b4de5ddbcf5424084965b664c4fd13e447e8c9b0779a17ddd8a9745",
+  "hearing_reviewed": false
+}

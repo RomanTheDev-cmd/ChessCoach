@@ -1,0 +1,15 @@
+{
+  "text": "Подготовьте центральный удар.",
+  "spoken": "Подгот+овьте центр+альный уд+ар.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "29bb74edc1563f31f1bb662dd8ba46ed2ef6aec25fe080f9d5486282e42ffdfc",
+  "hearing_reviewed": false
+}

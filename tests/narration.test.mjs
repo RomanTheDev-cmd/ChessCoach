@@ -1,0 +1,4 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {canNarrate,rememberNarration,REPEAT_AFTER} from '../src/narration.mjs';
+test('the same explanation stays silent until the repeat interval passes',()=>{let h={};assert.equal(canNarrate(h,'Ваш ход',1000),true);rememberNarration(h,'Ваш ход',1000);assert.equal(canNarrate(h,'Ваш ход',1001),false);assert.equal(canNarrate(h,'Ваш ход',1000+REPEAT_AFTER-1),false);assert.equal(canNarrate(h,'Ваш ход',1000+REPEAT_AFTER),true);});
+test('different content may speak while already played content stays quiet',()=>{let h={};rememberNarration(h,'Урок о рокировке',2000);assert.equal(canNarrate(h,'Задача на вилку',2100),true);assert.equal(canNarrate(h,'Урок о рокировке',2100),false);});
+test('reopening the app preserves the cooldown',()=>{let h={};rememberNarration(h,'Подсказка',3000);let restored=JSON.parse(JSON.stringify(h));assert.equal(canNarrate(restored,'Подсказка',5000),false);});

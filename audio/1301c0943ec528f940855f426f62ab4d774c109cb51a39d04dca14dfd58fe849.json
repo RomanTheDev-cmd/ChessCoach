@@ -1,0 +1,15 @@
+{
+  "text": "Поддержите центральную пешку.",
+  "spoken": "поддерж+ите центр+альную п+ешку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "d0a05e0c341fc2cb29b463847f33abacd0277a6c96503d80a3091a294ab3a732",
+  "hearing_reviewed": false
+}

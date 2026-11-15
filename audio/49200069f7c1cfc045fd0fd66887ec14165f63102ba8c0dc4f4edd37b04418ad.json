@@ -1,0 +1,15 @@
+{
+  "text": "Можно ли всегда повторять схему без проверки угроз?",
+  "spoken": "М+ожно ли всегд+а повтор+ять сх+ему без пров+ерки угр+оз?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "74ce75f847a03a8b55aa90e9b7b674e91b349544fb662c9cbe52749f31d5872c",
+  "hearing_reviewed": false
+}

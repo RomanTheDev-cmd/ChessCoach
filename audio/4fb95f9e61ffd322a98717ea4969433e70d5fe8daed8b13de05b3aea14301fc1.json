@@ -1,0 +1,15 @@
+{
+  "text": "Только название дебюта.",
+  "spoken": "Т+олько назв+ание деб+юта.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8aef45e26baad63bf8452b19eb0a459c7fcea5e2f03f2cf1035e2e43ae09787a",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Обеспечьте безопасность своего короля.",
+  "spoken": "Обесп+ечьте безоп+асность своег+о корол+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8e9a8a0fc1f04ff03c41c116d257cfbc452a97611f57fa4cb2ffe5a520bef407",
+  "hearing_reviewed": false
+}

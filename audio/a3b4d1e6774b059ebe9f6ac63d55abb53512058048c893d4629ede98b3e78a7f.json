@@ -1,0 +1,15 @@
+{
+  "text": "Подготовьте развитие слона по большой диагонали.",
+  "spoken": "Подгот+овьте разв+итие слон+а по больш+ой диагон+али.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "dffdb4a5562bcad10f6ca84438ccc320873513fe9d87d9baeb6faa0ff2650864",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Да, даже ценой нескольких ходов ферзём.",
+  "spoken": "Да, д+аже цен+ой н+ескольких ход+ов ферзём.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "d3d6fe8490b08f1eeaca9c7125f39e6cf6143a420d6886dcbb79581bfeda3c34",
+  "hearing_reviewed": false
+}

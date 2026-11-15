@@ -1,0 +1,15 @@
+{
+  "text": "Положиться только на название дебюта.",
+  "spoken": "Полож+иться т+олько на назв+ание деб+юта.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "2c6f24e6ec2a9886add028a1e0a431468a8222334004acb9c3cc6121f1a3dd8b",
+  "hearing_reviewed": false
+}

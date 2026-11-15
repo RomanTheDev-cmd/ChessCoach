@@ -1,0 +1,15 @@
+{
+  "text": "Посчитать ответы, проверить развитие и королей.",
+  "spoken": "Посчит+ать отв+еты, пров+ерить разв+итие и корол+ей.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "36a2aad924e6465bf1e69a3f74f0b406b7288bc4d0463dded33c3a194ca37df1",
+  "hearing_reviewed": false
+}

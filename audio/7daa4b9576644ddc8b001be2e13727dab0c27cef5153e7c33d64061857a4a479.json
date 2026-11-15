@@ -1,0 +1,15 @@
+{
+  "text": "Да, фигуры пока не нужны.",
+  "spoken": "Да, фиг+уры пок+а не нужн+ы.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "1f248ff329cf99ce090d6ab49ac99619de47bb508c75509ad0d693b6cf539ff6",
+  "hearing_reviewed": false
+}

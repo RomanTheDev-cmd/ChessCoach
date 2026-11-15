@@ -1,0 +1,15 @@
+{
+  "text": "Выберите короля и переместите его на два поля влево.",
+  "spoken": "В+ыберите корол+я и перемест+ите ев+о на два п+оля вл+ево.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9d7e9ac1733a6a5eae49243c6397758120f517efdd89f38892f9657945bd65cd",
+  "hearing_reviewed": false
+}

@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные также занимают центр.",
+  "spoken": "Чёрные т+акже заним+ают центр.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "917999d3b982e106c07009701849a150cfa513f8c45d0f20a7cd1a8bd4e51ff0",
+  "hearing_reviewed": false
+}

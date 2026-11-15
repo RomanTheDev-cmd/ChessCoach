@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные прячут короля.",
+  "spoken": "Чёрные пр+ячут корол+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "92716dd2acb3eb6a0d4ed589df133b0b9e5b4649b2bf09df789e1ff2b240d7bf",
+  "hearing_reviewed": false
+}

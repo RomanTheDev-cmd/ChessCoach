@@ -1,0 +1,15 @@
+{
+  "text": "Проверьте продвижение проходной пешки и возможные превращения.",
+  "spoken": "Пров+ерьте продвиж+ение проходн+ой п+ешки и возм+ожные превращ+ения.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "3efa6bd071953137ea1cc079edc68f9bc4d75ce35d3fe97df96d88a132a4d495",
+  "hearing_reviewed": false
+}

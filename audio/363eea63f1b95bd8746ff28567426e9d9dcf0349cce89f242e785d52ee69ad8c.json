@@ -1,0 +1,15 @@
+{
+  "text": "Займите центр пешкой.",
+  "spoken": "Займ+ите центр п+ешкой.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "38892e1806dc9e40b9390a34bb614f98e7e91a98b5ca2b387a8ad601d553f739",
+  "hearing_reviewed": false
+}

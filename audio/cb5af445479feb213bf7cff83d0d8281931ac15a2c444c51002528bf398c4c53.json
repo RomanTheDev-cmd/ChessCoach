@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные готовят рокировку.",
+  "spoken": "Чёрные гот+овят рокир+овку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "40d18d8a5f2580e41353683ed1258abf3bca9e79fb4396544a13097166995334",
+  "hearing_reviewed": false
+}

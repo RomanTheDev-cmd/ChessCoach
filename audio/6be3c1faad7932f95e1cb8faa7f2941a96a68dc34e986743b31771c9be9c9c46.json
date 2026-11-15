@@ -1,0 +1,15 @@
+{
+  "text": "Хороший ход. Существенной потери преимущества не обнаружено.",
+  "spoken": "Хор+оший ход. Сущ+ественной пот+ери преим+ущества не обнар+ужено.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "629d9ef0d7ffea4462595f6e2950b8a690d7b83df02d99b0f28e143162695bb2",
+  "hearing_reviewed": false
+}

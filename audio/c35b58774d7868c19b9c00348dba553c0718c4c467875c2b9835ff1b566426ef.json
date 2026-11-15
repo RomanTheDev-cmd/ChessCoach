@@ -1,0 +1,15 @@
+{
+  "text": "Сначала развивайте фигуры и контролируйте центр. Атака зависит от конкретной позиции.",
+  "spoken": "Снач+ала развив+айте фиг+уры и контрол+ируйте центр. Ат+ака зав+исит от конкр+етной поз+иции.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8e369eaa8d5cf3fe91057152e321eb22d0a7a26cc5f8526091bcaafdf41353a4",
+  "hearing_reviewed": false
+}

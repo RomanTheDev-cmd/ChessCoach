@@ -1,0 +1,13 @@
+{
+  "main.cjs": true,
+  "preload.cjs": true,
+  "src/store.cjs": true,
+  "scripts/voice.py": true,
+  "dist/app.js": true,
+  "dist/style.css": true,
+  "version": "1.2.0",
+  "audio_verified": true,
+  "progress_unchanged": true,
+  "progress_sha256": "43d25cbfbf9ce963b753af01e9c2d79084a114cbb1085ab991a47bed7294e045",
+  "backup": "/Users/roman/.local/share/chess-coach/backups/1.1.0.app"
+}

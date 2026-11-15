@@ -1,0 +1,15 @@
+{
+  "text": "Да, после первого хода слоном.",
+  "spoken": "Да, п+осле п+ервого ход+а слон+ом.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9f5ea0519eb3896d8304e9924a627db6e1eb6d17799394b8f3cb39dec9b7b94c",
+  "hearing_reviewed": false
+}

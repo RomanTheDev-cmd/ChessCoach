@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные начинают и ставят мат в один ход.",
+  "spoken": "Чёрные начин+ают и ст+авят мат в од+ин ход.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "87fc131170d786dc42eeeb522ed3c81ab61974f00f549f4e8019665433e8865f",
+  "hearing_reviewed": false
+}

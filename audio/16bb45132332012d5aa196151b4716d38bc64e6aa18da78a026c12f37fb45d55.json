@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные укрепляют центральную пешку.",
+  "spoken": "Чёрные укрепл+яют центр+альную п+ешку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "f7f96801a5576f05386ba6abe3cce1dc6a370232ca78f3572c097ee7e2f73aad",
+  "hearing_reviewed": false
+}

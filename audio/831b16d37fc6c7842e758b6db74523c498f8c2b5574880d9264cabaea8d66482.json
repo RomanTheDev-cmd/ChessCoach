@@ -1,0 +1,15 @@
+{
+  "text": "Да, если ферзь уже вышел.",
+  "spoken": "Да, +если ферзь уж+е в+ышел.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "4563a1a56c07ce5b868604dde2670c7f07408cd329cc70a7cedef77334ef3623",
+  "hearing_reviewed": false
+}

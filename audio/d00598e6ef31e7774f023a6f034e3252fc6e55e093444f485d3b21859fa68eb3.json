@@ -1,0 +1,15 @@
+{
+  "text": "Как выбрать следующий полезный ход?",
+  "spoken": "Как в+ыбрать сл+едующий пол+езный ход?",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "389506649b1aa296e9736991cf0f060340a2dd7c989a7f73e52b8dda26c6623b",
+  "hearing_reviewed": false
+}

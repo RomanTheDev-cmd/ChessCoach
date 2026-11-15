@@ -1,0 +1,15 @@
+{
+  "text": "Развивайте коня.",
+  "spoken": "Развив+айте кон+я.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "b298b26c18124c97dab4070a66d8c393a5da6726ecf87a07c67b627ca88a711c",
+  "hearing_reviewed": false
+}

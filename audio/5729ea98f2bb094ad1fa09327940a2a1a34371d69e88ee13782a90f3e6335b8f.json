@@ -1,0 +1,15 @@
+{
+  "text": "Чёрные защищают пешку конём.",
+  "spoken": "Чёрные защищ+ают п+ешку конём.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "a6993c00fd04db158c73a9911b3aa52b48de2ca1878f5f2691c4d6fef776dab5",
+  "hearing_reviewed": false
+}

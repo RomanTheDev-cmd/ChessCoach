@@ -1,0 +1,15 @@
+{
+  "text": "Найдите шах по крайней вертикали.",
+  "spoken": "Найд+ите шах по кр+айней вертик+али.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "d6dc8b54117f455511c53021f219d94b3eee507840750aa2a98c86ef36f422e1",
+  "hearing_reviewed": false
+}

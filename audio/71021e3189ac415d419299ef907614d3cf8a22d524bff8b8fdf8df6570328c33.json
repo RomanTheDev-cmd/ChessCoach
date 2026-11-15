@@ -1,0 +1,15 @@
+{
+  "text": "Выведите слона на активную диагональ.",
+  "spoken": "В+ыведите слон+а на акт+ивную диагон+аль.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "e749e463d52693f13a73109e62a02eea08e469dc5dd0c8278d00bee2687e7fc7",
+  "hearing_reviewed": false
+}

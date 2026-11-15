@@ -1,0 +1,15 @@
+{
+  "text": "Открытие линий помогает лучше подготовленным фигурам и может создать угрозы королю.",
+  "spoken": "Откр+ытие л+иний помог+ает л+учше подгот+овленным фиг+урам и м+ожет созд+ать угр+озы корол+ю.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "614baeef5e1c3a69b9b4e3bb05af22f3db83f7273871ef930afe1e63a183accc",
+  "hearing_reviewed": false
+}

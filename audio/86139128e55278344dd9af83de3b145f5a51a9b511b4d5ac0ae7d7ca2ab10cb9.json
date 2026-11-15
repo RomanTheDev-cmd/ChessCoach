@@ -1,0 +1,15 @@
+{
+  "text": "Найдите прыжок коня на це семь.",
+  "spoken": "Найд+ите прыж+ок кон+я на це семь.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "41ffa7baf6755a46a1823fa52b4d4c2a54135cc686705226051479da5c3c73d8",
+  "hearing_reviewed": false
+}

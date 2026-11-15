@@ -1,0 +1,15 @@
+{
+  "text": "Надёжная структура работает вместе с активным развитием.",
+  "spoken": "Надёжная структ+ура раб+отает вм+есте с акт+ивным разв+итием.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "2b9f82311d835d41cfdf48aea890e4cdb2ddb924464ac44a7f52f244eb352bde",
+  "hearing_reviewed": false
+}

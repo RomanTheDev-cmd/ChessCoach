@@ -1,0 +1,15 @@
+{
+  "text": "Только число сделанных пешечных ходов.",
+  "spoken": "Т+олько числ+о сд+еланных п+ешечных ход+ов.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "102840f192adde0b66900ea699fdfe7c8d7cdbdf58775c98aaf86592cf222858",
+  "hearing_reviewed": false
+}

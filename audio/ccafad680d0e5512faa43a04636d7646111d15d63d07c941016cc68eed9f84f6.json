@@ -1,0 +1,15 @@
+{
+  "text": "Надёжный центр и развитие светлопольного слона.",
+  "spoken": "Надёжный центр и разв+итие светлоп+ольного слон+а.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "24f1bc1befcea7c07f7846bb650632be050b24643c932ff35468483071958d19",
+  "hearing_reviewed": false
+}

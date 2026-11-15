@@ -1,0 +1,15 @@
+{
+  "text": "Да, система защищает от всего.",
+  "spoken": "Да, сист+ема защищ+ает +от всег+о.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "8f9547b406bf2e90a9e4887e62480d19b7bc3d3a9d764fb978267b7a312680b0",
+  "hearing_reviewed": false
+}

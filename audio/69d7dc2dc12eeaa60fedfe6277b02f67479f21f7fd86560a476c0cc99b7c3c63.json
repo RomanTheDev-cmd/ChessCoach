@@ -1,0 +1,15 @@
+{
+  "text": "Двигать любую пешку на краю доски.",
+  "spoken": "Дв+игать люб+ую п+ешку на кра+ю д+оски.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "9b2096b2ac309a4f95e70aa3c73d52018483d566f28937c8ca17dd438e40b58f",
+  "hearing_reviewed": false
+}

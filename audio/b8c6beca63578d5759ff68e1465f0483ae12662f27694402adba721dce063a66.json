@@ -1,0 +1,15 @@
+{
+  "text": "Найдите фигуру, которая защищает важное поле, и отвлеките её.",
+  "spoken": "Найд+ите фиг+уру, кот+орая защищ+ает в+ажное п+оле, и отвлек+ите её.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "4535ff92a966f3d96d2c72ef0b4329fb2786a9b66f58ce32f8984c12a2e3719f",
+  "hearing_reviewed": false
+}

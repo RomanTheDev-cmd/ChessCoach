@@ -1,0 +1,15 @@
+{
+  "text": "Предложите фланговую пешку.",
+  "spoken": "предлож+ите фл+анговую п+ешку.",
+  "settings": {
+    "voice": "ru_m1",
+    "model": "teacher",
+    "seed": 42,
+    "guidance": 3.0,
+    "duration_scale": 1.0,
+    "sample_rate": 44100,
+    "fx": "hp75-shelf220-1-shelf4500+.8-comp2.2-lufs20-v1"
+  },
+  "sha256": "243c48eeb92b2415e4c8ae667e576301a878ed373f7c2ff7f4fa0e624f32c874",
+  "hearing_reviewed": false
+}
