@@ -1,0 +1,68 @@
+
+> chess-coach@1.2.0 test
+> node --test tests/*.test.mjs
+
+✔ wrong solution lowers theme mastery and clean solution improves it (0.885375ms)
+✔ hinted success earns less than independent solution (0.070875ms)
+✔ repeating one solved task cannot farm skill points (0.05875ms)
+✔ own unresolved mistake is prioritized and solved task rotates out (0.15625ms)
+✔ task evidence influences opponent strength without abrupt jump (0.081416ms)
+✔ recent positions never repeat when unseen ones exist (7.0395ms)
+✔ a due failed task precedes a recently solved task (0.131791ms)
+✔ review changes level, creates personal puzzle, and cannot be applied twice (0.247334ms)
+✔ independent solutions raise topic difficulty, assisted failures lower it (0.08425ms)
+✔ selection stays near current topic skill despite tempting hard tasks (0.246667ms)
+✔ restarting calibration preserves history but removes old level evidence (1.711208ms)
+✔ an active game cannot be discarded by calibration reset (0.1985ms)
+✔ the first puzzle in a topic starts from the assessed game level (0.042959ms)
+✔ only the first unfinished lesson and completed lessons are available (1.748875ms)
+✔ a locked lesson or unverified completion cannot unlock later lessons (0.135292ms)
+✔ history records each practice and survives serialization without increasing completion twice (0.15825ms)
+✔ every course has three legal branches and theory checks with one answer (22.268625ms)
+✔ a complete line session requires every student move, and only legal moves change it (40.874084ms)
+✔ all forty lessons can be completed in order, including six-turn free practice (137.540625ms)
+✔ a forged or incomplete move history cannot complete a line (1.113417ms)
+FULL_GAME white plies 7 reviewed 4 mistakes 0 rating 1113
+FULL_GAME black plies 4 reviewed 2 mistakes 0 rating 1293
+FULL_GAME opera plies 33 reviewed 16 mistakes 6 rating 1214
+✔ three complete games are reviewed by actual Stockfish and update the isolated profile (7262.671458ms)
+✔ the same explanation stays silent until the repeat interval passes (0.354792ms)
+✔ different content may speak while already played content stays quiet (0.053792ms)
+✔ reopening the app preserves the cooldown (0.054792ms)
+✔ all 5512 puzzle solution lines are legal and have 1–3 player moves (1763.5615ms)
+✔ a three-move puzzle requires all three player decisions and plays two replies (1.521916ms)
+✔ wrong legal move returns to the same puzzle position (1.604083ms)
+✔ all opening lines are legal (3.232ms)
+✔ all school demonstrations are legal and castling/en-passant do the right special move (1.51175ms)
+RULE_WALKS {"accepted":40,"rejected":6992,"total":7032}
+✔ rejects wrong pawn move without modifying the position (1.499292ms)
+✔ rejects wrong side without modifying the position (0.226ms)
+✔ rejects jumping bishop without modifying the position (0.141083ms)
+✔ rejects own piece capture without modifying the position (0.141625ms)
+✔ rejects knight geometry without modifying the position (0.48775ms)
+✔ rejects ignore check without modifying the position (0.1435ms)
+✔ rejects unpin own king without modifying the position (0.143708ms)
+✔ rejects king adjacency without modifying the position (0.057667ms)
+✔ rejects castle through attack without modifying the position (0.150708ms)
+✔ rejects castle while checked without modifying the position (0.13925ms)
+✔ rejects castle without rights without modifying the position (0.1935ms)
+✔ rejects expired en passant without modifying the position (0.117625ms)
+✔ rejects en passant exposes king without modifying the position (0.509334ms)
+✔ rejects promote to king without modifying the position (0.143625ms)
+✔ rejects trailing junk without modifying the position (0.103209ms)
+✔ castling, en passant and underpromotion remain legal in appropriate positions (0.720542ms)
+✔ invalid king-check positions are rejected before teaching or play (0.130708ms)
+✔ all 5512 puzzle starting positions are valid for the side to move (90.97275ms)
+✔ generated legal walks roundtrip; rejected attempts leave FEN and history unchanged (9990.375208ms)
+✔ restoring a saved game validates its entire history (0.698042ms)
+✔ unreadable progress cannot be overwritten by a fresh profile (1.292792ms)
+✔ saving twice preserves the previous valid profile as backup (1.465166ms)
+✔ a valid JSON with an unknown version is preserved (0.433292ms)
+ℹ tests 52
+ℹ suites 0
+ℹ pass 52
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10208.347125

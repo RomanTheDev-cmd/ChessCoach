@@ -1,0 +1,37 @@
+
+> chess-coach@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ wrong solution lowers theme mastery and clean solution improves it (0.903666ms)
+✔ hinted success earns less than independent solution (0.122833ms)
+✔ repeating one solved task cannot farm skill points (0.06625ms)
+✔ own unresolved mistake is prioritized and solved task rotates out (0.155041ms)
+✔ task evidence influences opponent strength without abrupt jump (0.083417ms)
+✔ recent positions never repeat when unseen ones exist (7.33175ms)
+✔ a due failed task precedes a recently solved task (0.131875ms)
+✔ review changes level, creates personal puzzle, and cannot be applied twice (0.450541ms)
+✔ independent solutions raise topic difficulty, assisted failures lower it (0.087041ms)
+✔ selection stays near current topic skill despite tempting hard tasks (0.103125ms)
+✔ restarting calibration preserves history but removes old level evidence (1.265792ms)
+✔ an active game cannot be discarded by calibration reset (0.260334ms)
+✔ the first puzzle in a topic starts from the assessed game level (0.045583ms)
+FULL_GAME white plies 7 reviewed 4 mistakes 0 rating 1117
+FULL_GAME black plies 4 reviewed 2 mistakes 0 rating 1296
+FULL_GAME opera plies 33 reviewed 16 mistakes 5 rating 1228
+✔ three complete games are reviewed by actual Stockfish and update the isolated profile (7259.86175ms)
+✔ the same explanation stays silent until the repeat interval passes (0.343042ms)
+✔ different content may speak while already played content stays quiet (0.0585ms)
+✔ reopening the app preserves the cooldown (0.060667ms)
+✔ all 5512 puzzle solution lines are legal and have 1–3 player moves (1332.642208ms)
+✔ a three-move puzzle requires all three player decisions and plays two replies (1.4065ms)
+✔ wrong legal move returns to the same puzzle position (1.983542ms)
+✔ all opening lines are legal (3.3705ms)
+✔ all school demonstrations are legal and castling/en-passant do the right special move (1.4ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7370.260792

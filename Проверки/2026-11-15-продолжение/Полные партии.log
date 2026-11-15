@@ -1,0 +1,12 @@
+FULL_GAME white plies 7 reviewed 4 mistakes 0 rating 1117
+FULL_GAME black plies 4 reviewed 2 mistakes 0 rating 1296
+FULL_GAME opera plies 33 reviewed 16 mistakes 5 rating 1235
+✔ three complete games are reviewed by actual Stockfish and update the isolated profile (7269.651875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7369.515458

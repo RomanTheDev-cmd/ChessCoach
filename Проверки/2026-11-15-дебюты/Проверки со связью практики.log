@@ -1,0 +1,72 @@
+
+> chess-coach@1.2.0 test
+> node --test tests/*.test.mjs
+
+✔ wrong solution lowers theme mastery and clean solution improves it (1.658459ms)
+✔ hinted success earns less than independent solution (0.167208ms)
+✔ repeating one solved task cannot farm skill points (0.123958ms)
+✔ own unresolved mistake is prioritized and solved task rotates out (0.320959ms)
+✔ task evidence influences opponent strength without abrupt jump (0.170208ms)
+✔ recent positions never repeat when unseen ones exist (10.168541ms)
+✔ a due failed task precedes a recently solved task (0.428ms)
+✔ review changes level, creates personal puzzle, and cannot be applied twice (0.47025ms)
+✔ independent solutions raise topic difficulty, assisted failures lower it (0.216708ms)
+✔ selection stays near current topic skill despite tempting hard tasks (0.22325ms)
+✔ restarting calibration preserves history but removes old level evidence (2.082542ms)
+✔ an active game cannot be discarded by calibration reset (0.150333ms)
+✔ the first puzzle in a topic starts from the assessed game level (0.035875ms)
+✔ only the first unfinished lesson and completed lessons are available (1.7155ms)
+✔ a locked lesson or unverified completion cannot unlock later lessons (0.137291ms)
+✔ history records each practice and survives serialization without increasing completion twice (0.157834ms)
+✔ every course has three legal branches and theory checks with one answer (26.538875ms)
+✔ a complete line session requires every student move, and only legal moves change it (38.600791ms)
+✔ all forty lessons can be completed in order, including six-turn free practice (142.958166ms)
+✔ a forged or incomplete move history cannot complete a line (0.866209ms)
+✔ explanation names the attacked queen and preserves a legal reply line (3.583375ms)
+✔ a missing score cannot silently generate a false mistake (0.157375ms)
+✔ choosing a longer forced mate is not labelled a blunder (0.526583ms)
+✔ a real recorded practice error becomes a legal personal task selected for training (8.646417ms)
+FULL_GAME white plies 7 reviewed 4 mistakes 0 rating 1112
+FULL_GAME black plies 4 reviewed 2 mistakes 0 rating 1292
+FULL_GAME opera plies 33 reviewed 16 mistakes 6 rating 1230
+✔ three complete games are reviewed by actual Stockfish and update the isolated profile (7263.754041ms)
+✔ the same explanation stays silent until the repeat interval passes (0.694667ms)
+✔ different content may speak while already played content stays quiet (0.123958ms)
+✔ reopening the app preserves the cooldown (0.109167ms)
+✔ all 5512 puzzle solution lines are legal and have 1–3 player moves (1780.465542ms)
+✔ a three-move puzzle requires all three player decisions and plays two replies (1.645625ms)
+✔ wrong legal move returns to the same puzzle position (1.670416ms)
+✔ all opening lines are legal (3.345542ms)
+✔ all school demonstrations are legal and castling/en-passant do the right special move (1.38375ms)
+RULE_WALKS {"accepted":40,"rejected":6992,"total":7032}
+✔ rejects wrong pawn move without modifying the position (2.557667ms)
+✔ rejects wrong side without modifying the position (0.268459ms)
+✔ rejects jumping bishop without modifying the position (0.150959ms)
+✔ rejects own piece capture without modifying the position (0.1385ms)
+✔ rejects knight geometry without modifying the position (0.738208ms)
+✔ rejects ignore check without modifying the position (0.176209ms)
+✔ rejects unpin own king without modifying the position (0.173416ms)
+✔ rejects king adjacency without modifying the position (0.064875ms)
+✔ rejects castle through attack without modifying the position (0.138541ms)
+✔ rejects castle while checked without modifying the position (0.14025ms)
+✔ rejects castle without rights without modifying the position (0.139583ms)
+✔ rejects expired en passant without modifying the position (0.093625ms)
+✔ rejects en passant exposes king without modifying the position (0.631166ms)
+✔ rejects promote to king without modifying the position (0.114542ms)
+✔ rejects trailing junk without modifying the position (0.116083ms)
+✔ castling, en passant and underpromotion remain legal in appropriate positions (1.685333ms)
+✔ invalid king-check positions are rejected before teaching or play (0.301459ms)
+✔ all 5512 puzzle starting positions are valid for the side to move (98.095583ms)
+✔ generated legal walks roundtrip; rejected attempts leave FEN and history unchanged (8121.149917ms)
+✔ restoring a saved game validates its entire history (0.576125ms)
+✔ unreadable progress cannot be overwritten by a fresh profile (1.830125ms)
+✔ saving twice preserves the previous valid profile as backup (0.884041ms)
+✔ a valid JSON with an unknown version is preserved (0.388291ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8351.542375
