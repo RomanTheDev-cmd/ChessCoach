@@ -1,0 +1,17 @@
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "codec_name": "mp3",
+            "sample_rate": "48000"
+        }
+    ],
+    "format": {
+        "duration": "6.383958"
+    }
+}

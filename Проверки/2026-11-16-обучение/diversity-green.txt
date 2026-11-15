@@ -1,0 +1,26 @@
+✔ wrong solution lowers theme mastery and clean solution improves it (0.693083ms)
+✔ hinted success earns less than independent solution (0.100375ms)
+✔ repeating one solved task cannot farm skill points (0.07875ms)
+✔ own unresolved mistake is prioritized and solved task rotates out (0.410833ms)
+✔ task evidence influences opponent strength without abrupt jump (0.101542ms)
+✔ recent positions never repeat when unseen ones exist (8.0935ms)
+✔ a due failed task precedes a recently solved task (0.158041ms)
+✔ review changes level, creates personal puzzle, and cannot be applied twice (0.241708ms)
+✔ independent solutions raise topic difficulty, assisted failures lower it (0.087375ms)
+✔ selection stays near current topic skill despite tempting hard tasks (0.098666ms)
+✔ restarting calibration preserves history but removes old level evidence (3.748ms)
+✔ an active game cannot be discarded by calibration reset (0.177708ms)
+✔ the first puzzle in a topic starts from the assessed game level (0.034291ms)
+✔ nearby positions from personal games do not crowd out a fresh matching puzzle (0.877208ms)
+✔ personal puzzles are spaced even when boards differ (0.088125ms)
+✔ two repeats of a tactical motif select another appropriate motif (0.0895ms)
+✔ diversity never jumps to a very hard puzzle when fitting positions exist (0.065125ms)
+✔ stored presentation details survive missing catalog entries and remain bounded (2.2795ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 100.532959

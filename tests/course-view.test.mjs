@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {courseView} from '../src/course-view.mjs';import {courses} from '../src/opening-courses.mjs';import {fresh} from '../src/core.mjs';
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function render(count){const course=courses[0],state=fresh();state.openingCourses={[course.id]:{completed:[],history:Array.from({length:count},(_,i)=>({id:String(i),title:'Занятие '+i,date:Date.now(),passed:true,score:83,hints:0,errors:[{kind:'evaluation',attempted:'Nc3',reason:'OLD по расчёту движка',loss:170,best:'d4'}]}))}};return courseView({state,course,study:null,head:()=>'',btn:()=>'',board:()=>'',moveList:()=>'',icon:()=>'',esc,explainReview:()=> 'Конь создаёт угрозу.'});}
+test('opening history stays collapsed and older sessions remain accessible in a separate group',()=>{const html=render(23);assert.match(html,/<details class="course-history"><summary>/);assert.match(html,/Последние 20/);assert.match(html,/Более ранние занятия · 3/);assert.equal((html.match(/class="history-entry"/g)||[]).length,23);});
+test('saved opening errors use the current explanation rather than stale technical prose',()=>{const html=render(1);assert.doesNotMatch(html,/OLD|движка/);assert.match(html,/Конь создаёт угрозу/);});

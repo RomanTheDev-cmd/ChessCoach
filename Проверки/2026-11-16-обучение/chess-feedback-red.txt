@@ -1,0 +1,142 @@
+✖ solution describes actual queen capture, ignoring stale comment about nonexistent pawn (0.5195ms)
+✖ progressive hints differ and never reveal the destination of the answer (0.173167ms)
+✖ illegal pawn backwards and blocked bishop have specific explanations (0.646375ms)
+✖ pinned rook cannot expose its king (0.12525ms)
+✖ readable moves use coordinates rather than phonetic spelling (0.1345ms)
+✖ wrong move explains legal enemy recapture instead of praising permissibility (3.153625ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.082958
+
+✖ failing tests:
+
+test at tests/coach-feedback.test.mjs:4:1
+✖ solution describes actual queen capture, ignoring stale comment about nonexistent pawn (0.5195ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /ферз/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:4:140)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /ферз/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/coach-feedback.test.mjs:5:1
+✖ progressive hints differ and never reveal the destination of the answer (0.173167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 3
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:5:143)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/coach-feedback.test.mjs:6:1
+✖ illegal pawn backwards and blocked bishop have specific explanations (0.646375ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /назад|своей/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:6:109)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /назад|своей/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/coach-feedback.test.mjs:7:1
+✖ pinned rook cannot expose its king (0.12525ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /корол.*шах/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:7:110)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /корол.*шах/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/coach-feedback.test.mjs:8:1
+✖ readable moves use coordinates rather than phonetic spelling (0.1345ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'Ладья D2 берёт ферзя на D4'
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:8:80)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'Ладья D2 берёт ферзя на D4',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/coach-feedback.test.mjs:9:1
+✖ wrong move explains legal enemy recapture instead of praising permissibility (3.153625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.length>30)
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/coach-feedback.test.mjs:9:231)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

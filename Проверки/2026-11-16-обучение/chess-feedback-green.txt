@@ -1,0 +1,14 @@
+✔ solution describes actual queen capture, ignoring stale comment about nonexistent pawn (1.635458ms)
+✔ progressive hints differ and never reveal the destination of the answer (0.74975ms)
+✔ illegal pawn backwards and blocked bishop have specific explanations (0.19775ms)
+✔ pinned rook cannot expose its king (0.161ms)
+✔ readable moves use coordinates rather than phonetic spelling (0.143167ms)
+✔ wrong move explains legal enemy recapture instead of praising permissibility (1.143792ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 84.292416

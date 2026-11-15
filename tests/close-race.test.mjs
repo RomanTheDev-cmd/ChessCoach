@@ -19,7 +19,7 @@ test('closing waits beyond 2.5 seconds for save; failure allows a successful ret
  const mc=vm.createContext({ipcMain:{on:(name,fn)=>handlers[name]=fn},allowClose:false,closeTimer:null,clearTimeout:()=>{timer=null;},setTimeout:fn=>{timer=fn;return 1;},win:{webContents:{send:()=>{}},close:()=>closed++}});
  const handler=main.match(/win\.on\('close',e=>\{(.+?)\}\);win\.webContents/)[1];
  vm.runInContext('function closeWindow(e){'+handler+'};'+main.split('\n').find(l=>l.startsWith("ipcMain.on('close-cancel'")),mc);
- const ctx=vm.createContext({state:{},ready:true,closeFlushed:false,leaveStudy:async()=>{},toast:()=>{},console,window:{coach:{save:()=>fail?new Promise((_,r)=>rejectSave=r):Promise.resolve(true),log:()=>{},confirmClose:()=>closed++,cancelClose:()=>handlers['close-cancel']()}}});
+ const ctx=vm.createContext({state:{},taskOperation:Promise.resolve(),ready:true,closeFlushed:false,leaveStudy:async()=>{},toast:()=>{},console,window:{coach:{save:()=>fail?new Promise((_,r)=>rejectSave=r):Promise.resolve(true),log:()=>{},confirmClose:()=>closed++,cancelClose:()=>handlers['close-cancel']()}}});
  vm.runInContext(line('async function save()')+';async function closeNow(){'+closeBody+'}',ctx);
  vm.runInContext('closeWindow({preventDefault(){}})',mc);
  const pending=vm.runInContext('closeNow()',ctx);while(!rejectSave)await tick();
@@ -36,10 +36,10 @@ async function finalMove(interrupt){
  const u=fixture.moves.at(-1),best=s.game.moves({verbose:true}).map(m=>m.from+m.to+(m.promotion||'')).find(m=>m!==u);
  const state=fresh();state.openingCourses={[course.id]:{completed:course.units.slice(0,7).map(u=>u.id),history:[]}};
  let release,calls=0,closed=0;
- const ctx=vm.createContext({...ui,study:s,course,state,ready:true,closeFlushed:false,selected:u.slice(0,2),pendingPromotion:null,last:null,engine:{search:async()=>++calls===2?await new Promise(r=>release=r):{move:best,score:0,pv:[best]}},assessDecision,recordCourseSession,stopNarration:()=>{},save:async()=>true,queueMove:()=>{},render:()=>{},say:()=>{},narrateCurrent:()=>{},toast:()=>{},console,window:{coach:{confirmClose:()=>closed++,cancelClose:()=>{}}}});
+ const ctx=vm.createContext({...ui,moving:false,pendingMove:null,waitForMove:async()=>{},pause:async()=>{},REPLY_PAUSE:0,study:s,course,state,taskOperation:Promise.resolve(),ready:true,closeFlushed:false,selected:u.slice(0,2),pendingPromotion:null,last:null,engine:{search:async()=>++calls===2?await new Promise(r=>release=r):{move:best,score:0,pv:[best]}},assessDecision,recordCourseSession,stopNarration:()=>{},save:async()=>true,queueMove:()=>{},render:()=>{},say:()=>{},narrateCurrent:()=>{},toast:()=>{},console,window:{coach:{confirmClose:()=>closed++,cancelClose:()=>{}}}});
  const start=source.search(/^(?:async )?function courseSquare\(/m);
  vm.runInContext(line('async function leaveStudy()')+'\n'+line('async function finishStudy(')+'\n'+source.slice(start,source.indexOf('let closeFlushed='))+'\nasync function closeNow(){'+closeBody+'}',ctx);
- const pending=vm.runInContext(`courseSquare('${u.slice(2,4)}')`,ctx);while(!release)await tick();
+ const pending=vm.runInContext(`courseSquare('${u.slice(2,4)}')`,ctx);for(let i=0;!release&&i<100;i++)await tick();assert.equal(typeof release,'function','the last-move analysis must start');
  const closing=interrupt?vm.runInContext('closeNow()',ctx):Promise.resolve();await tick();
  const earlyHistory=state.openingCourses[course.id].history.length,earlyClosed=closed;
  release({score:500,pv:[]});await Promise.all([pending,closing]);
@@ -55,4 +55,11 @@ test('closing on the last move preserves the same assessment, score and personal
   assert.equal(r.state.mistakes.length,1);assert.equal(r.state.mistakes[0].line.length,1);
  }
  assert.equal(closing.history[0].errors[0].bestUci,normal.history[0].errors[0].bestUci);
+});
+test('closing also waits for the current puzzle grading before saving progress',async()=>{
+ let release,closed=false,savedComplete=false;const state={complete:false};
+ const taskOperation=new Promise(r=>release=r).then(()=>{state.complete=true;});
+ const ctx=vm.createContext({state,taskOperation,ready:true,closeFlushed:false,leaveStudy:async()=>{},save:async()=>{savedComplete=state.complete;return true;},console,toast(){},window:{coach:{confirmClose:()=>closed=true,cancelClose(){}}}});
+ vm.runInContext('async function closeNow(){'+closeBody+'}',ctx);const pending=vm.runInContext('closeNow()',ctx);await tick();const early=closed;release();await pending;
+ assert.equal(early,false);assert.equal(closed,true);assert.equal(savedComplete,true);
 });

@@ -1,0 +1,8 @@
+
+> chess-coach@1.5.0 package
+> node scripts/package.mjs
+
+Packaging app for platform darwin arm64 using electron v45.3.2
+WARNING: Could not find icon "/Users/roman/Library/Mobile Documents/com~apple~CloudDocs/Главная рабочая папка ИИ/Проекты/Шахматный тренер/assets/AppIcon.icns" with extension ".icon", skipping this app icon format
+CFBundleDisplayName → Шахматный тренер
+/Users/roman/Library/Mobile Documents/com~apple~CloudDocs/Главная рабочая папка ИИ/Проекты/Шахматный тренер/release/Шахматный тренер-darwin-arm64

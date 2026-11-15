@@ -1,0 +1,10 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {fresh,chooseTask,presentTask} from '../src/core.mjs';
+const a={id:'game-1',fen:'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',theme:'tactics',rating:900,line:['g1f3']};
+const b={...a,id:'game-2',fen:'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2',line:['b8c6']};
+const different={id:'fresh',fen:'6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1',theme:'mate',rating:900,line:['a1a8']};
+test('nearby positions from personal games do not crowd out a fresh matching puzzle',()=>{const s=fresh();s.mistakes=[a,b];presentTask(s,a);assert.equal(chooseTask(s,[different]).id,'fresh');});
+test('personal puzzles are spaced even when boards differ',()=>{const s=fresh();s.mistakes=[a,{...different,id:'own-other'}];presentTask(s,a);assert.equal(chooseTask(s,[{...different,id:'pool',theme:'endgame'}]).id,'pool');});
+test('two repeats of a tactical motif select another appropriate motif',()=>{const s=fresh();const one={...different,id:'one',theme:'tactics',tags:['fork']},two={...different,id:'two',theme:'tactics',tags:['fork']};presentTask(s,one);presentTask(s,two);const fork={...different,id:'aaa',theme:'tactics',tags:['fork']},pin={...different,id:'zzz',theme:'tactics',tags:['pin']};assert.equal(chooseTask(s,[fork,pin]).id,'zzz');});
+test('diversity never jumps to a very hard puzzle when fitting positions exist',()=>{const s=fresh();s.mistakes=[a,b];presentTask(s,a);assert.equal(chooseTask(s,[{...different,rating:1900}]).id,b.id);});
+test('stored presentation details survive missing catalog entries and remain bounded',()=>{const s=fresh();presentTask(s,a);assert.equal(typeof s.presentationDetails?.[0]?.fen,'string');for(let i=0;i<1005;i++)presentTask(s,{...different,id:'x'+i});assert.ok(s.presentationDetails.length<=1000);assert.equal(s.presentations.length,1000);});

@@ -1,0 +1,229 @@
+{
+  "personalPositions": 21,
+  "invalidPersonal": [],
+  "sample": [
+    {
+      "id": "lichess-015Ft",
+      "theme": "endgame",
+      "rating": 824,
+      "source": "Lichess · 015Ft",
+      "moves": 3
+    },
+    {
+      "id": "lichess-01PoF",
+      "theme": "endgame",
+      "rating": 821,
+      "source": "Lichess · 01PoF",
+      "moves": 2
+    },
+    {
+      "id": "c11d5710-7412-4365-9f3e-a71864f69366-16",
+      "theme": "tactics",
+      "rating": 900,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-01HXY",
+      "theme": "endgame",
+      "rating": 824,
+      "source": "Lichess · 01HXY",
+      "moves": 2
+    },
+    {
+      "id": "lichess-01DXj",
+      "theme": "endgame",
+      "rating": 815,
+      "source": "Lichess · 01DXj",
+      "moves": 2
+    },
+    {
+      "id": "cb0745db-592d-42c5-b59e-0e4a3f921e97-32",
+      "theme": "tactics",
+      "rating": 816,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-00nl3",
+      "theme": "endgame",
+      "rating": 820,
+      "source": "Lichess · 00nl3",
+      "moves": 2
+    },
+    {
+      "id": "lichess-00rcR",
+      "theme": "endgame",
+      "rating": 809,
+      "source": "Lichess · 00rcR",
+      "moves": 2
+    },
+    {
+      "id": "cb0745db-592d-42c5-b59e-0e4a3f921e97-4",
+      "theme": "opening",
+      "rating": 816,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-035y8",
+      "theme": "endgame",
+      "rating": 820,
+      "source": "Lichess · 035y8",
+      "moves": 2
+    },
+    {
+      "id": "lichess-00TOX",
+      "theme": "endgame",
+      "rating": 802,
+      "source": "Lichess · 00TOX",
+      "moves": 2
+    },
+    {
+      "id": "c9ef7fda-b3ca-4f4b-8def-28b72ab6bd27-31",
+      "theme": "mate",
+      "rating": 889,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-006yP",
+      "theme": "endgame",
+      "rating": 819,
+      "source": "Lichess · 006yP",
+      "moves": 2
+    },
+    {
+      "id": "lichess-05EcU",
+      "theme": "endgame",
+      "rating": 797,
+      "source": "Lichess · 05EcU",
+      "moves": 2
+    },
+    {
+      "id": "c11d5710-7412-4365-9f3e-a71864f69366-18",
+      "theme": "mate",
+      "rating": 900,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-00EBZ",
+      "theme": "endgame",
+      "rating": 818,
+      "source": "Lichess · 00EBZ",
+      "moves": 2
+    },
+    {
+      "id": "lichess-00baZ",
+      "theme": "endgame",
+      "rating": 799,
+      "source": "Lichess · 00baZ",
+      "moves": 2
+    },
+    {
+      "id": "cb0745db-592d-42c5-b59e-0e4a3f921e97-6",
+      "theme": "opening",
+      "rating": 816,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-013NZ",
+      "theme": "endgame",
+      "rating": 818,
+      "source": "Lichess · 013NZ",
+      "moves": 2
+    },
+    {
+      "id": "lichess-01tUB",
+      "theme": "endgame",
+      "rating": 800,
+      "source": "Lichess · 01tUB",
+      "moves": 2
+    },
+    {
+      "id": "c9ef7fda-b3ca-4f4b-8def-28b72ab6bd27-5",
+      "theme": "opening",
+      "rating": 889,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-01V6d",
+      "theme": "endgame",
+      "rating": 818,
+      "source": "Lichess · 01V6d",
+      "moves": 2
+    },
+    {
+      "id": "lichess-018KD",
+      "theme": "endgame",
+      "rating": 795,
+      "source": "Lichess · 018KD",
+      "moves": 2
+    },
+    {
+      "id": "lichess-01lNV",
+      "theme": "tactics",
+      "rating": 904,
+      "source": "Lichess · 01lNV",
+      "moves": 3
+    },
+    {
+      "id": "lichess-01PhQ",
+      "theme": "endgame",
+      "rating": 828,
+      "source": "Lichess · 01PhQ",
+      "moves": 2
+    },
+    {
+      "id": "lichess-02yqs",
+      "theme": "endgame",
+      "rating": 805,
+      "source": "Lichess · 02yqs",
+      "moves": 2
+    },
+    {
+      "id": "c11d5710-7412-4365-9f3e-a71864f69366-6",
+      "theme": "opening",
+      "rating": 900,
+      "source": "Ваша партия",
+      "moves": 1
+    },
+    {
+      "id": "lichess-00QOa",
+      "theme": "endgame",
+      "rating": 829,
+      "source": "Lichess · 00QOa",
+      "moves": 2
+    },
+    {
+      "id": "lichess-03H2V",
+      "theme": "endgame",
+      "rating": 806,
+      "source": "Lichess · 03H2V",
+      "moves": 2
+    },
+    {
+      "id": "c9ef7fda-b3ca-4f4b-8def-28b72ab6bd27-7",
+      "theme": "opening",
+      "rating": 889,
+      "source": "Ваша партия",
+      "moves": 1
+    }
+  ],
+  "unique": 30,
+  "personalIn30": 9,
+  "themes": [
+    "endgame",
+    "tactics",
+    "opening",
+    "mate"
+  ],
+  "lengths": [
+    3,
+    2,
+    1
+  ]
+}

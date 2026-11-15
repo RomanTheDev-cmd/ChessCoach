@@ -1,0 +1,30 @@
+✖ review names actual capture squares in notation and never describes program internals (2.6765ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 84.413833
+
+✖ failing tests:
+
+test at tests/decision-copy.test.mjs:2:1
+✖ review names actual capture squares in notation and never describes program internals (2.6765ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /G5/. Input:
+  
+  'После вашего хода соперник может взять ферзя: пешка на жэ пять. По расчёту движка это продолжение ухудшает вашу позицию.'
+  
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/decision-copy.test.mjs:2:238)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'После вашего хода соперник может взять ферзя: пешка на жэ пять. По расчёту движка это продолжение ухудшает вашу позицию.',
+    expected: /G5/,
+    operator: 'match',
+    diff: 'simple'
+  }

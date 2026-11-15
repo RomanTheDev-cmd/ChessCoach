@@ -1969,18 +1969,18 @@ var ROOKS = {
 };
 var SECOND_RANK = { b: RANK_7, w: RANK_2 };
 var SAN_NULLMOVE = "--";
-function rank(square) {
-  return square >> 4;
+function rank(square2) {
+  return square2 >> 4;
 }
-function file(square) {
-  return square & 15;
+function file(square2) {
+  return square2 & 15;
 }
 function isDigit(c) {
   return "0123456789".indexOf(c) !== -1;
 }
-function algebraic(square) {
-  const f = file(square);
-  const r = rank(square);
+function algebraic(square2) {
+  const f = file(square2);
+  const r = rank(square2);
   return "abcdefgh".substring(f, f + 1) + "87654321".substring(r, r + 1);
 }
 function swapColor(color) {
@@ -2200,19 +2200,19 @@ var Chess = class {
         throw new Error(error);
       }
     }
-    const position = tokens[0];
-    let square = 0;
+    const position2 = tokens[0];
+    let square2 = 0;
     this.clear({ preserveHeaders });
-    for (let i = 0; i < position.length; i++) {
-      const piece = position.charAt(i);
+    for (let i = 0; i < position2.length; i++) {
+      const piece = position2.charAt(i);
       if (piece === "/") {
-        square += 8;
+        square2 += 8;
       } else if (isDigit(piece)) {
-        square += parseInt(piece, 10);
+        square2 += parseInt(piece, 10);
       } else {
         const color = piece < "a" ? WHITE : BLACK;
-        this._put({ type: piece.toLowerCase(), color }, algebraic(square));
-        square++;
+        this._put({ type: piece.toLowerCase(), color }, algebraic(square2));
+        square2++;
       }
     }
     this._turn = tokens[1];
@@ -2281,15 +2281,15 @@ var Chess = class {
       } else {
         const bigPawnSquare = this._epSquare + (this._turn === WHITE ? 16 : -16);
         const squares = [bigPawnSquare + 1, bigPawnSquare - 1];
-        for (const square of squares) {
-          if (square & 136) {
+        for (const square2 of squares) {
+          if (square2 & 136) {
             continue;
           }
           const color = this._turn;
-          if (this._board[square]?.color === color && this._board[square]?.type === PAWN) {
+          if (this._board[square2]?.color === color && this._board[square2]?.type === PAWN) {
             this._makeMove({
               color,
-              from: square,
+              from: square2,
               to: this._epSquare,
               piece: PAWN,
               captured: PAWN,
@@ -2378,8 +2378,8 @@ var Chess = class {
   reset() {
     this.load(DEFAULT_POSITION);
   }
-  get(square) {
-    return this._board[Ox88[square]];
+  get(square2) {
+    return this._board[Ox88[square2]];
   }
   findPiece(piece) {
     const squares = [];
@@ -2397,8 +2397,8 @@ var Chess = class {
     }
     return squares;
   }
-  put({ type, color }, square) {
-    if (this._put({ type, color }, square)) {
+  put({ type, color }, square2) {
+    if (this._put({ type, color }, square2)) {
       this._updateCastlingRights();
       this._updateEnPassantSquare();
       this._updateSetup(this.fen());
@@ -2411,14 +2411,14 @@ var Chess = class {
     this._board[sq] = piece;
     this._hash ^= this._pieceKey(sq);
   }
-  _put({ type, color }, square) {
+  _put({ type, color }, square2) {
     if (SYMBOLS.indexOf(type.toLowerCase()) === -1) {
       return false;
     }
-    if (!(square in Ox88)) {
+    if (!(square2 in Ox88)) {
       return false;
     }
-    const sq = Ox88[square];
+    const sq = Ox88[square2];
     if (type == KING && !(this._kings[color] == EMPTY || this._kings[color] == sq)) {
       return false;
     }
@@ -2436,9 +2436,9 @@ var Chess = class {
     this._hash ^= this._pieceKey(sq);
     delete this._board[sq];
   }
-  remove(square) {
-    const piece = this.get(square);
-    this._clear(Ox88[square]);
+  remove(square2) {
+    const piece = this.get(square2);
+    this._clear(Ox88[square2]);
     if (piece && piece.type === KING) {
       this._kings[piece.color] = EMPTY;
     }
@@ -2477,13 +2477,13 @@ var Chess = class {
       this._epSquare = EMPTY;
       return;
     }
-    const canCapture = (square) => !(square & 136) && this._board[square]?.color === this._turn && this._board[square]?.type === PAWN;
+    const canCapture = (square2) => !(square2 & 136) && this._board[square2]?.color === this._turn && this._board[square2]?.type === PAWN;
     if (!attackers.some(canCapture)) {
       this._hash ^= this._epKey();
       this._epSquare = EMPTY;
     }
   }
-  _attacked(color, square, verbose) {
+  _attacked(color, square2, verbose) {
     const attackers = [];
     for (let i = Ox88.a8; i <= Ox88.h1; i++) {
       if (i & 136) {
@@ -2494,7 +2494,7 @@ var Chess = class {
         continue;
       }
       const piece = this._board[i];
-      const difference = i - square;
+      const difference = i - square2;
       if (difference === 0) {
         continue;
       }
@@ -2521,7 +2521,7 @@ var Chess = class {
         const offset = RAYS[index];
         let j = i + offset;
         let blocked = false;
-        while (j !== square) {
+        while (j !== square2) {
           if (this._board[j] != null) {
             blocked = true;
             break;
@@ -2544,22 +2544,22 @@ var Chess = class {
       return false;
     }
   }
-  attackers(square, attackedBy) {
+  attackers(square2, attackedBy) {
     if (!attackedBy) {
-      return this._attacked(this._turn, Ox88[square], true);
+      return this._attacked(this._turn, Ox88[square2], true);
     } else {
-      return this._attacked(attackedBy, Ox88[square], true);
+      return this._attacked(attackedBy, Ox88[square2], true);
     }
   }
   _isKingAttacked(color) {
-    const square = this._kings[color];
-    return square === -1 ? false : this._attacked(swapColor(color), square);
+    const square2 = this._kings[color];
+    return square2 === -1 ? false : this._attacked(swapColor(color), square2);
   }
   hash() {
     return this._hash.toString(16);
   }
-  isAttacked(square, attackedBy) {
-    return this._attacked(attackedBy, Ox88[square]);
+  isAttacked(square2, attackedBy) {
+    return this._attacked(attackedBy, Ox88[square2]);
   }
   isCheck() {
     return this._isKingAttacked(this._turn);
@@ -2631,16 +2631,16 @@ var Chess = class {
   isGameOver() {
     return this.isCheckmate() || this.isDraw();
   }
-  moves({ verbose = false, square = void 0, piece = void 0 } = {}) {
-    const moves = this._moves({ square, piece });
+  moves({ verbose = false, square: square2 = void 0, piece = void 0 } = {}) {
+    const moves = this._moves({ square: square2, piece });
     if (verbose) {
       return moves.map((move) => new Move(this, move));
     } else {
       return moves.map((move) => this._moveToSan(move, moves));
     }
   }
-  _moves({ legal = true, piece = void 0, square = void 0 } = {}) {
-    const forSquare = square ? square.toLowerCase() : void 0;
+  _moves({ legal = true, piece = void 0, square: square2 = void 0 } = {}) {
+    const forSquare = square2 ? square2.toLowerCase() : void 0;
     const forPiece = piece?.toLowerCase();
     const moves = [];
     const us = this._turn;
@@ -3246,8 +3246,8 @@ var Chess = class {
       } else if ((!piece || piece.toLowerCase() == moves[i].piece) && Ox88[from] == moves[i].from && Ox88[to] == moves[i].to && (!promotion || promotion.toLowerCase() == moves[i].promotion)) {
         return moves[i];
       } else if (overlyDisambiguated) {
-        const square = algebraic(moves[i].from);
-        if ((!piece || piece.toLowerCase() == moves[i].piece) && Ox88[to] == moves[i].to && (from == square[0] || from == square[1]) && (!promotion || promotion.toLowerCase() == moves[i].promotion)) {
+        const square2 = algebraic(moves[i].from);
+        if ((!piece || piece.toLowerCase() == moves[i].piece) && Ox88[to] == moves[i].to && (from == square2[0] || from == square2[1]) && (!promotion || promotion.toLowerCase() == moves[i].promotion)) {
           return moves[i];
         }
       }
@@ -3325,9 +3325,9 @@ var Chess = class {
     }
     return output;
   }
-  squareColor(square) {
-    if (square in Ox88) {
-      const sq = Ox88[square];
+  squareColor(square2) {
+    if (square2 in Ox88) {
+      const sq = Ox88[square2];
       return (rank(sq) + file(sq)) % 2 === 0 ? "light" : "dark";
     }
     return null;
@@ -3463,7 +3463,9 @@ var Engine = class {
       const timer = setTimeout(() => reject(Error("\u0414\u0432\u0438\u0436\u043E\u043A \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u0441\u044F \u0437\u0430 30 \u0441\u0435\u043A\u0443\u043D\u0434. \u041F\u0435\u0440\u0435\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435.")), 3e4);
       this.worker.onerror = () => {
         clearTimeout(timer);
-        reject(Error("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0448\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0434\u0432\u0438\u0436\u043E\u043A."));
+        this.failure = Error("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0448\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0434\u0432\u0438\u0436\u043E\u043A. \u041F\u0435\u0440\u0435\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435.");
+        this.fail?.(this.failure);
+        reject(this.failure);
       };
       this.worker.onmessage = (e) => {
         const line = String(e.data);
@@ -3480,24 +3482,40 @@ var Engine = class {
   search(fen, { time = 180, skill = 20, multi = 1 } = {}) {
     const job = async () => {
       await this.ready;
+      if (this.failure) throw this.failure;
       return new Promise((resolve, reject) => {
-        let rows = {};
-        const timer = setTimeout(() => {
-          this.worker.postMessage("stop");
+        const rows = {};
+        let draining = false, awaitingReady = false, drainTimer;
+        const finish = (error, result) => {
+          clearTimeout(timer);
+          clearTimeout(drainTimer);
           this.receive = null;
-          reject(Error("\u0414\u0432\u0438\u0436\u043E\u043A \u043D\u0435 \u043E\u0442\u0432\u0435\u0442\u0438\u043B. \u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435."));
+          this.fail = null;
+          error ? reject(error) : resolve(result);
+        };
+        this.fail = (error) => finish(error);
+        const timer = setTimeout(() => {
+          draining = true;
+          drainTimer = setTimeout(() => {
+            this.failure = Error("\u0414\u0432\u0438\u0436\u043E\u043A \u043F\u0435\u0440\u0435\u0441\u0442\u0430\u043B \u043E\u0442\u0432\u0435\u0447\u0430\u0442\u044C. \u041F\u0435\u0440\u0435\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435.");
+            finish(this.failure);
+          }, 5e3);
+          this.worker.postMessage("stop");
         }, 15e3);
         this.receive = (line) => {
-          let m = line.match(/info depth (\d+).*?(?:multipv (\d+) )?score (cp|mate) (-?\d+).*? pv (.+)/);
+          if (draining) {
+            if (line.startsWith("bestmove ") && !awaitingReady) {
+              awaitingReady = true;
+              this.worker.postMessage("isready");
+            } else if (line === "readyok" && awaitingReady) finish(Error("\u0414\u0432\u0438\u0436\u043E\u043A \u043D\u0435 \u043E\u0442\u0432\u0435\u0442\u0438\u043B \u0432\u043E\u0432\u0440\u0435\u043C\u044F. \u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435."));
+            return;
+          }
+          const m = line.match(/info depth (\d+).*?(?:multipv (\d+) )?score (cp|mate) (-?\d+).*? pv (.+)/);
           if (m) {
             const idx = Number(m[2] || 1), score = m[3] === "mate" ? Math.sign(Number(m[4])) * (1e5 - Math.abs(Number(m[4])) * 100) : Number(m[4]);
             rows[idx] = { depth: Number(m[1]), score, pv: m[5].trim().split(" ") };
           }
-          if (line.startsWith("bestmove ")) {
-            clearTimeout(timer);
-            this.receive = null;
-            resolve({ ...rows[1], move: line.split(" ")[1], rows: Object.values(rows) });
-          }
+          if (line.startsWith("bestmove ")) finish(null, { ...rows[1], move: line.split(" ")[1], rows: Object.values(rows) });
         };
         this.worker.postMessage("setoption name Skill Level value " + skill);
         this.worker.postMessage("setoption name MultiPV value " + multi);
@@ -3533,15 +3551,178 @@ function describeMove(game, uci) {
     return uci;
   }
 }
-function spokenMove(c, u) {
-  const m = uciMove(new Chess(c.fen()), u), files = { a: "\u0430", b: "\u0431\u044D", c: "\u0446\u044D", d: "\u0434\u044D", e: "\u0435", f: "\u044D\u0444", g: "\u0436\u044D", h: "\u0430\u0448" }, nums = ["", "\u043E\u0434\u0438\u043D", "\u0434\u0432\u0430", "\u0442\u0440\u0438", "\u0447\u0435\u0442\u044B\u0440\u0435", "\u043F\u044F\u0442\u044C", "\u0448\u0435\u0441\u0442\u044C", "\u0441\u0435\u043C\u044C", "\u0432\u043E\u0441\u0435\u043C\u044C"];
-  return { p: "\u043F\u0435\u0448\u043A\u0430", n: "\u043A\u043E\u043D\u044C", b: "\u0441\u043B\u043E\u043D", r: "\u043B\u0430\u0434\u044C\u044F", q: "\u0444\u0435\u0440\u0437\u044C", k: "\u043A\u043E\u0440\u043E\u043B\u044C" }[m.piece] + " \u043D\u0430 " + files[m.to[0]] + " " + nums[Number(m.to[1])];
-}
 function replayMoves(moves) {
   if (!Array.isArray(moves)) throw Error("\u041D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0445\u043E\u0434\u043E\u0432.");
   const restored = new Chess();
   for (const move of moves) uciMove(restored, move);
   return restored;
+}
+
+// src/review-replay.mjs
+function reviewReplay(row, { best = true, ply = 0 } = {}) {
+  const c = loadPosition(row.fen), tokens = best ? row.variation?.length ? row.variation : [row.best] : [row.uci, ...row.replyVariation || []], moves = [];
+  for (const token of tokens) {
+    try {
+      const m = /^[a-h][1-8][a-h][1-8][qrbn]?$/.test(token) ? uciMove(c, token) : c.move(token);
+      moves.push(m.from + m.to + (m.promotion || ""));
+    } catch {
+      break;
+    }
+  }
+  const game = loadPosition(row.fen), count = Math.max(0, Math.min(ply, moves.length));
+  let last2 = null;
+  for (const u of moves.slice(0, count)) {
+    const m = uciMove(game, u);
+    last2 = [m.from, m.to];
+  }
+  return { game, last: last2, total: moves.length, ply: count };
+}
+
+// src/ui.mjs
+function moveOffset(src, dst) {
+  return { dx: src.left - dst.left, dy: src.top - dst.top };
+}
+function shouldRecordInterrupt(session) {
+  return !!session && !session.saved && (session.page > 0 || session.phase === "train" || session.phase === "quiz" || session.phase === "demo" || session.phase === "done");
+}
+function runStudyOperation(session, operation) {
+  if (!session) return Promise.resolve();
+  session.operations ??= /* @__PURE__ */ new Set();
+  const pending = operation();
+  session.operations.add(pending);
+  return pending.finally(() => session.operations.delete(pending));
+}
+async function waitForStudyOperations(session) {
+  while (session.operations?.size) await Promise.all([...session.operations]);
+}
+
+// src/motion.mjs
+var MOVE_DURATION = 650;
+var REPLY_PAUSE = 300;
+var pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+async function animateBoardMove(document2, move, { duration = MOVE_DURATION, reduced = false } = {}) {
+  const board2 = document2.querySelector(".board");
+  if (!board2 || !move) return;
+  const slides = [move, ...move.castle ? [move.castle] : []].map(({ from, to }) => {
+    const src = board2.querySelector(`.square[data-square="${from}"]`), dst = board2.querySelector(`.square[data-square="${to}"]`), img = dst?.querySelector("img");
+    if (!src || !dst || !img || reduced) return Promise.resolve();
+    const s = src.getBoundingClientRect(), d = dst.getBoundingClientRect();
+    if (!s.width || !d.width) return Promise.resolve();
+    const { dx, dy } = moveOffset(s, d);
+    img.style.zIndex = "3";
+    const animation = img.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: "translate(0,0)" }], { duration, easing: "cubic-bezier(.25,.1,.25,1)", fill: "backwards" });
+    return animation.finished.catch(() => {
+    }).finally(() => {
+      img.style.zIndex = "";
+    });
+  });
+  await Promise.all(slides);
+}
+
+// src/coach-feedback.mjs
+var name = { p: "\u041F\u0435\u0448\u043A\u0430", n: "\u041A\u043E\u043D\u044C", b: "\u0421\u043B\u043E\u043D", r: "\u041B\u0430\u0434\u044C\u044F", q: "\u0424\u0435\u0440\u0437\u044C", k: "\u041A\u043E\u0440\u043E\u043B\u044C" };
+var take = { p: "\u043F\u0435\u0448\u043A\u0443", n: "\u043A\u043E\u043D\u044F", b: "\u0441\u043B\u043E\u043D\u0430", r: "\u043B\u0430\u0434\u044C\u044E", q: "\u0444\u0435\u0440\u0437\u044F", k: "\u043A\u043E\u0440\u043E\u043B\u044F" };
+var square = (s) => s.toUpperCase();
+var yours = { p: "\u0432\u0430\u0448\u0430 \u043F\u0435\u0448\u043A\u0430", n: "\u0432\u0430\u0448 \u043A\u043E\u043D\u044C", b: "\u0432\u0430\u0448 \u0441\u043B\u043E\u043D", r: "\u0432\u0430\u0448\u0430 \u043B\u0430\u0434\u044C\u044F", q: "\u0432\u0430\u0448 \u0444\u0435\u0440\u0437\u044C", k: "\u0432\u0430\u0448 \u043A\u043E\u0440\u043E\u043B\u044C" };
+function position(task2, index = 0) {
+  const c = new Chess(task2.fen);
+  for (const u of task2.line.slice(0, index)) uciMove(c, u);
+  return c;
+}
+function readableMove(game, uci) {
+  const c = new Chess(game.fen()), m = uciMove(c, uci);
+  if (m.isKingsideCastle()) return "\u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u0440\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430";
+  if (m.isQueensideCastle()) return "\u0414\u043B\u0438\u043D\u043D\u0430\u044F \u0440\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430";
+  return name[m.piece] + " " + square(m.from) + (m.captured ? " \u0431\u0435\u0440\u0451\u0442 " + take[m.captured] + " \u043D\u0430 " : " \u0438\u0434\u0451\u0442 \u043D\u0430 ") + square(m.to) + (m.promotion ? " \u0438 \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044F \u0432 " + take[m.promotion] : "");
+}
+function explainIllegal(game, from, to, promotion) {
+  const p = game.get(from);
+  if (!p) return "\u041D\u0430 " + square(from) + " \u043D\u0435\u0442 \u0444\u0438\u0433\u0443\u0440\u044B. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0432\u043E\u044E \u0444\u0438\u0433\u0443\u0440\u0443.";
+  if (p.color !== game.turn()) return "\u0421\u0435\u0439\u0447\u0430\u0441 \u0445\u043E\u0434 \u0434\u0440\u0443\u0433\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B. \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0432\u043E\u044E \u0444\u0438\u0433\u0443\u0440\u0443.";
+  if (from === to) return "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0434\u0440\u0443\u0433\u043E\u0435 \u043F\u043E\u043B\u0435: \u0444\u0438\u0433\u0443\u0440\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C\u0441\u044F.";
+  if (game.get(to)?.color === p.color) return "\u041D\u0430 " + square(to) + " \u0441\u0442\u043E\u0438\u0442 \u0432\u0430\u0448\u0430 \u0444\u0438\u0433\u0443\u0440\u0430. \u0411\u0440\u0430\u0442\u044C \u0441\u0432\u043E\u0438 \u0444\u0438\u0433\u0443\u0440\u044B \u043D\u0435\u043B\u044C\u0437\u044F.";
+  const dx = to.charCodeAt(0) - from.charCodeAt(0), dy = Number(to[1]) - Number(from[1]), ax = Math.abs(dx), ay = Math.abs(dy);
+  if (p.type === "p") {
+    const step = p.color === "w" ? 1 : -1;
+    if (dy * step <= 0) return "\u041F\u0435\u0448\u043A\u0430 \u043D\u0435 \u0445\u043E\u0434\u0438\u0442 \u043D\u0430\u0437\u0430\u0434. \u041E\u043D\u0430 \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u043F\u0435\u0440\u0451\u0434, \u0430 \u0431\u0435\u0440\u0451\u0442 \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438.";
+    if (dx && (!game.get(to) && to !== game.fen().split(" ")[3])) return "\u041F\u0435\u0448\u043A\u0430 \u0445\u043E\u0434\u0438\u0442 \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438 \u0442\u043E\u043B\u044C\u043A\u043E \u0441\u043E \u0432\u0437\u044F\u0442\u0438\u0435\u043C. \u041D\u0430 " + square(to) + " \u043D\u0435\u0442 \u0444\u0438\u0433\u0443\u0440\u044B, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u043C\u043E\u0436\u043D\u043E \u0432\u0437\u044F\u0442\u044C.";
+    if (!dx && game.get(to)) return "\u041F\u0435\u0448\u043A\u0430 \u043D\u0435 \u0431\u0435\u0440\u0451\u0442 \u043F\u0440\u044F\u043C\u043E \u043F\u0435\u0440\u0435\u0434 \u0441\u043E\u0431\u043E\u0439. \u0412\u0437\u044F\u0442\u0438\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438.";
+    if (ax > 1 || dy * step > 2 || ax && dy * step !== 1) return "\u041F\u0435\u0448\u043A\u0430 \u0445\u043E\u0434\u0438\u0442 \u043D\u0430 \u043E\u0434\u043D\u043E \u043F\u043E\u043B\u0435 \u0432\u043F\u0435\u0440\u0451\u0434, \u0430 \u0431\u0435\u0440\u0451\u0442 \u043D\u0430 \u043E\u0434\u043D\u043E \u043F\u043E\u043B\u0435 \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438. \u0414\u0432\u043E\u0439\u043D\u043E\u0439 \u0445\u043E\u0434 \u0432\u043E\u0437\u043C\u043E\u0436\u0435\u043D \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u043E\u043B\u044F.";
+    if (dy * step === 2 && Number(from[1]) !== (p.color === "w" ? 2 : 7)) return "\u041D\u0430 \u0434\u0432\u0430 \u043F\u043E\u043B\u044F \u043F\u0435\u0448\u043A\u0430 \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0439\u0442\u0438 \u0442\u043E\u043B\u044C\u043A\u043E \u0441\u043E \u0441\u0432\u043E\u0435\u0439 \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438.";
+    if (dy * step === 2 && game.get(from[0] + (Number(from[1]) + step))) return "\u041F\u0443\u0442\u044C \u043F\u0435\u0448\u043A\u0438 \u043F\u0435\u0440\u0435\u043A\u0440\u044B\u0442 \u0434\u0440\u0443\u0433\u043E\u0439 \u0444\u0438\u0433\u0443\u0440\u043E\u0439. \u041F\u0435\u0440\u0435\u043F\u0440\u044B\u0433\u0438\u0432\u0430\u0442\u044C \u0447\u0435\u0440\u0435\u0437 \u043D\u0435\u0451 \u043D\u0435\u043B\u044C\u0437\u044F.";
+  } else if (p.type === "n" && !(ax === 1 && ay === 2 || ax === 2 && ay === 1)) return "\u041A\u043E\u043D\u044C \u0445\u043E\u0434\u0438\u0442 \u0431\u0443\u043A\u0432\u043E\u0439 \xAB\u0413\xBB: \u0434\u0432\u0430 \u043F\u043E\u043B\u044F \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u043B\u0438\u043D\u0438\u0438 \u0438 \u043E\u0434\u043D\u043E \u0432 \u0441\u0442\u043E\u0440\u043E\u043D\u0443.";
+  else if (p.type === "b" && ax !== ay) return "\u0421\u043B\u043E\u043D \u0445\u043E\u0434\u0438\u0442 \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438.";
+  else if (p.type === "r" && dx && dy) return "\u041B\u0430\u0434\u044C\u044F \u0445\u043E\u0434\u0438\u0442 \u043F\u043E \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u0438 \u0438\u043B\u0438 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u0438.";
+  else if (p.type === "q" && dx && dy && ax !== ay) return "\u0424\u0435\u0440\u0437\u044C \u0445\u043E\u0434\u0438\u0442 \u043F\u043E \u0434\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u0438, \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u0438 \u0438\u043B\u0438 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u0438.";
+  else if (p.type === "k" && Math.max(ax, ay) > 1) {
+    if (ay || ax !== 2) return "\u041A\u043E\u0440\u043E\u043B\u044C \u0445\u043E\u0434\u0438\u0442 \u043D\u0430 \u043E\u0434\u043D\u043E \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u0435 \u043F\u043E\u043B\u0435. \u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u2014 \u0440\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430.";
+    const rights = game.fen().split(" ")[2], right = p.color === "w" ? dx > 0 ? "K" : "Q" : dx > 0 ? "k" : "q";
+    if (!rights.includes(right)) return "\u0420\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430: \u043F\u0440\u0430\u0432\u043E \u043D\u0430 \u043D\u0435\u0451 \u0443\u0442\u0440\u0430\u0447\u0435\u043D\u043E \u043F\u043E\u0441\u043B\u0435 \u0445\u043E\u0434\u0430 \u043A\u043E\u0440\u043E\u043B\u044F \u0438\u043B\u0438 \u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044E\u0449\u0435\u0439 \u043B\u0430\u0434\u044C\u0438.";
+    if (dx < 0 && game.get("b" + from[1])) return "\u0420\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0435 \u043C\u0435\u0448\u0430\u0435\u0442 \u0444\u0438\u0433\u0443\u0440\u0430 \u043D\u0430 B" + from[1] + ". \u041C\u0435\u0436\u0434\u0443 \u043A\u043E\u0440\u043E\u043B\u0451\u043C \u0438 \u043B\u0430\u0434\u044C\u0451\u0439 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u0444\u0438\u0433\u0443\u0440.";
+    if (game.isCheck()) return "\u041D\u0435\u043B\u044C\u0437\u044F \u0440\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0438\u0437-\u043F\u043E\u0434 \u0448\u0430\u0445\u0430. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0449\u0438\u0442\u0438\u0442\u0435 \u043A\u043E\u0440\u043E\u043B\u044F.";
+    if (dx < 0 && game.get("b" + from[1])) return "\u0420\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0435 \u043C\u0435\u0448\u0430\u0435\u0442 \u0444\u0438\u0433\u0443\u0440\u0430 \u043D\u0430 " + square("b" + from[1]) + ". \u041C\u0435\u0436\u0434\u0443 \u043A\u043E\u0440\u043E\u043B\u0451\u043C \u0438 \u043B\u0430\u0434\u044C\u0451\u0439 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u0444\u0438\u0433\u0443\u0440.";
+    const enemy = p.color === "w" ? "b" : "w";
+    for (let x = from.charCodeAt(0) + Math.sign(dx); x !== to.charCodeAt(0) + Math.sign(dx); x += Math.sign(dx)) {
+      const sq = String.fromCharCode(x) + from[1];
+      if (game.get(sq)) return "\u0420\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0435 \u043C\u0435\u0448\u0430\u0435\u0442 \u0444\u0438\u0433\u0443\u0440\u0430 \u043D\u0430 " + square(sq) + ". \u041C\u0435\u0436\u0434\u0443 \u043A\u043E\u0440\u043E\u043B\u0451\u043C \u0438 \u043B\u0430\u0434\u044C\u0451\u0439 \u043D\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u0444\u0438\u0433\u0443\u0440.";
+      if (game.isAttacked(sq, enemy)) return "\u041F\u0440\u0438 \u0440\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0435 \u043A\u043E\u0440\u043E\u043B\u044C \u043D\u0435 \u043C\u043E\u0436\u0435\u0442 \u043F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C \u0447\u0435\u0440\u0435\u0437 \u0430\u0442\u0430\u043A\u043E\u0432\u0430\u043D\u043D\u043E\u0435 \u043F\u043E\u043B\u0435 " + square(sq) + ".";
+    }
+  }
+  if (["b", "r", "q"].includes(p.type)) {
+    const sx = Math.sign(dx), sy = Math.sign(dy);
+    for (let i = 1; i < Math.max(ax, ay); i++) {
+      const sq = String.fromCharCode(from.charCodeAt(0) + i * sx) + (Number(from[1]) + i * sy);
+      if (game.get(sq)) return "\u041F\u0443\u0442\u044C \u043F\u0435\u0440\u0435\u043A\u0440\u044B\u0442 \u0444\u0438\u0433\u0443\u0440\u043E\u0439 \u043D\u0430 " + square(sq) + ". " + name[p.type] + " \u043D\u0435 \u043C\u043E\u0436\u0435\u0442 \u043F\u0435\u0440\u0435\u043F\u0440\u044B\u0433\u043D\u0443\u0442\u044C \u0447\u0435\u0440\u0435\u0437 \u043D\u0435\u0451.";
+    }
+  }
+  if (p.type === "p" && (to[1] === "8" || to[1] === "1") && !promotion) return "\u041D\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u0438 \u043F\u0435\u0448\u043A\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u043F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C\u0441\u044F \u0432 \u0444\u0435\u0440\u0437\u044F, \u043B\u0430\u0434\u044C\u044E, \u0441\u043B\u043E\u043D\u0430 \u0438\u043B\u0438 \u043A\u043E\u043D\u044F.";
+  const copy = new Chess(game.fen());
+  copy.remove(from);
+  copy.remove(to);
+  if (p.type === "p" && dx && !game.get(to)) copy.remove(to[0] + from[1]);
+  copy.put(p, to);
+  if (copy.isCheck()) return "\u041F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u0445\u043E\u0434\u0430 \u0432\u0430\u0448 \u043A\u043E\u0440\u043E\u043B\u044C \u043E\u0441\u0442\u0430\u043D\u0435\u0442\u0441\u044F \u043F\u043E\u0434 \u0448\u0430\u0445\u043E\u043C. \u041D\u0443\u0436\u043D\u043E \u0443\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u0430\u043F\u0430\u0434\u0435\u043D\u0438\u0435 \u043D\u0430 \u043A\u043E\u0440\u043E\u043B\u044F.";
+  return "\u042D\u0442\u043E\u0442 \u0445\u043E\u0434 \u043D\u0430\u0440\u0443\u0448\u0430\u0435\u0442 \u043F\u0440\u0430\u0432\u0438\u043B\u0430 \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u044F \u0444\u0438\u0433\u0443\u0440\u044B \u0438\u043B\u0438 \u043E\u0441\u043E\u0431\u044B\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F \u043F\u043E\u0437\u0438\u0446\u0438\u0438. \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434\u0441\u0432\u0435\u0447\u0435\u043D\u043D\u043E\u0435 \u043F\u043E\u043B\u0435.";
+}
+function attackedTargets(c, m) {
+  return c.board().flat().filter((p) => p && p.color !== m.color && c.attackers(p.square, m.color).includes(m.to));
+}
+function facts(task2, index = 0) {
+  const c = position(task2, index), u = task2.line[index], before = c.fen(), m = uciMove(c, u);
+  return { c, m, u, before };
+}
+function puzzleHint(task2, index = 0, level2 = 0) {
+  const { c, m, before } = facts(task2, index);
+  const mate = c.isCheckmate(), check = c.isCheck(), targets = attackedTargets(c, m).filter((p) => p.type !== "k"), king = new Chess(before).board().flat().find((p) => p?.type === "k" && p.color !== m.color);
+  const location = king ? " \u043D\u0430 " + square(king.square) : "";
+  const hints = mate ? ["\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435, \u043A\u0430\u043A\u0438\u0435 \u0432\u044B\u0445\u043E\u0434\u044B \u043E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0443 \u043A\u043E\u0440\u043E\u043B\u044F \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430" + location + ".", "\u0418\u0449\u0438\u0442\u0435 \u0448\u0430\u0445, \u043F\u043E\u0441\u043B\u0435 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u043A\u043E\u0440\u043E\u043B\u044C \u043D\u0435 \u0441\u043C\u043E\u0436\u0435\u0442 \u0443\u0439\u0442\u0438, \u0437\u0430\u043A\u0440\u044B\u0442\u044C\u0441\u044F \u0438\u043B\u0438 \u0432\u0437\u044F\u0442\u044C \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0443\u044E \u0444\u0438\u0433\u0443\u0440\u0443.", "\u0420\u0430\u0441\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0444\u0438\u0433\u0443\u0440\u044B \u043D\u0430 " + square(m.from) + ". \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0437\u0430\u0449\u0438\u0442\u0443 \u043F\u043E\u043B\u0435\u0439 \u0432\u043E\u043A\u0440\u0443\u0433 \u043A\u043E\u0440\u043E\u043B\u044F."] : m.captured ? ["\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u043C\u043E\u0436\u043D\u043E \u043B\u0438 \u0437\u0430\u0431\u0440\u0430\u0442\u044C " + take[m.captured] + " \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u0438 \u0447\u0442\u043E \u043E\u043D \u0441\u043C\u043E\u0436\u0435\u0442 \u0432\u0437\u044F\u0442\u044C \u0432 \u043E\u0442\u0432\u0435\u0442.", "\u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0446\u0435\u043D\u043D\u043E\u0441\u0442\u044C " + take[m.captured] + " \u0438 \u0441\u0432\u043E\u0435\u0439 \u0444\u0438\u0433\u0443\u0440\u044B. \u041F\u043E\u0441\u0447\u0438\u0442\u0430\u0439\u0442\u0435, \u0447\u0435\u043C \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0442\u0441\u044F \u0440\u0430\u0437\u043C\u0435\u043D.", "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u0447\u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u0432\u0437\u044F\u0442\u044C \u0432\u0430\u0448\u0430 \u0444\u0438\u0433\u0443\u0440\u0430 \u0441 \u043F\u043E\u043B\u044F " + square(m.from) + ". \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u0440\u043E\u0441\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0435 \u0440\u0430\u0437\u043C\u0435\u043D\u044B."] : check ? ["\u041E\u0431\u0440\u0430\u0442\u0438\u0442\u0435 \u0432\u043D\u0438\u043C\u0430\u043D\u0438\u0435 \u043D\u0430 \u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043A\u043E\u0440\u043E\u043B\u044F \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430" + location + ".", "\u0418\u0449\u0438\u0442\u0435 \u0445\u043E\u0434 \u0441 \u0448\u0430\u0445\u043E\u043C: \u043E\u043D \u0437\u0430\u0441\u0442\u0430\u0432\u0438\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0449\u0438\u0442\u0438\u0442\u044C \u043A\u043E\u0440\u043E\u043B\u044F.", "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0448\u0430\u0445\u0438 \u0444\u0438\u0433\u0443\u0440\u043E\u0439 \u043D\u0430 " + square(m.from) + ". \u041F\u043E\u0434\u0443\u043C\u0430\u0439\u0442\u0435, \u0447\u0442\u043E \u043E\u043D\u0430 \u0441\u043C\u043E\u0436\u0435\u0442 \u0430\u0442\u0430\u043A\u043E\u0432\u0430\u0442\u044C \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u043C \u0445\u043E\u0434\u043E\u043C."] : m.promotion ? ["\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u043D\u0430\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0434\u0430\u043B\u0435\u043A\u043E \u043F\u0440\u043E\u0434\u0432\u0438\u043D\u0443\u043B\u0438\u0441\u044C \u0432\u0430\u0448\u0438 \u043F\u0435\u0448\u043A\u0438.", "\u041F\u043E\u0434\u0443\u043C\u0430\u0439\u0442\u0435, \u043C\u043E\u0436\u043D\u043E \u043B\u0438 \u043F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C \u043F\u0435\u0448\u043A\u0443 \u0438 \u043A\u0430\u043A \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u0441\u043C\u043E\u0436\u0435\u0442 \u044D\u0442\u043E\u043C\u0443 \u043F\u043E\u043C\u0435\u0448\u0430\u0442\u044C.", "\u0420\u0430\u0441\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u043F\u0440\u043E\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u043F\u0435\u0448\u043A\u0438 \u043D\u0430 " + square(m.from) + ". \u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u044F."] : ["\u041F\u043E\u0434\u0443\u043C\u0430\u0439\u0442\u0435, \u043A\u0430\u043A " + yours[m.piece] + " \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u043D\u044F\u0442\u044C \u0431\u043E\u043B\u0435\u0435 \u0430\u043A\u0442\u0438\u0432\u043D\u043E\u0435 \u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435. \u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0435\u0451 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0441 \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435\u043C \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430.", "\u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0435 \u043F\u043E\u043B\u044F: \u0433\u0434\u0435 \u0432\u0430\u0448\u0430 \u0444\u0438\u0433\u0443\u0440\u0430 \u0441\u043C\u043E\u0436\u0435\u0442 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0430\u0436\u043D\u044B\u0445 \u043F\u043E\u043B\u0435\u0439 \u0438\u043B\u0438 \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u0430\u043F\u0430\u0434\u0435\u043D\u0438\u0435?", "\u041D\u0430\u0447\u043D\u0438\u0442\u0435 \u0440\u0430\u0441\u0447\u0451\u0442 \u0441 \u0444\u0438\u0433\u0443\u0440\u044B \u043D\u0430 " + square(m.from) + ". \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0435\u0451 \u0445\u043E\u0434\u044B \u0438 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430."];
+  if (level2 < 3) return hints[Math.max(0, level2)];
+  return "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435 \u0432\u043D\u0438\u043C\u0430\u043D\u0438\u0435 \u043D\u0430 \u0444\u0438\u0433\u0443\u0440\u0435 " + square(m.from) + ". \u041F\u0435\u0440\u0435\u0434 \u0445\u043E\u0434\u043E\u043C \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u0447\u0442\u043E \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u0441\u043C\u043E\u0436\u0435\u0442 \u0432\u0437\u044F\u0442\u044C \u0432 \u043E\u0442\u0432\u0435\u0442. \u0413\u043E\u0442\u043E\u0432\u044B\u0439 \u0445\u043E\u0434 \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0437\u0430 \u0432\u0430\u043C\u0438.";
+}
+function explainSolution(task2) {
+  const c = position(task2), side = c.turn(), parts = [];
+  for (const [i, u] of task2.line.entries()) {
+    const desc = readableMove(c, u), m = uciMove(c, u);
+    const targets = attackedTargets(c, m).filter((p) => p.type !== "k");
+    if (m.color === side) parts.push(desc + "." + (c.isCheckmate() ? " \u042D\u0442\u043E \u043C\u0430\u0442: \u0443 \u043A\u043E\u0440\u043E\u043B\u044F \u043D\u0435\u0442 \u0437\u0430\u043A\u043E\u043D\u043D\u043E\u0439 \u0437\u0430\u0449\u0438\u0442\u044B." : c.isCheck() ? " \u042D\u0442\u043E \u0448\u0430\u0445: \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043E\u0431\u044F\u0437\u0430\u043D \u0437\u0430\u0449\u0438\u0442\u0438\u0442\u044C \u043A\u043E\u0440\u043E\u043B\u044F." : m.captured ? " \u0412\u044B \u0437\u0430\u0431\u0438\u0440\u0430\u0435\u0442\u0435 " + take[m.captured] + "." : targets.length ? " \u0412\u0430\u0448\u0430 \u0444\u0438\u0433\u0443\u0440\u0430 \u043D\u0430\u043F\u0430\u0434\u0430\u0435\u0442 \u043D\u0430 " + take[targets[0].type] + " \u043D\u0430 " + square(targets[0].square) + "." : ""));
+    else parts.push("\u041E\u0442\u0432\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: " + desc.toLowerCase() + ".");
+    if (i >= 5) break;
+  }
+  return parts.join(" ");
+}
+function explainWrong(task2, uci, index = 0, assessment = {}) {
+  const c = position(task2, index), desc = readableMove(c, uci), m = uciMove(c, uci);
+  let reply;
+  if (assessment.reply) {
+    try {
+      reply = uciMove(new Chess(c.fen()), assessment.reply);
+    } catch {
+    }
+  }
+  if (!reply) reply = c.moves({ verbose: true }).find((r) => r.to === m.to && r.captured);
+  if (reply && reply.to === m.to && reply.captured) return desc + ". \u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043C\u043E\u0436\u0435\u0442 \u043E\u0442\u0432\u0435\u0442\u0438\u0442\u044C: " + readableMove(c, reply.from + reply.to + (reply.promotion || "")) + ". \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u0441\u043C\u043E\u0436\u0435\u0442\u0435 \u043B\u0438 \u0432\u044B \u0432\u0435\u0440\u043D\u0443\u0442\u044C \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B \u043F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u0432\u0437\u044F\u0442\u0438\u044F.";
+  if (reply) return desc + ". \u0412\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: " + readableMove(c, reply.from + reply.to + (reply.promotion || "")) + ". \u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u043F\u043E\u0441\u043B\u0435\u0434\u0441\u0442\u0432\u0438\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044F \u0441 \u0434\u0440\u0443\u0433\u0438\u043C\u0438 \u0445\u043E\u0434\u0430\u043C\u0438.";
+  return desc + ". \u042D\u0442\u043E\u0442 \u0445\u043E\u0434 \u043D\u0435 \u0440\u0435\u0448\u0430\u0435\u0442 \u0437\u0430\u0434\u0430\u0447\u0443. " + puzzleHint(task2, index, Math.min(2, assessment.hintLevel ?? 1));
 }
 
 // src/core.mjs
@@ -3567,6 +3748,26 @@ function opponentRating(s) {
   const shift = unique.length ? clamp((unique.reduce((v, a) => v + a.score, 0) / unique.length - 0.5) * 160, -80, 80) : 0;
   return Math.round(clamp(s.rating + shift, 400, 2400) / 25) * 25;
 }
+function placement(fen) {
+  const board2 = [];
+  for (const ch of (fen || "").split(" ")[0]) {
+    if (/[1-8]/.test(ch)) board2.push(...Array(Number(ch)).fill(""));
+    else if (/[prnbqkPRNBQK]/.test(ch)) board2.push(ch);
+  }
+  return board2.length === 64 ? board2 : null;
+}
+function similarPosition(a, b) {
+  const x = placement(a.fen), y = placement(b.fen);
+  if (!x || !y) return false;
+  let same = 0, total = 0;
+  for (let i = 0; i < 64; i++) {
+    if (x[i] || y[i]) total++;
+    if (x[i] && x[i] === y[i]) same++;
+  }
+  return total > 0 && same / total >= 0.8;
+}
+var generalTags = /* @__PURE__ */ new Set(["crushing", "advantage", "equality", "short", "long", "veryLong", "oneMove", "middlegame", "opening", "endgame", "master", "masterVsMaster", "superGM"]);
+var motif = (t) => (t.tags || []).filter((tag) => !generalTags.has(tag)).sort().join(",") || t.theme;
 function chooseTask(s, tasks) {
   const all = [...s.mistakes.filter((m) => currentEvidence(s, m)), ...tasks], target = opponentRating(s), now = Date.now(), recent = /* @__PURE__ */ new Set([...(s.presentations || []).slice(-60), ...s.attempts.slice(-20).map((a) => a.id)]), lastAttempt = /* @__PURE__ */ new Map();
   for (const a of s.attempts) lastAttempt.set(a.id, a);
@@ -3584,6 +3785,19 @@ function chooseTask(s, tasks) {
   if (!pool.length) pool = all.filter((t) => eligible(t));
   if (!pool.length) pool = all.filter((t) => !recent.has(t.id));
   if (!pool.length) pool = all;
+  const catalog = new Map(all.map((t) => [t.id, t]));
+  const ownIds = new Set(s.mistakes.filter((m) => currentEvidence(s, m)).map((t) => t.id));
+  const details = new Map((s.presentationDetails || []).map((t) => [t.id, t]));
+  const shown = (s.presentations || []).slice(-8).map((id) => details.get(id) || catalog.get(id)).filter(Boolean);
+  const narrow = (predicate) => {
+    const alternatives = pool.filter(predicate);
+    if (alternatives.length) pool = alternatives;
+  };
+  narrow((t) => !shown.some((previous) => similarPosition(t, previous)));
+  if (shown.slice(-2).some((t) => t.own || ownIds.has(t.id))) narrow((t) => !ownIds.has(t.id));
+  const lastTwo = shown.slice(-2);
+  if (lastTwo.length === 2 && motif(lastTwo[0]) === motif(lastTwo[1])) narrow((t) => motif(t) !== motif(lastTwo[0]));
+  if (lastTwo.length === 2 && lastTwo.every((t) => t.theme === lastTwo[0].theme)) narrow((t) => t.theme !== lastTwo[0].theme);
   function priority(t) {
     const a = lastAttempt.get(t.id), skill = s.skills[t.theme], own = s.mistakes.some((m) => m.id === t.id);
     return (own && !a?.correct ? 4 : 0) + (1 - skill.ok / skill.total) * 2 - Math.abs(t.rating - targetFor(t)) / 250 + (a && !a.correct ? 0.5 : 0) + (lastSeen(t) ? Math.min(1, (now - lastSeen(t)) / 864e5 / 30) - 0.6 : 0);
@@ -3596,6 +3810,9 @@ function presentTask(s, t) {
   s.seen[t.id] = Date.now();
   s.presentations.push(t.id);
   s.presentations = s.presentations.slice(-1e3);
+  s.presentationDetails ??= [];
+  s.presentationDetails.push({ id: t.id, fen: t.fen, theme: t.theme, tags: t.tags, own: s.mistakes.some((m) => m.id === t.id), date: Date.now() });
+  s.presentationDetails = s.presentationDetails.slice(-1e3);
 }
 function classify(fen, best, ply) {
   if (Math.abs(best.score) > 9e3) return "mate";
@@ -3615,7 +3832,7 @@ function commitGame(s, g, review) {
     const sk = s.skills[row.theme];
     sk.ok += row.loss < 60 ? 1 : row.loss < 160 ? 0.4 : 0;
     sk.total++;
-    if (row.loss >= 90 && row.best && row.best !== row.uci && !s.mistakes.some((t) => t.fen === row.fen && currentEvidence(s, t))) s.mistakes.unshift({ id: g.id + "-" + row.ply, calibrationId: g.calibrationId ?? "initial", fen: row.fen, line: [row.best], theme: row.theme, rating: Math.round(clamp(old, 400, 2200)), title: "\u041F\u043E\u0437\u0438\u0446\u0438\u044F \u0438\u0437 \u0432\u0430\u0448\u0435\u0439 \u043F\u0430\u0440\u0442\u0438\u0438", text: "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u0439 \u0445\u043E\u0434. \u0412 \u043F\u0430\u0440\u0442\u0438\u0438 \u0437\u0434\u0435\u0441\u044C \u0431\u044B\u043B\u043E \u0443\u043F\u0443\u0449\u0435\u043D\u043E \u043B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435.", hint: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0448\u0430\u0445\u0438, \u0432\u0437\u044F\u0442\u0438\u044F \u0438 \u0443\u0433\u0440\u043E\u0437\u044B.", explanation: row.reason, source: "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F" });
+    if (row.loss >= 90 && row.best && row.best !== row.uci && !s.mistakes.some((t) => t.fen === row.fen && currentEvidence(s, t))) s.mistakes.unshift({ id: g.id + "-" + row.ply, calibrationId: g.calibrationId ?? "initial", fen: row.fen, line: [row.best], theme: row.theme, rating: Math.round(clamp(old, 400, 2200)), title: "\u041F\u043E\u0437\u0438\u0446\u0438\u044F \u0438\u0437 \u0432\u0430\u0448\u0435\u0439 \u043F\u0430\u0440\u0442\u0438\u0438", text: "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u0439 \u0445\u043E\u0434. \u0412 \u043F\u0430\u0440\u0442\u0438\u0438 \u0437\u0434\u0435\u0441\u044C \u0431\u044B\u043B\u043E \u0443\u043F\u0443\u0449\u0435\u043D\u043E \u043B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435.", hint: puzzleHint({ fen: row.fen, line: [row.best] }), explanation: explainSolution({ fen: row.fen, line: [row.best] }), source: "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F" });
   }
   s.mistakes = s.mistakes.slice(0, 300);
   s.games.unshift({ ...g, review, loss: Math.round(loss), counted: counted2, ratingBefore: old, ratingAfter: s.rating });
@@ -3646,21 +3863,10 @@ function assessDecision(fen, uci, before, after, ply = 0) {
     if (after.pv?.[0]) reply = uciMove(loadPosition(g.fen()), after.pv[0]);
   } catch {
   }
-  let theme = classify(fen, before, ply), reason = "\u0425\u043E\u0440\u043E\u0448\u0438\u0439 \u0445\u043E\u0434. \u0421\u0443\u0449\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0439 \u043F\u043E\u0442\u0435\u0440\u0438 \u043F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430 \u043D\u0435 \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u043E.";
-  if (loss >= 60) {
-    if (after.score > 9e3) {
-      theme = "mate";
-      reason = "\u041F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u0445\u043E\u0434\u0430 \u0434\u0432\u0438\u0436\u043E\u043A \u043D\u0430\u0448\u0451\u043B \u043F\u0440\u0438\u043D\u0443\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u043C\u0430\u0442 \u0437\u0430 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0435\u0433\u043E \u0440\u0430\u0441\u0447\u0451\u0442\u043D\u043E\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435 \u0438 \u0441\u043F\u043E\u0441\u043E\u0431 \u0438\u0437\u0431\u0435\u0436\u0430\u0442\u044C \u0443\u0433\u0440\u043E\u0437\u044B.";
-    } else if (before.score > 9e3) {
-      theme = "mate";
-      reason = "\u0412 \u0438\u0441\u0445\u043E\u0434\u043D\u043E\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0434\u0432\u0438\u0436\u043E\u043A \u043D\u0430\u0445\u043E\u0434\u0438\u043B \u043C\u0430\u0442\u043E\u0432\u044B\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442. \u042D\u0442\u043E\u0442 \u0445\u043E\u0434 \u0443\u043F\u0443\u0441\u0442\u0438\u043B \u0435\u0433\u043E. \u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u0435 \u0441 \u043C\u0430\u0442\u043E\u0432\u044B\u043C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u043C.";
-    } else if (reply?.captured) {
-      theme = "tactics";
-      const piece = { p: "\u043F\u0435\u0448\u043A\u0443", n: "\u043A\u043E\u043D\u044F", b: "\u0441\u043B\u043E\u043D\u0430", r: "\u043B\u0430\u0434\u044C\u044E", q: "\u0444\u0435\u0440\u0437\u044F" }[reply.captured] || "\u0444\u0438\u0433\u0443\u0440\u0443";
-      reason = "\u041F\u043E\u0441\u043B\u0435 \u0432\u0430\u0448\u0435\u0433\u043E \u0445\u043E\u0434\u0430 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043C\u043E\u0436\u0435\u0442 \u0432\u0437\u044F\u0442\u044C " + piece + ": " + spokenMove(loadPosition(g.fen()), after.pv[0]) + ". \u041F\u043E \u0440\u0430\u0441\u0447\u0451\u0442\u0443 \u0434\u0432\u0438\u0436\u043A\u0430 \u044D\u0442\u043E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435 \u0443\u0445\u0443\u0434\u0448\u0430\u0435\u0442 \u0432\u0430\u0448\u0443 \u043F\u043E\u0437\u0438\u0446\u0438\u044E.";
-    } else if (reply?.san.includes("+")) reason = "\u041F\u043E\u0441\u043B\u0435 \u0432\u0430\u0448\u0435\u0433\u043E \u0445\u043E\u0434\u0430 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043C\u043E\u0436\u0435\u0442 \u0434\u0430\u0442\u044C \u0448\u0430\u0445: " + spokenMove(loadPosition(g.fen()), after.pv[0]) + ". \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0437\u0430\u0449\u0438\u0442\u0443 \u043A\u043E\u0440\u043E\u043B\u044F \u0438 \u0441\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044F.";
-    else reason = "\u042D\u0442\u043E\u0442 \u0445\u043E\u0434 \u0443\u0441\u0442\u0443\u043F\u0430\u0435\u0442 \u0431\u043E\u043B\u0435\u0435 \u0442\u043E\u0447\u043D\u043E\u043C\u0443 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044E \u043F\u043E \u043A\u043E\u0440\u043E\u0442\u043A\u043E\u043C\u0443 \u0430\u043D\u0430\u043B\u0438\u0437\u0443 \u0434\u0432\u0438\u0436\u043A\u0430. \u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0440\u0430\u0431\u043E\u0442\u0443 \u0444\u0438\u0433\u0443\u0440 \u0438 \u0440\u0430\u0441\u0447\u0451\u0442\u043D\u044B\u0435 \u043B\u0438\u043D\u0438\u0438 \u043F\u043E\u0441\u043B\u0435 \u043E\u0431\u043E\u0438\u0445 \u0440\u0435\u0448\u0435\u043D\u0438\u0439.";
-  }
+  let theme = classify(fen, before, ply);
+  if (loss >= 60 && (after.score > 9e3 || before.score > 9e3)) theme = "mate";
+  else if (loss >= 60 && reply?.captured) theme = "tactics";
+  const reason = reviewExplanation({ fen, uci, best: before.move, loss, replyUci: after.pv?.[0], mateLost: before.score > 9e3 && loss >= 60, mateThreat: after.score > 9e3 && loss >= 60 });
   const line = (start, moves) => {
     const copy = loadPosition(start), out = [];
     for (const u of (moves || []).slice(0, 5)) {
@@ -3674,7 +3880,47 @@ function assessDecision(fen, uci, before, after, ply = 0) {
   };
   const bestCheck = loadPosition(fen);
   uciMove(bestCheck, before.move);
-  return { fen, uci, san: move.san, best: before.move, bestSan: describeMove(loadPosition(fen), before.move), variation: line(fen, before.pv), replyVariation: line(g.fen(), after.pv), loss, theme, reason };
+  return { fen, uci, san: move.san, best: before.move, bestSan: describeMove(loadPosition(fen), before.move), variation: line(fen, before.pv), replyVariation: line(g.fen(), after.pv), replyUci: after.pv?.[0], loss, theme, reason };
+}
+function reviewExplanation(row) {
+  try {
+    const c = loadPosition(row.fen);
+    let played = row.uci;
+    if (!played && row.attempted) {
+      const m2 = c.move(row.attempted);
+      played = m2.from + m2.to + (m2.promotion || "");
+      c.undo();
+    }
+    const description = readableMove(c, played), m = uciMove(c, played);
+    if (c.isCheckmate()) return description + ". \u042D\u0442\u043E \u043C\u0430\u0442: \u0443 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u043D\u0435\u0442 \u0437\u0430\u0449\u0438\u0442\u044B.";
+    if (row.loss < 60) return description + ". " + (c.isCheck() ? "\u0428\u0430\u0445 \u0437\u0430\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u0437\u0430\u0449\u0438\u0442\u0438\u0442\u044C \u043A\u043E\u0440\u043E\u043B\u044F." : "\u0425\u043E\u0434 \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0432\u0430\u0448\u0435\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438.");
+    let reply;
+    if (row.replyUci) {
+      try {
+        reply = uciMove(new Chess(c.fen()), row.replyUci);
+      } catch {
+      }
+    }
+    if (!reply && row.replyVariation?.[0]) {
+      try {
+        reply = new Chess(c.fen()).move(row.replyVariation[0]);
+      } catch {
+      }
+    }
+    let reason = description + ". ";
+    if (reply) {
+      const u = reply.from + reply.to + (reply.promotion || "");
+      reason += "\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043C\u043E\u0436\u0435\u0442 \u043E\u0442\u0432\u0435\u0442\u0438\u0442\u044C: " + readableMove(c, u) + ". ";
+    }
+    if (row.mateThreat) reason += "\u041F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044F \u0432\u0430\u0448\u0435\u043C\u0443 \u043A\u043E\u0440\u043E\u043B\u044E \u0443\u0433\u0440\u043E\u0436\u0430\u0435\u0442 \u043C\u0430\u0442. ";
+    else if (row.mateLost) reason += "\u0412 \u0438\u0441\u0445\u043E\u0434\u043D\u043E\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u043C\u043E\u0436\u043D\u043E \u0431\u044B\u043B\u043E \u043F\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043C\u0430\u0442. ";
+    const best = row.bestUci || row.best;
+    if (best && /^[a-h][1-8][a-h][1-8]/.test(best)) reason += "\u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0441 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u043C: " + readableMove(loadPosition(row.fen), best) + ".";
+    else reason += "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0443\u0433\u0440\u043E\u0437\u044B \u043F\u043E\u0441\u043B\u0435 \u043E\u0442\u0432\u0435\u0442\u0430 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u0438 \u0441\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044F \u043D\u0430 \u0434\u043E\u0441\u043A\u0435.";
+    return reason.trim();
+  } catch {
+    return "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0438\u0441\u0445\u043E\u0434\u043D\u0443\u044E \u043F\u043E\u0437\u0438\u0446\u0438\u044E \u0438 \u0441\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 \u0445\u043E\u0434 \u0441 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u043D\u044B\u043C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u043C.";
+  }
 }
 
 // src/pool.json
@@ -3811,9 +4057,9 @@ function recordCourseSession(s, c, unit, result) {
   if (session.passed && u.type === "sparring") {
     const additions = [];
     for (const [index, error] of errors.entries()) if (error.kind === "evaluation" && error.loss >= 100 && error.bestUci) {
-      const position = loadPosition(error.fen);
-      uciMove(position, error.bestUci);
-      if (!s.mistakes.some((m) => m.fen === error.fen && currentEvidence(s, m))) additions.push({ id: "course-" + session.id + "-" + index, calibrationId: session.calibrationId, fen: error.fen, line: [error.bestUci], theme: error.theme || "opening", rating: s.rating, title: c.name + " \u2014 \u0432\u0430\u0448\u0430 \u043F\u043E\u0437\u0438\u0446\u0438\u044F", text: "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u0439 \u0445\u043E\u0434 \u0432 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0438\u0437 \u0432\u0430\u0448\u0435\u0439 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438 \u0434\u0435\u0431\u044E\u0442\u0430.", hint: "\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0448\u0430\u0445\u0438, \u0432\u0437\u044F\u0442\u0438\u044F \u0438 \u0443\u0433\u0440\u043E\u0437\u044B.", explanation: error.reason || "\u0421\u0440\u0430\u0432\u043D\u0438\u0442\u0435 \u0441\u0432\u043E\u0451 \u0440\u0435\u0448\u0435\u043D\u0438\u0435 \u0441 \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u043C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u043C.", source: "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430 \u0434\u0435\u0431\u044E\u0442\u0430" });
+      const position2 = loadPosition(error.fen);
+      uciMove(position2, error.bestUci);
+      if (!s.mistakes.some((m) => m.fen === error.fen && currentEvidence(s, m))) additions.push({ id: "course-" + session.id + "-" + index, calibrationId: session.calibrationId, fen: error.fen, line: [error.bestUci], theme: error.theme || "opening", rating: s.rating, title: c.name + " \u2014 \u0432\u0430\u0448\u0430 \u043F\u043E\u0437\u0438\u0446\u0438\u044F", text: "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u0439 \u0445\u043E\u0434 \u0432 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0438\u0437 \u0432\u0430\u0448\u0435\u0439 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438 \u0434\u0435\u0431\u044E\u0442\u0430.", hint: puzzleHint({ fen: error.fen, line: [error.bestUci] }), explanation: explainSolution({ fen: error.fen, line: [error.bestUci] }), source: "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430 \u0434\u0435\u0431\u044E\u0442\u0430" });
     }
     s.mistakes.unshift(...additions);
     s.mistakes = s.mistakes.slice(0, 300);
@@ -3911,7 +4157,7 @@ var OpeningSession = class {
       this.game.move(this.unit.moves[this.index++]);
     }
   }
-  attempt(uci) {
+  attempt(uci, { deferReply = false } = {}) {
     if (this.phase !== "train" || this.game.turn() !== this.course.side) throw Error("\u0421\u0435\u0439\u0447\u0430\u0441 \u0445\u043E\u0434 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430.");
     const fen = this.game.fen();
     let move;
@@ -3932,7 +4178,7 @@ var OpeningSession = class {
       this.feedback = this.unit.notes[this.index];
       this.index++;
       this.decisions++;
-      this.autoLine();
+      if (!deferReply) this.autoLine();
       if (this.index >= this.unit.moves.length) this.phase = "done";
     } else {
       this.decisions++;
@@ -3968,7 +4214,10 @@ function trend(history) {
   if (!points.length) return '<p class="muted small">\u041F\u043E\u0441\u043B\u0435 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438 \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F \u0433\u0440\u0430\u0444\u0438\u043A \u0441\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438.</p>';
   return `<svg class="course-chart" viewBox="0 0 600 120" role="img" aria-label="\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E \u0437\u0430\u043D\u044F\u0442\u0438\u044F\u043C: ${points.map((h) => h.score).join(", ")} \u043F\u0440\u043E\u0446\u0435\u043D\u0442\u043E\u0432"><line x1="30" y1="15" x2="580" y2="15" stroke="#dce2dc"/><line x1="30" y1="100" x2="580" y2="100" stroke="#dce2dc"/><text x="0" y="19" fill="#617068" font-size="10">100</text><text x="12" y="104" fill="#617068" font-size="10">0</text><polyline points="${points.map((h, i) => (points.length === 1 ? 300 : 30 + i / (points.length - 1) * 550) + "," + (100 - h.score * 0.85)).join(" ")}" fill="none" stroke="#397655" stroke-width="2"/>${points.map((h, i) => `<circle cx="${points.length === 1 ? 300 : 30 + i / (points.length - 1) * 550}" cy="${100 - h.score * 0.85}" r="4" fill="#397655"><title>${h.title}: ${h.score}%</title></circle>`).join("")}</svg>`;
 }
-function courseView({ state: state2, course: course2, study: study2, head: head2, btn: btn2, board: board2, moveList: moveList2, esc: esc2, icon: icon2 }) {
+function historyEntries(history, esc2, explainReview) {
+  return history.map((h) => `<div class="history-entry"><strong>${esc2(h.title)}</strong><small>${new Date(h.date).toLocaleString("ru-RU")} \xB7 ${h.passed ? "\u0417\u0430\u0432\u0435\u0440\u0448\u0451\u043D \xB7 " + h.score + "%" : "\u041F\u0440\u0435\u0440\u0432\u0430\u043D"} \xB7 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043E\u043A: ${h.hints} \xB7 \u043E\u0448\u0438\u0431\u043E\u043A: ${h.errors.length}</small>${h.errors.length ? `<details><summary>\u0420\u0430\u0437\u043E\u0431\u0440\u0430\u0442\u044C \u043E\u0448\u0438\u0431\u043A\u0438</summary>${h.errors.map((e) => `<p class="small">${e.kind === "answer" ? esc2(e.prompt) + "<br>\u0412\u0430\u0448 \u043E\u0442\u0432\u0435\u0442: " + esc2(e.answer) + "<br>\u0412\u0435\u0440\u043D\u044B\u0439: " + esc2(e.expected) : e.kind === "evaluation" ? "\u0425\u043E\u0434 " + esc2(e.attempted) + ". " + esc2(explainReview(e)) + "<br>\u041F\u043E\u0442\u0435\u0440\u044F \u043E\u0446\u0435\u043D\u043A\u0438: \u2248 " + (e.loss / 100).toFixed(2) + " \u043F\u0435\u0448\u043A\u0438. \u041B\u0443\u0447\u0448\u0438\u0439 \u0445\u043E\u0434: " + esc2(e.best) + (e.variation?.length ? "<br>\u041B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: " + esc2(e.variation.join(" \u2192 ")) : "") + (e.replyVariation?.length ? "<br>\u041E\u0442\u0432\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: " + esc2(e.replyVariation.join(" \u2192 ")) : "") : e.kind === "illegal" ? "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430 " + esc2(e.attempted) + " \u043E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u0430." : "\u0412\u0430\u0448 \u0445\u043E\u0434: " + esc2(e.attempted) + ". \u0412 \u0443\u0447\u0435\u0431\u043D\u043E\u0439 \u043B\u0438\u043D\u0438\u0438: " + esc2(e.expected) + "."}</p>`).join("")}</details>` : ""}</div>`).join("");
+}
+function courseView({ state: state2, course: course2, study: study2, head: head2, btn: btn2, board: board2, moveList: moveList2, esc: esc2, icon: icon2, explainReview = (e) => e.reason || "" }) {
   if (!course2) return `${head2("\u0414\u0435\u0431\u044E\u0442\u044B", "\u041F\u043E\u043D\u0438\u043C\u0430\u0439\u0442\u0435 \u0438\u0434\u0435\u0438, \u0437\u0430\u043A\u0440\u0435\u043F\u043B\u044F\u0439\u0442\u0435 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u0438 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0439\u0442\u0435 \u0438\u0445 \u0432 \u0438\u0433\u0440\u0435.", "")}<div class="opening-list">${courses.map((c) => {
     const p = courseSummary(state2, c);
     return `<div class="list-row"><div><h2>${esc2(c.name)}</h2><p class="muted">${esc2(c.description)}</p><small>${c.side === "w" ? "\u0417\u0430 \u0431\u0435\u043B\u044B\u0445" : "\u0417\u0430 \u0447\u0451\u0440\u043D\u044B\u0445"} \xB7 \u0443\u0440\u043E\u043A\u043E\u0432 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E ${p.completed} \u0438\u0437 ${p.total}</small></div><button class="btn quiet" data-course="${c.id}">\u041E\u0442\u043A\u0440\u044B\u0442\u044C ${icon2("arrow")}</button></div>`;
@@ -3977,7 +4226,7 @@ function courseView({ state: state2, course: course2, study: study2, head: head2
   if (!study2) return `${head2(course2.name, "\u0418\u0434\u0435\u0438 \u2192 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u2192 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u2192 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430.", `${summary.completed} / ${summary.total} \u0443\u0440\u043E\u043A\u043E\u0432`)}<div class="course-overview"><section><h2>\u0423\u0440\u043E\u043A\u0438</h2><p class="small muted">\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u0435 \u043F\u043E \u043F\u043E\u0440\u044F\u0434\u043A\u0443. \u041A \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D\u043D\u044B\u043C \u0443\u0440\u043E\u043A\u0430\u043C \u043C\u043E\u0436\u043D\u043E \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F.</p><div class="course-unit-list">${course2.units.map((u2, i) => {
     const unlocked = canOpenUnit(state2, course2, u2.id), done2 = i < summary.completed;
     return `<button class="course-unit ${done2 ? "completed" : ""}" data-unit="${u2.id}" ${unlocked ? "" : "disabled"}><span class="lesson-number">${i + 1}</span><span><strong>${esc2(u2.title)}</strong><small>${done2 ? "\u041F\u0440\u043E\u0439\u0434\u0435\u043D \xB7 \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C" : unlocked ? "\u0414\u043E\u0441\u0442\u0443\u043F\u0435\u043D \u0441\u0435\u0439\u0447\u0430\u0441" : "\u041F\u043E\u0441\u043B\u0435 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u043A\u0430"}</small></span><span>${unlocked ? icon2("arrow") : ""}</span></button>`;
-  }).join("")}</div>${btn2("\u0412\u0441\u0435 \u0434\u0435\u0431\u044E\u0442\u044B", "courses-all", "quiet")}</section><section><h2>\u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441</h2><div class="bar"><i style="width:${summary.completed / summary.total * 100}%"></i></div><p class="small muted course-summary">\u0423\u0440\u043E\u043A\u043E\u0432 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E: ${summary.completed} \u0438\u0437 ${summary.total}.<br>${summary.accuracy === null ? "\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u043A\u0430 \u043D\u0435 \u043E\u0446\u0435\u043D\u0435\u043D\u0430." : "\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0445 \u0437\u0430\u043D\u044F\u0442\u0438\u0439: " + summary.accuracy + "%."}</p>${trend(summary.history)}<p class="small muted">\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442 \u043E\u0448\u0438\u0431\u043A\u0438 \u0438 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438. \u042D\u0442\u043E \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0439, \u0430 \u043D\u0435 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0448\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433.</p><details class="course-history" ${summary.history.length ? "open" : ""}><summary>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u043D\u044F\u0442\u0438\u0439 \xB7 ${summary.history.length}</summary>${summary.history.length ? summary.history.map((h) => `<div class="history-entry"><strong>${esc2(h.title)}</strong><small>${new Date(h.date).toLocaleString("ru-RU")} \xB7 ${h.passed ? "\u0417\u0430\u0432\u0435\u0440\u0448\u0451\u043D \xB7 " + h.score + "%" : "\u041F\u0440\u0435\u0440\u0432\u0430\u043D"} \xB7 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043E\u043A: ${h.hints} \xB7 \u043E\u0448\u0438\u0431\u043E\u043A: ${h.errors.length}</small>${h.errors.length ? `<details><summary>\u0420\u0430\u0437\u043E\u0431\u0440\u0430\u0442\u044C \u043E\u0448\u0438\u0431\u043A\u0438</summary>${h.errors.map((e) => `<p class="small">${e.kind === "answer" ? esc2(e.prompt) + "<br>\u0412\u0430\u0448 \u043E\u0442\u0432\u0435\u0442: " + esc2(e.answer) + "<br>\u0412\u0435\u0440\u043D\u044B\u0439: " + esc2(e.expected) : e.kind === "evaluation" ? "\u0425\u043E\u0434 " + esc2(e.attempted) + ". " + esc2(e.reason || "") + "<br>\u041F\u043E\u0442\u0435\u0440\u044F \u043E\u0446\u0435\u043D\u043A\u0438: \u2248 " + (e.loss / 100).toFixed(2) + " \u043F\u0435\u0448\u043A\u0438. \u041B\u0443\u0447\u0448\u0438\u0439 \u0445\u043E\u0434: " + esc2(e.best) + (e.variation?.length ? "<br>\u041B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: " + esc2(e.variation.join(" \u2192 ")) : "") + (e.replyVariation?.length ? "<br>\u041E\u0442\u0432\u0435\u0442 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: " + esc2(e.replyVariation.join(" \u2192 ")) : "") : e.kind === "illegal" ? "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430 " + esc2(e.attempted) + " \u043E\u0442\u043A\u043B\u043E\u043D\u0435\u043D\u0430." : "\u0412\u0430\u0448 \u0445\u043E\u0434: " + esc2(e.attempted) + ". \u0412 \u0443\u0447\u0435\u0431\u043D\u043E\u0439 \u043B\u0438\u043D\u0438\u0438: " + esc2(e.expected) + "."}</p>`).join("")}</details>` : ""}</div>`).join("") : '<p class="small muted">\u0417\u0434\u0435\u0441\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0442\u0441\u044F \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043E\u0448\u0438\u0431\u043A\u0438.</p>'}</details>${state2.openingProgress[course2.id] ? '<p class="small muted">\u0414\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E: ' + state2.openingProgress[course2.id] + ". \u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u0442\u0435\u0445 \u0437\u0430\u043D\u044F\u0442\u0438\u0439 \u043D\u0435 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u043B\u0438\u0441\u044C.</p>" : ""}</section></div>`;
+  }).join("")}</div>${btn2("\u0412\u0441\u0435 \u0434\u0435\u0431\u044E\u0442\u044B", "courses-all", "quiet")}</section><section><h2>\u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441</h2><div class="bar"><i style="width:${summary.completed / summary.total * 100}%"></i></div><p class="small muted course-summary">\u0423\u0440\u043E\u043A\u043E\u0432 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E: ${summary.completed} \u0438\u0437 ${summary.total}.<br>${summary.accuracy === null ? "\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u043A\u0430 \u043D\u0435 \u043E\u0446\u0435\u043D\u0435\u043D\u0430." : "\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0445 \u0437\u0430\u043D\u044F\u0442\u0438\u0439: " + summary.accuracy + "%."}</p>${trend(summary.history)}<p class="small muted">\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442 \u043E\u0448\u0438\u0431\u043A\u0438 \u0438 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438. \u042D\u0442\u043E \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0439, \u0430 \u043D\u0435 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0448\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433.</p><details class="course-history"><summary>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u043D\u044F\u0442\u0438\u0439 \xB7 ${summary.history.length}</summary>${summary.history.length ? (summary.history.length > 20 ? '<p class="small muted">\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 20 \u0437\u0430\u043D\u044F\u0442\u0438\u0439</p>' : "") + historyEntries(summary.history.slice(0, 20), esc2, explainReview) + (summary.history.length > 20 ? "<details><summary>\u0411\u043E\u043B\u0435\u0435 \u0440\u0430\u043D\u043D\u0438\u0435 \u0437\u0430\u043D\u044F\u0442\u0438\u044F \xB7 " + (summary.history.length - 20) + "</summary>" + historyEntries(summary.history.slice(20), esc2, explainReview) + "</details>" : "") : '<p class="small muted">\u0417\u0434\u0435\u0441\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0442\u0441\u044F \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043E\u0448\u0438\u0431\u043A\u0438.</p>'}</details>${state2.openingProgress[course2.id] ? '<p class="small muted">\u0414\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E: ' + state2.openingProgress[course2.id] + ". \u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u0442\u0435\u0445 \u0437\u0430\u043D\u044F\u0442\u0438\u0439 \u043D\u0435 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u043B\u0438\u0441\u044C.</p>" : ""}</section></div>`;
   const u = study2.unit, phase = study2.phase, done = phase === "done";
   let content = "";
   if (phase === "read") content = `<p class="small muted">\u041E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435 ${study2.page + 1} \u0438\u0437 ${u.pages.length}</p><p class="coach-text">${esc2(u.pages[study2.page])}</p><div class="actions">${study2.page ? btn2("\u2190 \u041D\u0430\u0437\u0430\u0434", "course-page-back", "quiet") : ""}${btn2(study2.page === u.pages.length - 1 ? "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C \u043F\u043E\u043D\u0438\u043C\u0430\u043D\u0438\u0435" : "\u0414\u0430\u043B\u044C\u0448\u0435", "course-page-next", "primary")}</div>`;
@@ -3987,7 +4236,7 @@ function courseView({ state: state2, course: course2, study: study2, head: head2
   } else if (phase === "intro") content = `<p class="coach-text">${esc2(u.description)}</p><p class="muted">${esc2(u.goal)}</p><div class="actions">${u.type === "line" ? btn2("\u0420\u0430\u0437\u043E\u0431\u0440\u0430\u0442\u044C \u0445\u043E\u0434\u044B", "course-demo", "primary") : ""}${btn2(u.type === "line" ? "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u043F\u043E \u043F\u0430\u043C\u044F\u0442\u0438" : "\u041D\u0430\u0447\u0430\u0442\u044C \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0443", "course-train", u.type === "line" ? "quiet" : "primary")}</div>`;
   else if (phase === "demo") content = `<p class="small muted">${study2.index} \u0438\u0437 ${u.moves.length} \u043F\u043E\u043B\u0443\u0445\u043E\u0434\u043E\u0432</p><p class="coach-text">${esc2(study2.feedback)}</p>${study2.index < u.moves.length ? '<p class="muted">\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0445\u043E\u0434: <strong>' + esc2(u.moves[study2.index]) + "</strong></p>" : ""}<div class="actions">${study2.index < u.moves.length ? btn2("\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0445\u043E\u0434", "course-demo-next", "primary") : btn2("\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u043F\u043E \u043F\u0430\u043C\u044F\u0442\u0438", "course-train", "primary")}</div>`;
   else if (phase === "train") content = `<h2>${study2.busy ? "\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u0434\u0443\u043C\u0430\u0435\u0442\u2026" : u.type === "line" ? "\u0412\u0430\u0448 \u0445\u043E\u0434 \u0432 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u0435" : "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u0435 \u043F\u043B\u0430\u043D \u0434\u0435\u0431\u044E\u0442\u0430"}</h2><p class="muted">${esc2(u.goal)}</p><p class="small muted">${u.type === "line" ? "\u0412\u0430\u0448\u0438\u0445 \u0445\u043E\u0434\u043E\u0432: " + study2.decisions : "\u0412\u0430\u0448\u0438\u0445 \u0445\u043E\u0434\u043E\u0432: " + study2.decisions + " \u0438\u0437 " + u.turns}</p>${study2.feedback ? '<div class="message">' + esc2(study2.feedback) + "</div>" : ""}<div class="actions">${btn2("\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430", "course-hint", "quiet", study2.busy)}</div><p class="small muted">${u.type === "line" ? "\u0414\u0440\u0443\u0433\u0438\u0435 \u043B\u0435\u0433\u0430\u043B\u044C\u043D\u044B\u0435 \u0445\u043E\u0434\u044B \u043C\u043E\u0433\u0443\u0442 \u0431\u044B\u0442\u044C \u0445\u043E\u0440\u043E\u0448\u0438\u043C\u0438, \u043D\u043E \u0432 \u044D\u0442\u043E\u043C \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0438 \u0437\u0430\u043A\u0440\u0435\u043F\u043B\u044F\u0435\u0442\u0441\u044F \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u0430\u044F \u043B\u0438\u043D\u0438\u044F." : "\u0417\u0434\u0435\u0441\u044C \u0440\u0430\u0437\u0440\u0435\u0448\u0451\u043D \u043B\u044E\u0431\u043E\u0439 \u0445\u043E\u0434 \u043F\u043E \u043F\u0440\u0430\u0432\u0438\u043B\u0430\u043C. \u041A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442 \u043F\u0430\u0440\u0442\u0438\u044E, \u0430 \u0442\u0440\u0435\u043D\u0435\u0440 \u043E\u0446\u0435\u043D\u0438\u0432\u0430\u0435\u0442 \u0432\u0430\u0448\u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F."}</p>`;
-  else if (done) content = `<h2>\u0423\u0440\u043E\u043A \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D</h2><p class="coach-text">${u.type === "sparring" ? "\u0412\u044B \u043F\u043E\u043F\u0440\u043E\u0431\u043E\u0432\u0430\u043B\u0438 \u043F\u043B\u0430\u043D\u044B \u0434\u0435\u0431\u044E\u0442\u0430 \u0432 \u0438\u0433\u0440\u0435. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0437\u0430\u043C\u0435\u0447\u0430\u043D\u0438\u044F \u043A \u0441\u0432\u043E\u0438\u043C \u0440\u0435\u0448\u0435\u043D\u0438\u044F\u043C." : "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D \u043D\u0430 \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0438. \u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0440\u043E\u043A \u043E\u0442\u043A\u0440\u044B\u0442."}</p><p class="muted">\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C: ${study2.session?.score ?? 0}%. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043E\u043A: ${study2.hints}. \u041E\u0448\u0438\u0431\u043E\u043A: ${study2.errors.length}.</p>${study2.errors.length ? "<details open><summary>\u0427\u0442\u043E \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C</summary>" + study2.errors.map((e) => '<p class="small">' + esc2(e.kind === "answer" ? e.prompt + " " + e.expected : e.kind === "evaluation" ? "\u0425\u043E\u0434 " + e.attempted + ": " + (e.reason || "") + " \u0422\u043E\u0447\u043D\u0435\u0435 \u0431\u044B\u043B\u043E " + e.best + "." : e.kind === "illegal" ? "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0439 \u0445\u043E\u0434 " + e.attempted + " \u0431\u044B\u043B \u043E\u0442\u043A\u043B\u043E\u043D\u0451\u043D." : "\u0412\u0430\u0440\u0438\u0430\u043D\u0442: " + e.attempted + ", \u0443\u0447\u0435\u0431\u043D\u043E\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: " + e.expected) + "</p>").join("") + "</details>" : ""}<div class="actions">${course2.units.indexOf(u) < course2.units.length - 1 ? btn2("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0440\u043E\u043A", "course-next", "primary") : ""}${btn2("\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u0443\u0440\u043E\u043A", "course-retry", "quiet")}</div>`;
+  else if (done) content = `<h2>\u0423\u0440\u043E\u043A \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D</h2><p class="coach-text">${u.type === "sparring" ? "\u0412\u044B \u043F\u043E\u043F\u0440\u043E\u0431\u043E\u0432\u0430\u043B\u0438 \u043F\u043B\u0430\u043D\u044B \u0434\u0435\u0431\u044E\u0442\u0430 \u0432 \u0438\u0433\u0440\u0435. \u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0437\u0430\u043C\u0435\u0447\u0430\u043D\u0438\u044F \u043A \u0441\u0432\u043E\u0438\u043C \u0440\u0435\u0448\u0435\u043D\u0438\u044F\u043C." : "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D \u043D\u0430 \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0438. \u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0440\u043E\u043A \u043E\u0442\u043A\u0440\u044B\u0442."}</p><p class="muted">\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C: ${study2.session?.score ?? 0}%. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043E\u043A: ${study2.hints}. \u041E\u0448\u0438\u0431\u043E\u043A: ${study2.errors.length}.</p>${study2.errors.length ? "<details open><summary>\u0427\u0442\u043E \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C</summary>" + study2.errors.map((e) => '<p class="small">' + esc2(e.kind === "answer" ? e.prompt + " " + e.expected : e.kind === "evaluation" ? "\u0425\u043E\u0434 " + e.attempted + ": " + explainReview(e) + " \u0422\u043E\u0447\u043D\u0435\u0435 \u0431\u044B\u043B\u043E " + e.best + "." : e.kind === "illegal" ? "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0439 \u0445\u043E\u0434 " + e.attempted + " \u0431\u044B\u043B \u043E\u0442\u043A\u043B\u043E\u043D\u0451\u043D." : "\u0412\u0430\u0440\u0438\u0430\u043D\u0442: " + e.attempted + ", \u0443\u0447\u0435\u0431\u043D\u043E\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: " + e.expected) + "</p>").join("") + "</details>" : ""}<div class="actions">${course2.units.indexOf(u) < course2.units.length - 1 ? btn2("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0440\u043E\u043A", "course-next", "primary") : ""}${btn2("\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u0443\u0440\u043E\u043A", "course-retry", "quiet")}</div>`;
   return `${head2(u.title, course2.name + " \xB7 " + (course2.side === "w" ? "\u0437\u0430 \u0431\u0435\u043B\u044B\u0445" : "\u0437\u0430 \u0447\u0451\u0440\u043D\u044B\u0445"), `${course2.units.indexOf(u) + 1} / ${course2.units.length}`)}<div class="workspace"><section class="board-area"><div class="player"><strong>${phase === "train" ? "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430" : "\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u043E\u0437\u0438\u0446\u0438\u044F"}</strong><span>${course2.side === "w" ? "\u0411\u0435\u043B\u044B\u043C\u0438" : "\u0427\u0451\u0440\u043D\u044B\u043C\u0438"}</span></div>${board2(study2.game, course2.side, phase === "train" && !study2.busy)}${moveList2(study2.game)}</section><section class="context">${content}<div class="divider"></div>${btn2("\u041A \u0443\u0440\u043E\u043A\u0430\u043C \u0434\u0435\u0431\u044E\u0442\u0430", "course-menu", "quiet")}</section></div>`;
 }
 
@@ -4022,6 +4271,18 @@ function rememberNarration(history, key, now = Date.now()) {
   for (const [old] of entries.slice(600)) delete history[old];
   for (const old of Object.keys(history)) if (!Number.isFinite(history[old]) || now - history[old] >= 7 * 864e5) delete history[old];
 }
+var files = { a: "\u0430", b: "\u0431\u044D", c: "\u0446\u044D", d: "\u0434\u044D", e: "\u0435", f: "\u044D\u0444", g: "\u0436\u044D", h: "\u0430\u0448" };
+var numbers = ["", "\u043E\u0434\u0438\u043D", "\u0434\u0432\u0430", "\u0442\u0440\u0438", "\u0447\u0435\u0442\u044B\u0440\u0435", "\u043F\u044F\u0442\u044C", "\u0448\u0435\u0441\u0442\u044C", "\u0441\u0435\u043C\u044C", "\u0432\u043E\u0441\u0435\u043C\u044C"];
+function speechText(text) {
+  return String(text).replace(/\b([a-h])([1-8])\b/gi, (_, file2, rank2) => files[file2.toLowerCase()] + " " + numbers[Number(rank2)]);
+}
+function displayText(text) {
+  const aliases = { "\u0430": "A", "\u0431\u044D": "B", "\u0446\u0435": "C", "\u0446\u044D": "C", "\u0434\u044D": "D", "\u0435": "E", "\u044D\u0444": "F", "\u0436\u0435": "G", "\u0436\u044D": "G", "\u0430\u0448": "H" };
+  return String(text ?? "").replace(/(?<![а-яё])(?:а|бэ|це|цэ|дэ|е|эф|же|жэ|аш)\s+(?:один|два|три|четыре|пять|шесть|семь|восемь)(?![а-яё])/gi, (m) => {
+    const [f, n] = m.toLowerCase().split(/\s+/);
+    return aliases[f] + numbers.indexOf(n);
+  }).replace(/\b([a-h])([1-8])\b/gi, (m) => m.toUpperCase());
+}
 
 // src/lessons.mjs
 var lessons = [
@@ -4036,7 +4297,7 @@ var lessons = [
 ];
 
 // src/puzzle.mjs
-function advancePuzzle(game, line, index, { alternative = false, mateAllowed = false } = {}) {
+function advancePuzzle(game, line, index, { alternative = false, mateAllowed = false, deferReply = false } = {}) {
   const m = game.history({ verbose: true }).at(-1), uci = m.from + m.to + (m.promotion || "");
   if (uci !== line[index] && !alternative && !(mateAllowed && game.isCheckmate())) {
     game.undo();
@@ -4045,28 +4306,11 @@ function advancePuzzle(game, line, index, { alternative = false, mateAllowed = f
   if (alternative || game.isCheckmate()) return { correct: true, index: line.length, done: true };
   let next = index + 1, reply = null;
   if (next < line.length) {
+    if (deferReply) return { correct: true, index: next + 1, done: false, replyUci: line[next] };
     reply = uciMove(game, line[next]);
     next++;
   }
   return { correct: true, index: next, done: next >= line.length, reply };
-}
-
-// src/ui.mjs
-function moveOffset(src, dst) {
-  return { dx: src.left - dst.left, dy: src.top - dst.top };
-}
-function shouldRecordInterrupt(session) {
-  return !!session && !session.saved && (session.page > 0 || session.phase === "train" || session.phase === "quiz" || session.phase === "demo" || session.phase === "done");
-}
-function runStudyOperation(session, operation) {
-  if (!session) return Promise.resolve();
-  session.operations ??= /* @__PURE__ */ new Set();
-  const pending = operation();
-  session.operations.add(pending);
-  return pending.finally(() => session.operations.delete(pending));
-}
-async function waitForStudyOperations(session) {
-  while (session.operations?.size) await Promise.all([...session.operations]);
 }
 
 // src/app.mjs
@@ -4084,10 +4328,14 @@ window.addEventListener("unhandledrejection", (e) => {
   }
 });
 var $ = (s) => document.querySelector(s);
-var esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+var esc = (s) => displayText(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 var icons = { home: '<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>', play: '<path d="m7 3 14 9L7 21z"/>', task: '<path d="M5 4h14v17H5zM9 2h6v4H9zM8 11l2 2 5-5M8 17h8"/>', book: '<path d="M3 4c4-1 7 0 9 2 2-2 5-3 9-2v16c-4-1-7 0-9 2-2-2-5-3-9-2zM12 6v16"/>', chart: '<path d="M4 3v18h17M8 16v-4m5 4V8m5 8V4"/>', sound: '<path d="m11 4-6 5H2v6h3l6 5zM15 8c3 2 3 6 0 8M18 4c6 5 6 11 0 16"/>', mute: '<path d="m11 4-6 5H2v6h3l6 5zM16 9l6 6m0-6-6 6"/>', arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>', repeat: '<path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-2l2 3M4 16l2 3a7 7 0 0 0 12-2"/>' };
 var icon = (n) => '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">' + icons[n] + "</svg>";
+var taskOperation = Promise.resolve();
+var reviewPly = 0;
 var resetOpen = false;
+var taskHintLevel = 0;
+var taskHintText = "";
 var lesson = null;
 var lessonChess = null;
 var lessonDone = false;
@@ -4151,16 +4399,17 @@ function stopNarration() {
   audio?.pause();
   voiceStatus = "";
 }
-async function say(text, { manual = false, key = text } = {}) {
+async function say(text, { manual = false, key = text, intro = false } = {}) {
+  text = displayText(text);
   transcript = text;
   renderTranscript();
-  if (!lessonIsOpen() || !state.voice || !manual && !canNarrate(state.voiceHistory ?? {}, key)) return;
+  if (!lessonIsOpen() || !state.voice || !manual && intro && !canNarrate(state.voiceHistory ?? {}, key)) return;
   stopNarration();
   const serial = voiceSerial;
-  voiceStatus = "\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0430 \u0433\u043E\u043B\u043E\u0441\u0430\u2026";
+  voiceStatus = "\u0413\u043E\u0442\u043E\u0432\u043B\u044E \u043E\u0437\u0432\u0443\u0447\u043A\u0443\u2026";
   renderTranscript();
   try {
-    const url = await window.coach.speak(text);
+    const url = await window.coach.speak(speechText(text));
     if (serial !== voiceSerial || !state.voice || !lessonIsOpen()) return;
     audio = new Audio(url);
     await audio.play();
@@ -4168,9 +4417,11 @@ async function say(text, { manual = false, key = text } = {}) {
       audio.pause();
       return;
     }
-    state.voiceHistory ??= {};
-    rememberNarration(state.voiceHistory, key);
-    save();
+    if (intro) {
+      state.voiceHistory ??= {};
+      rememberNarration(state.voiceHistory, key);
+      save();
+    }
     voiceStatus = "";
     renderTranscript();
   } catch (e) {
@@ -4193,20 +4444,26 @@ function narrateCurrent(manual = false) {
     text = studySpeech(study);
     key = "course:" + course.id + ":" + study.unit.id + ":" + study.phase + ":" + study.page + ":" + study.question + ":" + study.index;
   } else if (route === "review" && reviewGame) {
-    text = reviewGame.review.filter((r) => r.color === reviewGame.color)[reviewIndex]?.reason || "";
+    const row = reviewGame.review.filter((r) => r.color === reviewGame.color)[reviewIndex];
+    text = row ? reviewExplanation(row) : "";
     key = "review:" + reviewGame.id + ":" + reviewIndex;
   } else if (route === "play" && state.active) {
     text = state.active.finished ? phrases.review : playChess?.turn() === state.active.color ? phrases.turn : phrases.thinking;
     key = "game:" + state.active.id + ":" + text;
   }
-  if (text) say(text, { manual, key });
+  if (text) say(text, { manual, key, intro: !(route === "tasks" && taskDone) && !(route === "openings" && study?.phase === "done") });
 }
 function renderTranscript() {
+  const status = $("#voice-state");
+  if (status) status.textContent = voiceStatus;
   const el = $("#transcript");
   if (!el) return;
   el.innerHTML = `<button data-action="voice" title="${state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A"}" aria-label="${state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A"}" aria-pressed="${state.voice}">${icon(state.voice ? "sound" : "mute")}</button><button data-action="speak" title="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" aria-label="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" ${state.voice ? "" : "disabled"}>${icon("repeat")}</button><div><p>${esc(transcript)}</p>${voiceStatus ? '<div class="voice-note">' + esc(voiceStatus) + "</div>" : ""}</div>`;
 }
 var pendingMove = null;
+var moving = false;
+var deferredRender = false;
+var motionDone = Promise.resolve();
 function queueMove(from, to) {
   try {
     const sq = document.querySelector('.square[data-square="' + from + '"]'), img = sq?.querySelector("img"), src = img?.getAttribute("src") || "";
@@ -4219,38 +4476,21 @@ function queueMove(from, to) {
   } catch {
   }
 }
-function slidePiece(from, to) {
-  const board2 = document.querySelector(".board");
-  if (!board2) return;
-  const dest = board2.querySelector('.square[data-square="' + to + '"]'), srcSq = board2.querySelector('.square[data-square="' + from + '"]');
-  if (!dest || !srcSq) return;
-  const img = dest.querySelector("img");
-  if (!img) return;
-  const d = dest.getBoundingClientRect(), s = srcSq.getBoundingClientRect();
-  if (!d.width || !s.width) return;
-  img.style.transition = "none";
-  const off = moveOffset(s, d);
-  img.style.transform = "translate(" + off.dx + "px," + off.dy + "px)";
-  img.style.zIndex = "2";
-  requestAnimationFrame(() => {
-    img.style.transition = "transform .23s cubic-bezier(.2,.7,.3,1)";
-    img.style.transform = "translate(0,0)";
-  });
-  setTimeout(() => {
-    img.style.transition = "";
-    img.style.zIndex = "";
-  }, 320);
-}
 function animateMove(a) {
-  if (!a) return;
-  slidePiece(a.from, a.to);
-  if (a.castle) slidePiece(a.castle.from, a.castle.to);
+  return animateBoardMove(document, a, { reduced: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches });
+}
+async function waitForMove() {
+  await motionDone;
 }
 var btn = (text, action, type = "", disabled = false) => `<button class="btn ${type}" data-action="${action}" ${disabled ? "disabled" : ""}>${text}</button>`;
 function nav(id, label, img) {
   return `<button class="${route === id ? "active" : ""}" data-nav="${id}">${icon(img)}${label}</button>`;
 }
 function render() {
+  if (moving) {
+    deferredRender = true;
+    return;
+  }
   if (!ready) {
     $("#app").innerHTML = '<div class="loading">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u0432\u0430\u0448\u0435\u0433\u043E \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430\u2026</div>';
     return;
@@ -4260,13 +4500,20 @@ function render() {
   if (ready && pendingMove) {
     const a = pendingMove;
     pendingMove = null;
-    requestAnimationFrame(() => animateMove(a));
+    moving = true;
+    motionDone = animateMove(a).catch((e) => window.coach?.log("warn", "animation: " + e.message)).finally(() => {
+      moving = false;
+      if (deferredRender) {
+        deferredRender = false;
+        render();
+      }
+    });
   }
 }
 var counted = () => calibrationGames(state).length;
 var level = () => counted() < 3 ? `\u0417\u043D\u0430\u043A\u043E\u043C\u0441\u0442\u0432\u043E: ${Math.min(3, counted())} \u0438\u0437 3 \u043F\u0430\u0440\u0442\u0438\u0439` : `\u041E\u0446\u0435\u043D\u043A\u0430 \u0442\u0440\u0435\u043D\u0435\u0440\u0430: \u2248 ${opponentRating(state)}`;
 function head(title, sub, tag = level()) {
-  return `<header><div><h1>${title}</h1><p class="muted" style="margin:0">${sub}</p></div>${tag ? '<span class="tag">' + esc(tag) + "</span>" : ""}</header>`;
+  return `<header><div><h1>${title}</h1><p class="muted" style="margin:0">${sub}</p></div><div class="head-tools">${tag ? '<span class="tag">' + esc(tag) + "</span>" : ""}${lessonIsOpen() ? '<button class="audio-control" data-action="voice" aria-label="' + (state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A") + '" title="' + (state.voice ? "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A" : "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A") + '">' + icon(state.voice ? "sound" : "mute") + '</button><button class="audio-control" data-action="speak" aria-label="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" title="\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435" ' + (state.voice ? "" : "disabled") + ">" + icon("repeat") + '</button><span id="voice-state" class="small muted" aria-live="polite">' + esc(voiceStatus) + "</span>" : ""}</div></header>`;
 }
 function view() {
   switch (route) {
@@ -4296,21 +4543,21 @@ function skillsHTML() {
   return Object.entries(state.skills).map(([t, s]) => `<div class="skill"><span>${themes[t]}</span><div class="bar"><i style="width:${Math.round(s.ok / s.total * 100)}%"></i></div><span class="small">${s.total <= 2 ? "\u041D\u0435\u0442 \u0434\u0430\u043D\u043D\u044B\u0445" : Math.round(s.ok / s.total * 100) + "% \xB7 " + (s.total - 2)}</span></div>`).join("");
 }
 function historyHTML(n = 30) {
-  return state.games.length ? state.games.slice(0, n).map((g) => `<div class="list-row"><button data-review="${g.id}">${g.result === 1 ? "\u041F\u043E\u0431\u0435\u0434\u0430" : g.result === 0.5 ? "\u041D\u0438\u0447\u044C\u044F" : "\u041F\u043E\u0440\u0430\u0436\u0435\u043D\u0438\u0435"} \xB7 ${new Date(g.date).toLocaleDateString("ru-RU")}<small>${g.color === "w" ? "\u0411\u0435\u043B\u044B\u043C\u0438" : "\u0427\u0451\u0440\u043D\u044B\u043C\u0438"} \xB7 ${g.counted ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u043F\u043E\u0441\u043B\u0435 \u0438\u0433\u0440\u044B: " + g.ratingAfter : "\u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F, \u0432\u043D\u0435 \u043E\u0446\u0435\u043D\u043A\u0438"}</small></button><button data-review="${g.id}" aria-label="\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0440\u0430\u0437\u0431\u043E\u0440">${icon("arrow")}</button></div>`).join("") : '<p class="muted">\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u043F\u0430\u0440\u0442\u0438\u0438 \u0438 \u0438\u0445 \u0440\u0430\u0437\u0431\u043E\u0440\u044B.</p>';
+  return state.games.length ? state.games.slice(0, n).map((g) => `<div class="list-row"><button data-review="${g.id}">${g.result === 1 ? "\u041F\u043E\u0431\u0435\u0434\u0430" : g.result === 0.5 ? "\u041D\u0438\u0447\u044C\u044F" : "\u041F\u043E\u0440\u0430\u0436\u0435\u043D\u0438\u0435"} \xB7 ${new Date(g.date).toLocaleDateString("ru-RU")}<small>${g.color === "w" ? "\u0411\u0435\u043B\u044B\u043C\u0438" : "\u0427\u0451\u0440\u043D\u044B\u043C\u0438"} \xB7 ${g.counted ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u043F\u043E\u0441\u043B\u0435 \u0438\u0433\u0440\u044B: " + g.ratingAfter : "\u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F, \u0432\u043D\u0435 \u043E\u0446\u0435\u043D\u043A\u0438"}</small></button><button data-review="${g.id}" aria-label="\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0440\u0430\u0437\u0431\u043E\u0440">${icon("arrow")}</button></div>`).join("") + (state.games.length > n ? '<p class="small muted">\u041F\u043E\u043A\u0430\u0437\u0430\u043D\u044B \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 ' + n + " \u043F\u0430\u0440\u0442\u0438\u0439. \u041F\u043E\u043B\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430 \u0432 \u043A\u043E\u043F\u0438\u0438 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430.</p>" : "") : '<p class="muted">\u0417\u0434\u0435\u0441\u044C \u043F\u043E\u044F\u0432\u044F\u0442\u0441\u044F \u043F\u0430\u0440\u0442\u0438\u0438 \u0438 \u0438\u0445 \u0440\u0430\u0437\u0431\u043E\u0440\u044B.</p>';
 }
 function board(game, orientation = "w", interactive = true) {
-  let files = orientation === "w" ? "abcdefgh" : "hgfedcba", ranks = orientation === "w" ? "87654321" : "12345678";
+  let files2 = orientation === "w" ? "abcdefgh" : "hgfedcba", ranks = orientation === "w" ? "87654321" : "12345678";
   let legal = [];
   if (selected && interactive) try {
     legal = game.moves({ square: selected, verbose: true }).map((x) => x.to);
   } catch {
   }
   let html = "";
-  for (let r of ranks) for (let f of files) {
+  for (let r of ranks) for (let f of files2) {
     let sq = f + r, p = game.get(sq), dark = (f.charCodeAt(0) + Number(r)) % 2 === 0, check = p?.type === "k" && p.color === game.turn() && game.isCheck();
     html += `<button class="square ${dark ? "dark" : ""} ${selected === sq ? "selected" : ""} ${last?.includes(sq) ? "last" : ""} ${legal.includes(sq) ? "target" : ""} ${check ? "check" : ""}" data-square="${sq}" aria-label="${sq}${p ? " " + { w: "\u0431\u0435\u043B\u044B\u0435", b: "\u0447\u0451\u0440\u043D\u044B\u0435" }[p.color] + " " + { p: "\u043F\u0435\u0448\u043A\u0430", n: "\u043A\u043E\u043D\u044C", b: "\u0441\u043B\u043E\u043D", r: "\u043B\u0430\u0434\u044C\u044F", q: "\u0444\u0435\u0440\u0437\u044C", k: "\u043A\u043E\u0440\u043E\u043B\u044C" }[p.type] : " \u043F\u0443\u0441\u0442\u043E\u0435 \u043F\u043E\u043B\u0435"}" ${!interactive ? 'tabindex="-1"' : ""}>${p ? `<img src="pieces/${state.appearance?.pieces || "minimal"}/${p.color + p.type.toUpperCase()}.svg" alt="" draggable="false">` : ""}</button>`;
   }
-  return `<div class="board-wrap"><div class="ranks">${[...ranks].map((r) => "<span>" + r + "</span>").join("")}</div><div class="board theme-${state.appearance?.board || "graphite"}" role="group" aria-label="\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u0430\u044F \u0434\u043E\u0441\u043A\u0430">${html}</div><div class="files">${[...files].map((f) => "<span>" + f + "</span>").join("")}</div></div>${pendingPromotion ? '<div class="promotion" role="group" aria-label="\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u0435 \u043F\u0435\u0448\u043A\u0438">' + ["q", "r", "b", "n"].map((p) => `<button data-promote="${p}">${{ q: "\u0424\u0435\u0440\u0437\u044C", r: "\u041B\u0430\u0434\u044C\u044F", b: "\u0421\u043B\u043E\u043D", n: "\u041A\u043E\u043D\u044C" }[p]}</button>`).join("") + "</div>" : ""}`;
+  return `<div class="board-wrap"><div class="ranks">${[...ranks].map((r) => "<span>" + r + "</span>").join("")}</div><div class="board theme-${state.appearance?.board || "graphite"}" role="group" aria-label="\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u0430\u044F \u0434\u043E\u0441\u043A\u0430">${html}</div><div class="files">${[...files2].map((f) => "<span>" + f + "</span>").join("")}</div></div>${pendingPromotion ? '<div class="promotion" role="group" aria-label="\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u0435 \u043F\u0435\u0448\u043A\u0438">' + ["q", "r", "b", "n"].map((p) => `<button data-promote="${p}">${{ q: "\u0424\u0435\u0440\u0437\u044C", r: "\u041B\u0430\u0434\u044C\u044F", b: "\u0421\u043B\u043E\u043D", n: "\u041A\u043E\u043D\u044C" }[p]}</button>`).join("") + "</div>" : ""}`;
 }
 function moveList(game) {
   let h = game.history(), out = "";
@@ -4320,7 +4567,7 @@ function moveList(game) {
 function taskView() {
   if (!task) loadTask();
   let own = task.source === "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F" || task.source === "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430 \u0434\u0435\u0431\u044E\u0442\u0430";
-  return `${head("\u0417\u0430\u0434\u0430\u0447\u0438", own ? "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u0441\u044F \u043A \u043F\u043E\u0437\u0438\u0446\u0438\u0438, \u0432 \u043A\u043E\u0442\u043E\u0440\u043E\u0439 \u0431\u044B\u043B\u043E \u0442\u0440\u0443\u0434\u043D\u043E." : "\u0417\u0430\u0434\u0430\u0447\u0438 \u043F\u043E\u0434\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0434 \u043D\u0430\u0432\u044B\u043A\u0438, \u043E\u0448\u0438\u0431\u043A\u0438 \u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F.")}<div class="workspace"><section class="board-area"><div class="player"><strong>${task.fen.split(" ")[1] === "w" ? "\u0425\u043E\u0434 \u0431\u0435\u043B\u044B\u0445" : "\u0425\u043E\u0434 \u0447\u0451\u0440\u043D\u044B\u0445"}</strong><span>${Math.min(Math.floor(taskPly / 2) + 1, Math.ceil(task.line.length / 2))} / ${Math.ceil(task.line.length / 2)}</span></div>${board(taskChess, task.fen.split(" ")[1], !taskDone && !busy)}<p class="keyboard-note">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0438\u0433\u0443\u0440\u0443, \u0437\u0430\u0442\u0435\u043C \u043F\u043E\u043B\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F.</p></section><section class="context"><div class="meta"><span>${themes[task.theme]}</span><span>${Math.ceil(task.line.length / 2)} ${Math.ceil(task.line.length / 2) === 1 ? "\u0445\u043E\u0434" : "\u0445\u043E\u0434\u0430"}</span></div><h2>${esc(task.title)}</h2><p class="coach-text">${esc(task.text)}</p>${taskFeedback ? '<div class="message ' + (taskDone || taskFeedback.startsWith("\u0412\u0435\u0440\u043D\u043E") ? "success" : "error") + '">' + esc(taskFeedback) + "</div>" : ""}${taskHints && !taskDone ? '<div class="message hint">' + esc(taskHints === 1 ? task.hint : "\u041D\u0430\u0447\u043D\u0438\u0442\u0435 \u0441 \u0445\u043E\u0434\u0430 " + describeMove(taskChess, task.line[taskPly]) + ".") + "</div>" : ""}${busy ? '<p class="status">\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u044E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u2026</p>' : ""}<div class="actions">${taskDone ? btn("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0437\u0430\u0434\u0430\u0447\u0430", "next-task", "primary") : btn("\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430", "hint", "", busy)}${!taskDone ? btn("\u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0442\u044C", "skip", "quiet", busy) : ""}</div><details class="task-details"><summary>\u041F\u043E\u0447\u0435\u043C\u0443 \u044D\u0442\u0430 \u0437\u0430\u0434\u0430\u0447\u0430?</summary><p class="small muted">${own ? "\u042D\u0442\u0430 \u043F\u043E\u0437\u0438\u0446\u0438\u044F \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0430 \u0438\u0437 \u0440\u0430\u0437\u0431\u043E\u0440\u0430 \u0432\u0430\u0448\u0435\u0439 \u043F\u0430\u0440\u0442\u0438\u0438." : "\u0422\u0435\u043C\u0430 \u0438 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0432\u044B\u0431\u0440\u0430\u043D\u044B \u043F\u043E \u0432\u0430\u0448\u0435\u043C\u0443 \u043F\u0440\u043E\u0444\u0438\u043B\u044E."} \u0417\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0432\u0442\u043E\u0440\u044F\u044E\u0442\u0441\u044F \u043F\u043E\u0434\u0440\u044F\u0434. \u0420\u0435\u0448\u0451\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u044E\u0442\u0441\u044F \u043D\u0435 \u0440\u0430\u043D\u044C\u0448\u0435 \u043D\u0435\u0434\u0435\u043B\u0438, \u0441 \u043E\u0448\u0438\u0431\u043A\u0430\u043C\u0438 \u2014 \u043D\u0435 \u0440\u0430\u043D\u044C\u0448\u0435 \u0434\u0432\u0443\u0445 \u0434\u043D\u0435\u0439 \u0438 \u043F\u043E\u0441\u043B\u0435 \u0434\u0440\u0443\u0433\u0438\u0445 \u043F\u043E\u0437\u0438\u0446\u0438\u0439.</p></details></section></div>`;
+  return `${head("\u0417\u0430\u0434\u0430\u0447\u0438", own ? "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u0441\u044F \u043A \u043F\u043E\u0437\u0438\u0446\u0438\u0438, \u0432 \u043A\u043E\u0442\u043E\u0440\u043E\u0439 \u0431\u044B\u043B\u043E \u0442\u0440\u0443\u0434\u043D\u043E." : "\u0417\u0430\u0434\u0430\u0447\u0438 \u043F\u043E\u0434\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0434 \u043D\u0430\u0432\u044B\u043A\u0438, \u043E\u0448\u0438\u0431\u043A\u0438 \u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F.")}<div class="workspace"><section class="board-area"><div class="player"><strong>${task.fen.split(" ")[1] === "w" ? "\u0425\u043E\u0434 \u0431\u0435\u043B\u044B\u0445" : "\u0425\u043E\u0434 \u0447\u0451\u0440\u043D\u044B\u0445"}</strong><span>${Math.min(Math.floor(taskPly / 2) + 1, Math.ceil(task.line.length / 2))} / ${Math.ceil(task.line.length / 2)}</span></div>${board(taskChess, task.fen.split(" ")[1], !taskDone && !busy)}<p class="keyboard-note">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0438\u0433\u0443\u0440\u0443, \u0437\u0430\u0442\u0435\u043C \u043F\u043E\u043B\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F.</p></section><section class="context"><div class="meta"><span>${themes[task.theme]}</span><span>${Math.ceil(task.line.length / 2)} ${Math.ceil(task.line.length / 2) === 1 ? "\u0445\u043E\u0434" : "\u0445\u043E\u0434\u0430"}</span></div><h2>${esc(task.title)}</h2><p class="coach-text">${esc(task.text)}</p>${taskFeedback ? '<div class="message ' + (taskDone || taskFeedback.startsWith("\u0412\u0435\u0440\u043D\u043E") ? "success" : "error") + '">' + esc(taskFeedback) + "</div>" : ""}${taskHintText && !taskDone ? '<div class="message hint">' + esc(taskHintText) + "</div>" : ""}${busy ? '<p class="status">' + esc(analysisProgress || "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u044E \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435\u2026") + "</p>" : ""}<div class="actions">${taskDone ? btn("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0437\u0430\u0434\u0430\u0447\u0430", "next-task", "primary") : btn(taskHintLevel >= 3 ? "\u0412\u0441\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u044B" : taskHintLevel ? "\u0415\u0449\u0451 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430" : "\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430", "hint", "", busy || taskHintLevel >= 3)}${!taskDone ? btn("\u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0442\u044C", "skip", "quiet", busy) : ""}</div><details class="task-details"><summary>\u041F\u043E\u0447\u0435\u043C\u0443 \u044D\u0442\u0430 \u0437\u0430\u0434\u0430\u0447\u0430?</summary><p class="small muted">${own ? "\u042D\u0442\u0430 \u043F\u043E\u0437\u0438\u0446\u0438\u044F \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0430 \u0438\u0437 \u0440\u0430\u0437\u0431\u043E\u0440\u0430 \u0432\u0430\u0448\u0435\u0439 \u043F\u0430\u0440\u0442\u0438\u0438." : "\u0422\u0435\u043C\u0430 \u0438 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0432\u044B\u0431\u0440\u0430\u043D\u044B \u043F\u043E \u0432\u0430\u0448\u0435\u043C\u0443 \u043F\u0440\u043E\u0444\u0438\u043B\u044E."} \u0417\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0432\u0442\u043E\u0440\u044F\u044E\u0442\u0441\u044F \u043F\u043E\u0434\u0440\u044F\u0434. \u0420\u0435\u0448\u0451\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u044E\u0442\u0441\u044F \u043D\u0435 \u0440\u0430\u043D\u044C\u0448\u0435 \u043D\u0435\u0434\u0435\u043B\u0438, \u0441 \u043E\u0448\u0438\u0431\u043A\u0430\u043C\u0438 \u2014 \u043D\u0435 \u0440\u0430\u043D\u044C\u0448\u0435 \u0434\u0432\u0443\u0445 \u0434\u043D\u0435\u0439 \u0438 \u043F\u043E\u0441\u043B\u0435 \u0434\u0440\u0443\u0433\u0438\u0445 \u043F\u043E\u0437\u0438\u0446\u0438\u0439.</p></details></section></div>`;
 }
 function loadTask() {
   task = chooseTask(state, puzzles);
@@ -4328,6 +4575,8 @@ function loadTask() {
   save();
   taskChess = loadPosition(task.fen);
   taskHints = 0;
+  taskHintLevel = 0;
+  taskHintText = "";
   taskTries = 1;
   taskPly = 0;
   taskDone = false;
@@ -4337,33 +4586,38 @@ function loadTask() {
   pendingPromotion = null;
 }
 function playView() {
-  if (!state.active) return `${head("\u0418\u0433\u0440\u0430 \u0441 \u0442\u0440\u0435\u043D\u0435\u0440\u043E\u043C", "\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043F\u043E\u0434\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u0442\u0441\u044F \u043F\u043E\u0434 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u043F\u0430\u0440\u0442\u0438\u0439 \u0438 \u0437\u0430\u0434\u0430\u0447.")}<div class="empty"><h2>${counted() < 3 ? "\u041E\u0437\u043D\u0430\u043A\u043E\u043C\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F" : "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F"}</h2><p class="muted">\u0411\u0435\u0437 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u044F \u0432\u0440\u0435\u043C\u0435\u043D\u0438. \u041F\u043E\u0441\u043B\u0435 \u0438\u0433\u0440\u044B \u0442\u0440\u0435\u043D\u0435\u0440 \u0440\u0430\u0437\u0431\u0435\u0440\u0451\u0442 \u0432\u0430\u0448\u0438 \u0445\u043E\u0434\u044B \u0438 \u0434\u043E\u0431\u0430\u0432\u0438\u0442 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0438\u0435 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0432 \u0437\u0430\u0434\u0430\u0447\u0438.</p><label class="small">\u0426\u0432\u0435\u0442 \u0444\u0438\u0433\u0443\u0440 <select class="select" id="color"><option value="auto">\u0427\u0435\u0440\u0435\u0434\u043E\u0432\u0430\u0442\u044C</option><option value="w">\u0411\u0435\u043B\u044B\u0435</option><option value="b">\u0427\u0451\u0440\u043D\u044B\u0435</option></select></label><div class="actions">${btn("\u041D\u0430\u0447\u0430\u0442\u044C \u043F\u0430\u0440\u0442\u0438\u044E", "start-game", "primary", !!engineFailure)}</div><p class="small muted">\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: \u2248 ${opponentRating(state)} \u043F\u043E \u0448\u043A\u0430\u043B\u0435 \u0442\u0440\u0435\u043D\u0435\u0440\u0430. \u0421\u0438\u043B\u0430 \u0434\u0432\u0438\u0436\u043A\u0430 \u043D\u0430 \u044D\u0442\u043E\u0439 \u0448\u043A\u0430\u043B\u0435 \u043F\u0440\u0438\u0431\u043B\u0438\u0437\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F.</p></div>`;
+  if (!state.active) return `${head("\u0418\u0433\u0440\u0430 \u0441 \u0442\u0440\u0435\u043D\u0435\u0440\u043E\u043C", "\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043F\u043E\u0434\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u0442\u0441\u044F \u043F\u043E\u0434 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u043F\u0430\u0440\u0442\u0438\u0439 \u0438 \u0437\u0430\u0434\u0430\u0447.")}<div class="empty"><h2>${counted() < 3 ? "\u041E\u0437\u043D\u0430\u043A\u043E\u043C\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F" : "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F"}</h2><p class="muted">\u0411\u0435\u0437 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u044F \u0432\u0440\u0435\u043C\u0435\u043D\u0438. \u041F\u043E\u0441\u043B\u0435 \u0438\u0433\u0440\u044B \u0442\u0440\u0435\u043D\u0435\u0440 \u0440\u0430\u0437\u0431\u0435\u0440\u0451\u0442 \u0432\u0430\u0448\u0438 \u0445\u043E\u0434\u044B \u0438 \u0434\u043E\u0431\u0430\u0432\u0438\u0442 \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0438\u0435 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0432 \u0437\u0430\u0434\u0430\u0447\u0438.</p><label class="small">\u0426\u0432\u0435\u0442 \u0444\u0438\u0433\u0443\u0440 <select class="select" id="color"><option value="auto">\u0427\u0435\u0440\u0435\u0434\u043E\u0432\u0430\u0442\u044C</option><option value="w">\u0411\u0435\u043B\u044B\u0435</option><option value="b">\u0427\u0451\u0440\u043D\u044B\u0435</option></select></label><div class="actions">${btn("\u041D\u0430\u0447\u0430\u0442\u044C \u043F\u0430\u0440\u0442\u0438\u044E", "start-game", "primary", !!engineFailure)}</div><p class="small muted">\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430: \u2248 ${opponentRating(state)} \u043F\u043E \u0448\u043A\u0430\u043B\u0435 \u0442\u0440\u0435\u043D\u0435\u0440\u0430. \u041E\u0446\u0435\u043D\u043A\u0430 \u0441\u0438\u043B\u044B \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430 \u043F\u0440\u0438\u0431\u043B\u0438\u0437\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F.</p></div>`;
   if (!playChess) restoreGame();
   let g = state.active;
   return `${head(analysisProgress ? "\u0420\u0430\u0437\u0431\u0438\u0440\u0430\u0435\u043C \u043F\u0430\u0440\u0442\u0438\u044E" : "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F", analysisProgress || "\u0414\u0443\u043C\u0430\u0439\u0442\u0435 \u0441\u0442\u043E\u043B\u044C\u043A\u043E, \u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043D\u0443\u0436\u043D\u043E.", `\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u2248 ${g.opponent}`)}<div class="workspace"><section class="board-area"><div class="player"><strong>\u0422\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u043E\u0447\u043D\u044B\u0439 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A</strong><span>${g.color === "w" ? "\u0427\u0451\u0440\u043D\u044B\u0435" : "\u0411\u0435\u043B\u044B\u0435"}</span></div>${board(playChess, g.color, !busy && !g.finished && playChess.turn() === g.color)}<div class="player bottom"><strong>\u0412\u044B \xB7 ${g.color === "w" ? "\u0431\u0435\u043B\u044B\u0435" : "\u0447\u0451\u0440\u043D\u044B\u0435"}</strong><span>${playChess.isCheck() ? "\u0428\u0430\u0445" : g.finished ? "\u041F\u0430\u0440\u0442\u0438\u044F \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430" : playChess.turn() === g.color ? "\u0412\u0430\u0448 \u0445\u043E\u0434" : "\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u0434\u0443\u043C\u0430\u0435\u0442\u2026"}</span></div></section><section class="context"><div class="meta"><span>${g.assessment ? "\u041E\u0437\u043D\u0430\u043A\u043E\u043C\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F" : "\u0422\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u043A\u0430"}</span><span>\u0411\u0435\u0437 \u0447\u0430\u0441\u043E\u0432</span></div><h2>${g.finished ? "\u041F\u0435\u0440\u0435\u0445\u043E\u0434\u0438\u043C \u043A \u0440\u0430\u0437\u0431\u043E\u0440\u0443" : playChess.turn() === g.color ? "\u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 \u0445\u043E\u0434" : "\u0425\u043E\u0434 \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430"}</h2><p class="muted">${g.finished ? "\u0422\u0440\u0435\u043D\u0435\u0440 \u0441\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u0435\u0442 \u0432\u0430\u0448\u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u0441 \u0441\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u043C\u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u044F\u043C\u0438. \u041E\u0448\u0438\u0431\u043A\u0438 \u043F\u043E\u043F\u0430\u0434\u0443\u0442 \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0435 \u0437\u0430\u0434\u0430\u0447\u0438." : "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0443\u0433\u0440\u043E\u0437\u044B \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A\u0430, \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C \u043A\u043E\u0440\u043E\u043B\u044F \u0438 \u043D\u0435\u0437\u0430\u0449\u0438\u0449\u0451\u043D\u043D\u044B\u0435 \u0444\u0438\u0433\u0443\u0440\u044B."}</p>${analysisError ? '<div class="message error">' + esc(analysisError) + "</div>" + btn("\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u0440\u0430\u0437\u0431\u043E\u0440", "retry-analysis", "primary") : ""}${analysisProgress ? '<p class="status"><span class="dot"></span>' + esc(analysisProgress) + "</p>" : ""}<div class="divider"></div><h3>\u0425\u043E\u0434\u044B \u043F\u0430\u0440\u0442\u0438\u0438</h3>${moveList(playChess)}<div class="actions">${!g.finished ? btn("\u0421\u0434\u0430\u0442\u044C\u0441\u044F \u0438 \u0440\u0430\u0437\u043E\u0431\u0440\u0430\u0442\u044C", "resign", "quiet", busy) : ""}${!g.finished ? btn("\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0438\u0442\u044C \u043D\u0438\u0447\u044C\u044E", "draw", "quiet", busy) : ""}${!g.finished && engineFailure ? btn("\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C \u0445\u043E\u0434", "retry-move", "primary") : ""}</div><p class="small muted">\u041F\u0430\u0440\u0442\u0438\u044F \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0441\u044F \u043F\u043E\u0441\u043B\u0435 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u0445\u043E\u0434\u0430. \u041C\u043E\u0436\u043D\u043E \u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u0432 \u0434\u0440\u0443\u0433\u043E\u0439 \u0440\u0435\u0436\u0438\u043C \u0438 \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F.</p></section></div>`;
 }
 function restoreGame() {
   playChess = replayMoves(state.active.moves);
+  const m = playChess.history({ verbose: true }).at(-1);
+  last = m ? [m.from, m.to] : null;
 }
 function openingsView() {
-  return courseView({ state, course, study, head, btn, board, moveList, esc, icon });
+  return courseView({ state, course, study, head, btn, board, moveList, esc, icon, explainReview: reviewExplanation });
 }
 function progressView() {
-  return `${head("\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441", "\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043F\u0430\u0440\u0442\u0438\u0439, \u043E\u0448\u0438\u0431\u043E\u043A \u0438 \u0437\u0430\u0434\u0430\u0447.", counted() < 3 ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u0443\u0442\u043E\u0447\u043D\u044F\u0435\u0442\u0441\u044F" : "\u041F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C")}<div class="statsline"><span><strong>${counted() >= 3 ? "\u2248 " + opponentRating(state) : "\u2014"}</strong>\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441 \u0443\u0447\u0451\u0442\u043E\u043C \u0437\u0430\u0434\u0430\u0447</span><span><strong>${state.games.length}</strong>\u043F\u0430\u0440\u0442\u0438\u0439</span><span><strong>${state.attempts.filter((a) => a.correct).length}</strong>\u0440\u0435\u0448\u0435\u043D\u0438\u0439</span><span><strong>${state.mistakes.length}</strong>\u043F\u043E\u0437\u0438\u0446\u0438\u0439 \u0438\u0437 \u043E\u0448\u0438\u0431\u043E\u043A</span></div>${calibrationControls()}${chartsHTML()}<div class="overview"><section><h2>\u041D\u0430\u0432\u044B\u043A\u0438 \u043F\u043E \u0442\u0435\u043C\u0430\u043C</h2>${skillsHTML()}<p class="small muted">\u041F\u0440\u043E\u0446\u0435\u043D\u0442 \u2014 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u0442\u0435\u043C\u044B, \u0440\u044F\u0434\u043E\u043C \u0447\u0438\u0441\u043B\u043E \u043D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0439. \u0412 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0442\u0435\u0440\u0438 \u043E\u0446\u0435\u043D\u043A\u0438; \u0432 \u0437\u0430\u0434\u0430\u0447\u0430\u0445 \u2014 \u0432\u0435\u0440\u043D\u043E\u0441\u0442\u044C, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0438. \u042D\u0442\u043E \u043D\u0435 \u043F\u0440\u043E\u0446\u0435\u043D\u0442 \u0442\u043E\u0447\u043D\u043E\u0441\u0442\u0438 \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u0441\u0435\u0440\u0432\u0438\u0441\u0430.</p><div class="divider"></div><h3>\u041A\u0430\u043A \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u043D\u0430\u0433\u0440\u0443\u0437\u043A\u0430</h3><p class="muted">\u041E\u0448\u0438\u0431\u043A\u0438 \u0432 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0441\u043E\u0437\u0434\u0430\u044E\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438. \u0421\u043B\u0430\u0431\u044B\u0435 \u0442\u0435\u043C\u044B \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u044E\u0442\u0441\u044F \u0447\u0430\u0449\u0435. \u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u043F\u043E\u0432\u044B\u0448\u0430\u044E\u0442 \u043E\u0446\u0435\u043D\u043A\u0443 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0441\u043D\u0438\u0436\u0430\u044E\u0442 \u0432\u0435\u0441 \u0443\u0441\u043F\u0435\u0445\u0430. \u041F\u043E\u0432\u0442\u043E\u0440 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u043D\u0430\u043A\u0440\u0443\u0447\u0438\u0432\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C.</p>${btn("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043A\u043E\u043F\u0438\u044E \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430", "export", "quiet")}${btn("\u0416\u0443\u0440\u043D\u0430\u043B \u043E\u0448\u0438\u0431\u043E\u043A", "open-log", "quiet")}<div class="divider"></div><h3>\u041E \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438</h3><p class="small muted">\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043D\u0435\u0440 1.4.1 \xB7 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F Mac.<br>\u041F\u0440\u0430\u0432\u0438\u043B\u0430: chess.js (BSD-2-Clause). \u0410\u043D\u0430\u043B\u0438\u0437: Stockfish.js 19, GPL-3.0, \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043F\u043E\u0438\u0441\u043A. \u0424\u0438\u0433\u0443\u0440\u044B: Maestro (CC BY-NC-SA 4.0, \u043B\u0438\u0447\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435), Alpha (Eric Bentzen, \u043B\u0438\u0447\u043D\u043E\u0435 \u043D\u0435\u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435). \u0413\u043E\u043B\u043E\u0441: TeraTTSv2 by TeraSpace, ru_m1.</p><p class="small"><a href="https://github.com/nmrugg/stockfish.js" target="_blank">Stockfish \u0438 \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434</a> \xB7 <a href="https://huggingface.co/TeraSpace/TeraTTSv2" target="_blank">TeraTTSv2</a> \xB7 <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0444\u0438\u0433\u0443\u0440</a></p></section><section><h2>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0438 \u0440\u0430\u0437\u0431\u043E\u0440\u044B</h2>${historyHTML()}</section></div>`;
+  return `${head("\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441", "\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043F\u0430\u0440\u0442\u0438\u0439, \u043E\u0448\u0438\u0431\u043E\u043A \u0438 \u0437\u0430\u0434\u0430\u0447.", counted() < 3 ? "\u041E\u0446\u0435\u043D\u043A\u0430 \u0443\u0442\u043E\u0447\u043D\u044F\u0435\u0442\u0441\u044F" : "\u041F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C")}<div class="statsline"><span><strong>${counted() >= 3 ? "\u2248 " + opponentRating(state) : "\u2014"}</strong>\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441 \u0443\u0447\u0451\u0442\u043E\u043C \u0437\u0430\u0434\u0430\u0447</span><span><strong>${state.games.length}</strong>\u043F\u0430\u0440\u0442\u0438\u0439</span><span><strong>${state.attempts.filter((a) => a.correct && !a.id.startsWith("lesson-") && !a.id.startsWith("course-")).length}</strong>\u0440\u0435\u0448\u0435\u043D\u0438\u0439</span><span><strong>${state.mistakes.length}</strong>\u043F\u043E\u0437\u0438\u0446\u0438\u0439 \u0438\u0437 \u043E\u0448\u0438\u0431\u043E\u043A</span></div>${calibrationControls()}${chartsHTML()}<div class="overview"><section><h2>\u041D\u0430\u0432\u044B\u043A\u0438 \u043F\u043E \u0442\u0435\u043C\u0430\u043C</h2>${skillsHTML()}<p class="small muted">\u041F\u0440\u043E\u0446\u0435\u043D\u0442 \u2014 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F \u0442\u0435\u043C\u044B, \u0440\u044F\u0434\u043E\u043C \u0447\u0438\u0441\u043B\u043E \u043D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0439. \u0412 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u043F\u043E\u0442\u0435\u0440\u0438 \u043E\u0446\u0435\u043D\u043A\u0438; \u0432 \u0437\u0430\u0434\u0430\u0447\u0430\u0445 \u2014 \u0432\u0435\u0440\u043D\u043E\u0441\u0442\u044C, \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0438. \u042D\u0442\u043E \u043D\u0435 \u043F\u0440\u043E\u0446\u0435\u043D\u0442 \u0442\u043E\u0447\u043D\u043E\u0441\u0442\u0438 \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 \u0434\u0440\u0443\u0433\u043E\u0433\u043E \u0441\u0435\u0440\u0432\u0438\u0441\u0430.</p><div class="divider"></div><h3>\u041A\u0430\u043A \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u043D\u0430\u0433\u0440\u0443\u0437\u043A\u0430</h3><p class="muted">\u041E\u0448\u0438\u0431\u043A\u0438 \u0432 \u043F\u0430\u0440\u0442\u0438\u044F\u0445 \u0441\u043E\u0437\u0434\u0430\u044E\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438. \u0421\u043B\u0430\u0431\u044B\u0435 \u0442\u0435\u043C\u044B \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u044E\u0442\u0441\u044F \u0447\u0430\u0449\u0435. \u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u043F\u043E\u0432\u044B\u0448\u0430\u044E\u0442 \u043E\u0446\u0435\u043D\u043A\u0443 \u043E\u0441\u0432\u043E\u0435\u043D\u0438\u044F. \u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0441\u043D\u0438\u0436\u0430\u044E\u0442 \u0432\u0435\u0441 \u0443\u0441\u043F\u0435\u0445\u0430. \u041F\u043E\u0432\u0442\u043E\u0440 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u043D\u0435 \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u043D\u0430\u043A\u0440\u0443\u0447\u0438\u0432\u0430\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C.</p>${btn("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043A\u043E\u043F\u0438\u044E \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\u0430", "export", "quiet")}${btn("\u0416\u0443\u0440\u043D\u0430\u043B \u043E\u0448\u0438\u0431\u043E\u043A", "open-log", "quiet")}<div class="divider"></div><h3>\u041E \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0438</h3><p class="small muted">\u0428\u0430\u0445\u043C\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043D\u0435\u0440 1.5.0 \xB7 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u0435 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F Mac.<br>\u041F\u0440\u0430\u0432\u0438\u043B\u0430: chess.js (BSD-2-Clause). \u0410\u043D\u0430\u043B\u0438\u0437: Stockfish.js 19, GPL-3.0, \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u043F\u043E\u0438\u0441\u043A. \u0424\u0438\u0433\u0443\u0440\u044B: Maestro (CC BY-NC-SA 4.0, \u043B\u0438\u0447\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435), Alpha (Eric Bentzen, \u043B\u0438\u0447\u043D\u043E\u0435 \u043D\u0435\u043A\u043E\u043C\u043C\u0435\u0440\u0447\u0435\u0441\u043A\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435). \u0413\u043E\u043B\u043E\u0441: TeraTTSv2 by TeraSpace, ru_m1.</p><p class="small"><a href="https://github.com/nmrugg/stockfish.js" target="_blank">Stockfish \u0438 \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434</a> \xB7 <a href="https://huggingface.co/TeraSpace/TeraTTSv2" target="_blank">TeraTTSv2</a> \xB7 <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0444\u0438\u0433\u0443\u0440</a></p></section><section><h2>\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0438 \u0440\u0430\u0437\u0431\u043E\u0440\u044B</h2>${historyHTML()}</section></div>`;
 }
 function reviewView() {
   if (!reviewGame) return "<p>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u0440\u0442\u0438\u044E \u0432 \u0438\u0441\u0442\u043E\u0440\u0438\u0438.</p>";
   let rows = reviewGame.review.filter((r) => r.color === reviewGame.color), row = rows[reviewIndex];
   if (!row) return "<p>\u0412 \u044D\u0442\u043E\u0439 \u043F\u0430\u0440\u0442\u0438\u0438 \u043D\u0435 \u0431\u044B\u043B\u043E \u0445\u043E\u0434\u043E\u0432 \u0434\u043B\u044F \u0440\u0430\u0437\u0431\u043E\u0440\u0430.</p>" + btn("\u041A \u0438\u0441\u0442\u043E\u0440\u0438\u0438", "go-progress");
   let c = loadPosition(row.fen);
-  if (reviewBest) try {
-    uciMove(c, row.best);
-  } catch {
-  }
+  const replay = reviewReplay(row, { best: reviewBest, ply: reviewPly });
+  c = replay.game;
+  last = replay.last;
   let title = row.loss >= 160 ? "\u041E\u0448\u0438\u0431\u043A\u0430" : row.loss >= 60 ? "\u041D\u0435\u0442\u043E\u0447\u043D\u043E\u0441\u0442\u044C" : "\u0425\u043E\u0440\u043E\u0448\u0438\u0439 \u0445\u043E\u0434";
-  return `${head("\u0420\u0430\u0437\u0431\u043E\u0440 \u043F\u0430\u0440\u0442\u0438\u0438", reviewGame.counted ? "\u041D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u044F \u0443\u0447\u0442\u0435\u043D\u044B \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u0435. \u041F\u043E\u0437\u0438\u0446\u0438\u0438 \u0441 \u043E\u0448\u0438\u0431\u043A\u0430\u043C\u0438 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u044B \u0432 \u0437\u0430\u0434\u0430\u0447\u0438." : "\u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F: \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0440\u0430\u0437\u043E\u0431\u0440\u0430\u043D\u044B, \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043D\u0435 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430.")}<div class="workspace"><section class="board-area"><div class="player"><strong>${reviewBest ? "\u041B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435" : "\u041F\u043E\u0437\u0438\u0446\u0438\u044F \u043F\u0435\u0440\u0435\u0434 \u0432\u0430\u0448\u0438\u043C \u0445\u043E\u0434\u043E\u043C"}</strong><span>${reviewIndex + 1} / ${rows.length}</span></div>${board(c, reviewGame.color, false)}<div class="actions">${btn("\u2190 \u041F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0438\u0439", "review-prev", "quiet", reviewIndex === 0)}${btn("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u2192", "review-next", "quiet", reviewIndex === rows.length - 1)}</div></section><section class="context"><div class="meta"><span>${themes[row.theme]}</span><span>\u0425\u043E\u0434 ${Math.floor(row.ply / 2) + 1}</span></div><h2>${title}: ${esc(row.san)}</h2><p class="coach-text">${esc(row.reason)}</p><p class="small muted">\u0412\u0430\u0448 \u0445\u043E\u0434: ${esc(row.san)} \xB7 \u041B\u0443\u0447\u0448\u0438\u0439: ${esc(describeMove(loadPosition(row.fen), row.best))}<br>\u041F\u043E\u0442\u0435\u0440\u044F \u043E\u0446\u0435\u043D\u043A\u0438: \u2248 ${(row.loss / 100).toFixed(2)} \u043F\u0435\u0448\u043A\u0438. \u041A\u043E\u0440\u043E\u0442\u043A\u0438\u0439 \u0430\u043D\u0430\u043B\u0438\u0437 \u0434\u0432\u0438\u0436\u043A\u043E\u043C.</p>${row.variation?.length ? '<p class="small muted">\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: <strong>' + esc(row.variation.join(" \u2192 ")) + "</strong></p>" : ""}<div class="actions">${btn(reviewBest ? "\u0418\u0441\u0445\u043E\u0434\u043D\u0430\u044F \u043F\u043E\u0437\u0438\u0446\u0438\u044F" : "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u043B\u0443\u0447\u0448\u0438\u0439 \u0445\u043E\u0434", "review-best", "primary")}${btn("\u041E\u0437\u0432\u0443\u0447\u0438\u0442\u044C", "review-speak", "quiet")}</div><div class="review-list">${rows.map((r, i) => `<button class="review-row ${i === reviewIndex ? "current" : ""}" data-review-index="${i}"><small>${Math.floor(r.ply / 2) + 1}.</small><span>${esc(r.san)}</span><span class="${r.loss >= 60 ? "bad" : ""}">${r.loss >= 160 ? "\u041E\u0448\u0438\u0431\u043A\u0430" : r.loss >= 60 ? "\u041D\u0435\u0442\u043E\u0447\u043D\u043E\u0441\u0442\u044C" : "\u0425\u043E\u0440\u043E\u0448\u043E"}</span></button>`).join("")}</div><div class="actions">${btn("\u0422\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043E\u0448\u0438\u0431\u043A\u0438", "go-tasks", "quiet")}${btn("\u041A \u0438\u0441\u0442\u043E\u0440\u0438\u0438", "go-progress", "quiet")}</div></section></div>`;
+  return `${head("\u0420\u0430\u0437\u0431\u043E\u0440 \u043F\u0430\u0440\u0442\u0438\u0438", reviewGame.counted ? "\u041D\u0430\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u044F \u0443\u0447\u0442\u0435\u043D\u044B \u0432 \u043F\u0440\u043E\u0444\u0438\u043B\u0435. \u041F\u043E\u0437\u0438\u0446\u0438\u0438 \u0441 \u043E\u0448\u0438\u0431\u043A\u0430\u043C\u0438 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u044B \u0432 \u0437\u0430\u0434\u0430\u0447\u0438." : "\u041A\u043E\u0440\u043E\u0442\u043A\u0430\u044F \u043F\u0430\u0440\u0442\u0438\u044F: \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0440\u0430\u0437\u043E\u0431\u0440\u0430\u043D\u044B, \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u043D\u0435 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430.")}<div class="workspace"><section class="board-area"><div class="player"><strong>${reviewPly ? reviewBest ? "\u041B\u0443\u0447\u0448\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442" : "\u0412\u0430\u0440\u0438\u0430\u043D\u0442 \u0438\u0437 \u043F\u0430\u0440\u0442\u0438\u0438" : "\u041F\u043E\u0437\u0438\u0446\u0438\u044F \u043F\u0435\u0440\u0435\u0434 \u0432\u0430\u0448\u0438\u043C \u0445\u043E\u0434\u043E\u043C"}</strong><span>${reviewIndex + 1} / ${rows.length}</span></div>${board(c, reviewGame.color, false)}<div class="actions">${btn("\u2190 \u041F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0438\u0439", "review-prev", "quiet", reviewIndex === 0)}${btn("\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u2192", "review-next", "quiet", reviewIndex === rows.length - 1)}</div></section><section class="context"><div class="meta"><span>${themes[row.theme]}</span><span>\u0425\u043E\u0434 ${Math.floor(row.ply / 2) + 1}</span></div><h2>${title}: ${esc(row.san)}</h2><p class="coach-text">${esc(reviewExplanation(row))}</p><p class="small muted">\u0412\u0430\u0448 \u0445\u043E\u0434: ${esc(row.san)} \xB7 \u041B\u0443\u0447\u0448\u0438\u0439: ${esc(describeMove(loadPosition(row.fen), row.best))}<br>\u041F\u043E\u0442\u0435\u0440\u044F \u043E\u0446\u0435\u043D\u043A\u0438: \u2248 ${(row.loss / 100).toFixed(2)} \u043F\u0435\u0448\u043A\u0438.</p>${row.variation?.length ? '<p class="small muted">\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435: <strong>' + esc(row.variation.join(" \u2192 ")) + "</strong></p>" : ""}<div class="actions">${btn("\u041B\u0443\u0447\u0448\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442", "review-best", "primary")}${btn("\u041C\u043E\u0439 \u0432\u0430\u0440\u0438\u0430\u043D\u0442", "review-own", "quiet")}${btn("\u2190 \u0425\u043E\u0434", "line-prev", "quiet", reviewPly === 0)}${btn("\u0425\u043E\u0434 \u2192", "line-next", "quiet", reviewPly >= replay.total)}<span class="small muted">${replay.ply} / ${replay.total}</span>${btn("\u041E\u0437\u0432\u0443\u0447\u0438\u0442\u044C", "review-speak", "quiet")}</div><div class="review-list">${rows.map((r, i) => `<button class="review-row ${i === reviewIndex ? "current" : ""}" data-review-index="${i}"><small>${Math.floor(r.ply / 2) + 1}.</small><span>${esc(r.san)}</span><span class="${r.loss >= 60 ? "bad" : ""}">${r.loss >= 160 ? "\u041E\u0448\u0438\u0431\u043A\u0430" : r.loss >= 60 ? "\u041D\u0435\u0442\u043E\u0447\u043D\u043E\u0441\u0442\u044C" : "\u0425\u043E\u0440\u043E\u0448\u043E"}</span></button>`).join("")}</div><div class="actions">${btn("\u0422\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043E\u0448\u0438\u0431\u043A\u0438", "go-tasks", "quiet")}${btn("\u041A \u0438\u0441\u0442\u043E\u0440\u0438\u0438", "go-progress", "quiet")}</div></section></div>`;
 }
 async function navigate(r) {
+  if (busy && route === "tasks") {
+    toast("\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0443 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0443 \u044D\u0442\u043E\u0433\u043E \u0445\u043E\u0434\u0430.");
+    return;
+  }
   if (route === "openings" && r !== "openings") await leaveStudy();
   stopNarration();
   route = r;
@@ -4371,6 +4625,9 @@ async function navigate(r) {
   pendingPromotion = null;
   last = null;
   if (r === "tasks" && !task) loadTask();
+  const current = r === "tasks" ? taskChess : r === "play" ? playChess : r === "learn" ? lessonChess : null;
+  const m = current?.history({ verbose: true }).at(-1);
+  if (m) last = [m.from, m.to];
   render();
   narrateCurrent();
 }
@@ -4399,25 +4656,31 @@ async function startGame() {
 function appendMove(m) {
   let u = m.from + m.to + (m.promotion || "");
   state.active.moves.push(u);
-  last = [m.from, m.to];
-  selected = null;
-  queueMove(m.from, m.to);
+  if (route === "play") {
+    last = [m.from, m.to];
+    selected = null;
+    queueMove(m.from, m.to);
+  }
   save();
 }
 async function computerMove() {
   if (!state.active || state.active.finished || busy) return;
   busy = true;
   try {
+    await waitForMove();
+    await pause(REPLY_PAUSE);
     let g = state.active, c = playChess;
     let skill = Math.max(0, Math.min(20, Math.round((g.opponent - 550) / 75)));
     const result = await engine.search(c.fen(), { skill, time: 250, multi: g.opponent < 1200 ? 4 : 1 });
     let u = result.move;
-    if (g.opponent < 1200 && result.rows.length > 1) {
+    if (g.opponent < 1200 && result.rows?.length > 1) {
       let top = result.rows[0]?.score ?? 0, limit = g.opponent < 700 ? 250 : 100, choices = result.rows.filter((r) => top - r.score <= limit);
       u = choices[Math.floor(Math.random() * choices.length)]?.pv[0] || u;
     }
     appendMove(uciMove(c, u));
     engineFailure = "";
+    render();
+    await waitForMove();
     if (c.isGameOver()) {
       busy = false;
       await finishGame();
@@ -4456,9 +4719,11 @@ async function analyze() {
     reviewGame = state.games.find((x) => x.id === g.id);
     reviewIndex = 0;
     reviewBest = false;
+    reviewPly = 0;
     playChess = null;
-    task = null;
-    route = "review";
+    if (route === "play") {
+      route = "review";
+    } else toast("\u0420\u0430\u0437\u0431\u043E\u0440 \u043F\u0430\u0440\u0442\u0438\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u0451\u043D. \u041E\u043D \u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D \u0432 \xAB\u041C\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441\xBB.");
     analysisProgress = "";
   } catch (e) {
     analysisError = e.message;
@@ -4471,45 +4736,73 @@ async function analyze() {
   if (route === "review") narrateCurrent();
 }
 async function attemptTask(move) {
-  let u = move.from + move.to + (move.promotion || ""), alternative = false;
-  if (u !== task.line[taskPly] && (task.source === "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F" || task.source === "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430 \u0434\u0435\u0431\u044E\u0442\u0430")) {
-    busy = true;
-    render();
-    try {
-      let before = await engine.search(task.fen, { time: 250 });
-      let after = taskChess.isCheckmate() ? { score: -1e5 } : taskChess.isDraw() ? { score: 0 } : await engine.search(taskChess.fen(), { time: 250 });
-      alternative = (before.score ?? 0) + (after.score ?? 0) <= 35;
-    } catch (e) {
-      toast(e.message);
-      taskChess.undo();
-      busy = false;
+  const t = task, c = taskChess, index = taskPly, u = move.from + move.to + (move.promotion || "");
+  let alternative = false, assessment = {};
+  busy = true;
+  try {
+    if (u !== t.line[index] && (t.source === "\u0412\u0430\u0448\u0430 \u043F\u0430\u0440\u0442\u0438\u044F" || t.source === "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430 \u0434\u0435\u0431\u044E\u0442\u0430")) {
       render();
-      return;
+      const before = await engine.search(move.before, { time: 350 }), after = c.isCheckmate() ? { score: -1e5 } : c.isDraw() ? { score: 0 } : await engine.search(c.fen(), { time: 350 });
+      if (!Number.isFinite(before.score) || !Number.isFinite(after.score)) throw Error("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0446\u0435\u043D\u0438\u0442\u044C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0445\u043E\u0434 \u0435\u0449\u0451 \u0440\u0430\u0437.");
+      alternative = before.score + after.score <= 35;
+      assessment = { reply: after.pv?.[0], loss: before.score + after.score, best: before.move };
     }
-    busy = false;
-  }
-  const result = advancePuzzle(taskChess, task.line, taskPly, { alternative, mateAllowed: task.theme === "mate" });
-  if (!result.correct) {
-    taskTries++;
-    taskFeedback = phrases.wrong;
-    say(phrases.wrong, { key: "task:" + task.id + ":wrong" });
-  } else {
-    queueMove(move.from, move.to);
-    taskPly = result.index;
-    taskDone = result.done;
-    if (taskDone) {
-      taskFeedback = phrases.correct + " " + task.explanation;
-      recordAttempt(state, task, { correct: true, hints: taskHints, tries: taskTries });
-      await save();
-      say(taskFeedback, { key: "task:" + task.id + ":" + (taskDone ? "result" : taskPly) });
+    if (task !== t || taskChess !== c) return;
+    const result = advancePuzzle(c, t.line, index, { alternative, mateAllowed: t.theme === "mate", deferReply: true });
+    if (!result.correct) {
+      taskTries++;
+      taskFeedback = explainWrong(t, u, index, assessment);
+      if (taskHints && taskHintLevel < 3) {
+        taskHintText = puzzleHint(t, index, taskHintLevel++);
+      }
+      say(taskFeedback + (taskHintText ? " " + taskHintText : ""), { key: "task:" + t.id + ":wrong" });
     } else {
-      taskFeedback = "\u0412\u0435\u0440\u043D\u043E. \u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043E\u0442\u0432\u0435\u0442\u0438\u043B. \u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0445\u043E\u0434.";
-      last = result.reply ? [result.reply.from, result.reply.to] : null;
-      say(taskFeedback, { key: "task:" + task.id + ":" + (taskDone ? "result" : taskPly) });
+      last = [move.from, move.to];
+      queueMove(move.from, move.to);
+      render();
+      await waitForMove();
+      if (task !== t) return;
+      if (result.replyUci) {
+        await pause(REPLY_PAUSE);
+        const reply = uciMove(c, result.replyUci);
+        last = [reply.from, reply.to];
+        queueMove(reply.from, reply.to);
+        render();
+        await waitForMove();
+      }
+      taskPly = result.index;
+      taskDone = result.done;
+      taskHintLevel = 0;
+      taskHintText = "";
+      if (taskDone) {
+        const actual = alternative ? { ...t, fen: move.before, line: [u] } : t;
+        taskFeedback = phrases.correct + " " + explainSolution(actual);
+        recordAttempt(state, t, { correct: true, hints: taskHints, tries: taskTries });
+        await save();
+        say(taskFeedback, { key: "task:" + t.id + ":result" });
+      } else {
+        taskFeedback = "\u0412\u0435\u0440\u043D\u043E. \u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043E\u0442\u0432\u0435\u0442\u0438\u043B. \u041D\u0430\u0439\u0434\u0438\u0442\u0435 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0445\u043E\u0434.";
+        say(taskFeedback, { key: "task:" + t.id + ":step:" + taskPly });
+      }
     }
+  } catch (e) {
+    if (task === t) {
+      if (c.fen() === move.after) c.undo();
+      toast(e.message);
+      say("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0445\u043E\u0434 \u0435\u0449\u0451 \u0440\u0430\u0437.");
+    }
+  } finally {
+    busy = false;
+    selected = null;
+    render();
   }
-  selected = null;
+}
+function showTaskHint() {
+  if (busy || taskDone || taskHintLevel >= 3) return;
+  taskHintText = puzzleHint(task, taskPly, taskHintLevel++);
+  taskHints++;
   render();
+  say(taskHintText, { key: "task:" + task.id + ":hint:" + taskPly + ":" + taskHintLevel });
 }
 async function clickSquare(sq, promotion) {
   if (route === "openings") {
@@ -4517,7 +4810,7 @@ async function clickSquare(sq, promotion) {
     return;
   }
   const c = route === "play" ? playChess : route === "tasks" ? taskChess : route === "learn" && lesson && !lessonDone ? lessonChess : null;
-  if (!c || busy || c.isGameOver() || route === "play" && (state.active?.finished || c.turn() !== state.active?.color) || route === "tasks" && taskDone) return;
+  if (!c || moving || busy || c.isGameOver() || route === "play" && (state.active?.finished || c.turn() !== state.active?.color) || route === "tasks" && taskDone) return;
   if (pendingPromotion && !promotion) return;
   const p = c.get(sq);
   if (!selected) {
@@ -4532,8 +4825,9 @@ async function clickSquare(sq, promotion) {
   }
   const candidates = c.moves({ square: selected, verbose: true }).filter((m2) => m2.to === sq);
   if (!candidates.length) {
-    say(phrases.illegal);
-    toast(phrases.illegal);
+    const text = explainIllegal(c, selected, sq, promotion);
+    say(text);
+    toast(text);
     return;
   }
   if (candidates.some((x) => x.promotion) && !promotion) {
@@ -4548,17 +4842,21 @@ async function clickSquare(sq, promotion) {
   if (route === "play") {
     appendMove(m);
     render();
+    await waitForMove();
     if (c.isGameOver()) await finishGame();
     else await computerMove();
-  } else if (route === "tasks") await attemptTask(m);
-  else {
+  } else if (route === "tasks") {
+    taskOperation = attemptTask(m);
+    await taskOperation;
+  } else {
     const u = m.from + m.to + (m.promotion || "");
     if (u === lesson.line[0]) {
       queueMove(m.from, m.to);
       lessonDone = true;
+      last = [m.from, m.to];
       recordAttempt(state, { id: "lesson-" + lesson.id, theme: lesson.theme, rating: 700 }, { correct: true, hints: lessonHelp, tries: lessonTries });
       await save();
-      say(phrases.correct);
+      say("\u0412\u0435\u0440\u043D\u043E. " + explainSolution(lesson));
     } else {
       c.undo();
       lessonTries++;
@@ -4570,7 +4868,7 @@ async function clickSquare(sq, promotion) {
 }
 $("#app").addEventListener("click", async (e) => {
   const b = e.target.closest("button");
-  if (!b || b.disabled) return;
+  if (!b || b.disabled || moving) return;
   try {
     if (b.dataset.nav) {
       await navigate(b.dataset.nav);
@@ -4626,12 +4924,14 @@ $("#app").addEventListener("click", async (e) => {
       reviewGame = state.games.find((g) => g.id === b.dataset.review);
       reviewIndex = 0;
       reviewBest = false;
+      reviewPly = 0;
       await navigate("review");
       return;
     }
     if (b.dataset.reviewIndex !== void 0) {
       reviewIndex = Number(b.dataset.reviewIndex);
       reviewBest = false;
+      reviewPly = 0;
       render();
       narrateCurrent();
       return;
@@ -4659,9 +4959,11 @@ $("#app").addEventListener("click", async (e) => {
         render();
         break;
       case "lesson-hint":
-        lessonHelp++;
-        render();
-        say(lesson.hint);
+        if (lessonHelp < 3) {
+          const text = puzzleHint(lesson, 0, lessonHelp++);
+          render();
+          say(text);
+        }
         break;
       case "lesson-speak":
         say(lesson.text + " " + lesson.rules, { manual: true });
@@ -4730,12 +5032,10 @@ $("#app").addEventListener("click", async (e) => {
         narrateCurrent();
         break;
       case "task-speak":
-        say(taskDone ? taskFeedback : taskHints ? task.hint : task.text);
+        say(taskDone ? taskFeedback : taskHintText || task.text);
         break;
       case "hint":
-        taskHints++;
-        render();
-        say(taskHints === 1 ? task.hint : "\u041D\u0430\u0447\u043D\u0438\u0442\u0435 \u0441 \u0445\u043E\u0434\u0430 " + spokenMove(taskChess, task.line[taskPly]) + ".", { key: "task:" + task.id + ":hint:" + taskPly + ":" + Math.min(2, taskHints) });
+        showTaskHint();
         break;
       case "skip":
         recordAttempt(state, task, { correct: false, skipped: true, hints: taskHints, tries: taskTries });
@@ -4748,7 +5048,7 @@ $("#app").addEventListener("click", async (e) => {
         await finishGame(true);
         break;
       case "draw":
-        if (Math.abs((await engine.search(playChess.fen(), { time: 150 })).score || 0) <= 70) await finishGame(false, true);
+        if (Math.abs((await engine.search(playChess.fen(), { time: 150 })).score ?? Infinity) <= 70) await finishGame(false, true);
         else toast("\u0421\u043E\u043F\u0435\u0440\u043D\u0438\u043A \u043E\u0442\u043A\u043B\u043E\u043D\u0438\u043B \u043D\u0438\u0447\u044C\u044E. \u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0439\u0442\u0435 \u043F\u0430\u0440\u0442\u0438\u044E.");
         break;
       case "retry-analysis":
@@ -4760,17 +5060,33 @@ $("#app").addEventListener("click", async (e) => {
       case "review-prev":
         reviewIndex--;
         reviewBest = false;
+        reviewPly = 0;
         render();
         narrateCurrent();
         break;
       case "review-next":
         reviewIndex++;
         reviewBest = false;
+        reviewPly = 0;
         render();
         narrateCurrent();
         break;
       case "review-best":
-        reviewBest = !reviewBest;
+        reviewBest = true;
+        reviewPly = 1;
+        render();
+        break;
+      case "review-own":
+        reviewBest = false;
+        reviewPly = 1;
+        render();
+        break;
+      case "line-prev":
+        reviewPly = Math.max(0, reviewPly - 1);
+        render();
+        break;
+      case "line-next":
+        reviewPly++;
         render();
         break;
       case "review-speak":
@@ -4817,12 +5133,12 @@ function chartsHTML() {
     const points = [games[0].ratingBefore, ...games.map((g) => g.ratingAfter)], lo = Math.floor((Math.min(...points) - 100) / 100) * 100, hi = Math.ceil((Math.max(...points) + 100) / 100) * 100, x = (i) => 45 + i / (points.length - 1) * 675, y = (v) => 190 - (v - lo) / (hi - lo) * 155;
     chart = `<svg class="rating-chart" viewBox="0 0 740 220" role="img" aria-label="\u041E\u0446\u0435\u043D\u043A\u0430 \u0443\u0440\u043E\u0432\u043D\u044F \u043F\u043E \u043F\u0430\u0440\u0442\u0438\u044F\u043C: ${points.join(", ")}">${[lo, Math.round((lo + hi) / 2), hi].map((v) => `<line x1="45" y1="${y(v)}" x2="720" y2="${y(v)}" stroke="#dce2dc"/><text x="2" y="${y(v) + 4}" font-size="11" fill="#617068">${v}</text>`).join("")}<polyline points="${points.map((v, i) => x(i) + "," + y(v)).join(" ")}" fill="none" stroke="#397655" stroke-width="2.5"/>${points.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="#397655"><title>${i ? "\u041F\u043E\u0441\u043B\u0435 \u043F\u0430\u0440\u0442\u0438\u0438 " + i : "\u041D\u0430\u0447\u0430\u043B\u043E"}: ${v}</title></circle>`).join("")}</svg><div class="chart-caption"><span>\u041D\u0430\u0447\u0430\u043B\u043E \u0437\u0430\u043D\u044F\u0442\u0438\u0439</span><span>${games.length} \u043F\u0430\u0440\u0442\u0438\u0439 \xB7 \u043F\u043E\u0441\u043B\u0435 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u043F\u0430\u0440\u0442\u0438\u0438 ${points.at(-1)}</span></div>`;
   }
-  const a = state.attempts.filter((a2) => currentEvidence(state, a2) && (!a2.skipped || a2.tries > 1)), clean = a.filter((a2) => a2.correct && !a2.hints && a2.tries <= 1).length, hinted = a.filter((a2) => a2.correct && (a2.hints || a2.tries > 1)).length, wrong = a.filter((a2) => !a2.correct).length, total = a.length;
+  const a = state.attempts.filter((a2) => !a2.id.startsWith("lesson-") && !a2.id.startsWith("course-") && currentEvidence(state, a2) && (!a2.skipped || a2.tries > 1)), clean = a.filter((a2) => a2.correct && !a2.hints && a2.tries <= 1).length, hinted = a.filter((a2) => a2.correct && (a2.hints || a2.tries > 1)).length, wrong = a.filter((a2) => !a2.correct).length, total = a.length;
   return `<section class="chart-panel"><h2>\u0423\u0440\u043E\u0432\u0435\u043D\u044C \u043F\u043E \u043F\u0430\u0440\u0442\u0438\u044F\u043C</h2>${chart}</section><section><h2>\u041A\u0430\u043A \u0440\u0435\u0448\u0430\u044E\u0442\u0441\u044F \u0437\u0430\u0434\u0430\u0447\u0438</h2>${total ? `<div class="outcomes" role="img" aria-label="\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E: ${clean}, \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E: ${hinted}, \u0441 \u043E\u0448\u0438\u0431\u043A\u043E\u0439: ${wrong}"><span style="width:${clean / total * 100}%;background:#45815c"></span><span style="width:${hinted / total * 100}%;background:#b49a62"></span><span style="width:${wrong / total * 100}%;background:#ad7567"></span></div><div class="legend"><span style="--color:#45815c">\u0421\u0430\u043C\u043E\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u044C\u043D\u043E \xB7 ${clean}</span><span style="--color:#b49a62">\u0421 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \xB7 ${hinted}</span><span style="--color:#ad7567">\u0421 \u043E\u0448\u0438\u0431\u043A\u043E\u0439 \xB7 ${wrong}</span></div>` : '<p class="muted">\u0420\u0435\u0448\u0438\u0442\u0435 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0437\u0430\u0434\u0430\u0447 \u2014 \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F \u0441\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432.</p>'}</section>`;
 }
 function learnView() {
   if (!lesson) return `${head("\u0428\u043A\u043E\u043B\u0430 \u0448\u0430\u0445\u043C\u0430\u0442", "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0438 \u043F\u0440\u0438\u0451\u043C\u044B: \u043F\u043E\u043D\u044F\u0442\u044C, \u043F\u043E\u043F\u0440\u043E\u0431\u043E\u0432\u0430\u0442\u044C, \u0437\u0430\u043F\u043E\u043C\u043D\u0438\u0442\u044C.", "")}<div class="lesson-groups">${[...new Set(lessons.map((l) => l.group))].map((group) => `<section><h2>${group}</h2>${lessons.filter((l) => l.group === group).map((l) => `<div class="list-row"><button data-lesson="${l.id}">${l.title}<small>${state.attempts.some((a) => a.id === "lesson-" + l.id && a.correct) ? "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043E \xB7 \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C" : "\u041E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435 \u0438 \u0443\u043F\u0440\u0430\u0436\u043D\u0435\u043D\u0438\u0435"}</small></button><button data-lesson="${l.id}" aria-label="\u0418\u0437\u0443\u0447\u0438\u0442\u044C: ${l.title}">${icon("arrow")}</button></div>`).join("")}</section>`).join("")}</div>`;
-  return `${head(lesson.title, "\u0428\u043A\u043E\u043B\u0430 \u0448\u0430\u0445\u043C\u0430\u0442 \xB7 " + lesson.group, "")}<div class="workspace"><section class="board-area"><div class="player"><strong>${lessonDone ? "\u041F\u0440\u0438\u0451\u043C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D" : "\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043D\u0430 \u0434\u043E\u0441\u043A\u0435"}</strong></div>${board(lessonChess, lesson.fen.split(" ")[1], !lessonDone)}</section><section class="context"><p class="coach-text">${esc(lesson.text)}</p><details class="task-details"><summary>\u0412\u0430\u0436\u043D\u044B\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F</summary><p>${esc(lesson.rules)}</p></details><div class="message ${lessonDone ? "success" : ""}">${lessonDone ? "\u0412\u0435\u0440\u043D\u043E. \u041F\u0440\u0438\u0451\u043C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D." : esc(lesson.task)}</div>${lessonHelp && !lessonDone ? '<p class="hint">' + esc(lesson.hint) + "</p>" : ""}<div class="actions">${!lessonDone ? btn("\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430", "lesson-hint") : ""}${btn("\u0412\u0441\u0435 \u0443\u0440\u043E\u043A\u0438", "lesson-list", lessonDone ? "primary" : "quiet")}${btn("\u041E\u0431\u044A\u044F\u0441\u043D\u0438\u0442\u044C \u0432\u0441\u043B\u0443\u0445", "lesson-speak", "quiet")}</div></section></div>`;
+  return `${head(lesson.title, "\u0428\u043A\u043E\u043B\u0430 \u0448\u0430\u0445\u043C\u0430\u0442 \xB7 " + lesson.group, "")}<div class="workspace"><section class="board-area"><div class="player"><strong>${lessonDone ? "\u041F\u0440\u0438\u0451\u043C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D" : "\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043D\u0430 \u0434\u043E\u0441\u043A\u0435"}</strong></div>${board(lessonChess, lesson.fen.split(" ")[1], !lessonDone)}</section><section class="context"><p class="coach-text">${esc(lesson.text)}</p><details class="task-details"><summary>\u0412\u0430\u0436\u043D\u044B\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F</summary><p>${esc(lesson.rules)}</p></details><div class="message ${lessonDone ? "success" : ""}">${lessonDone ? "\u0412\u0435\u0440\u043D\u043E. \u041F\u0440\u0438\u0451\u043C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D." : esc(lesson.task)}</div>${lessonHelp && !lessonDone ? '<p class="hint">' + esc(puzzleHint(lesson, 0, lessonHelp - 1)) + "</p>" : ""}<div class="actions">${!lessonDone ? btn(lessonHelp >= 3 ? "\u0412\u0441\u0435 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u044B" : lessonHelp ? "\u0415\u0449\u0451 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430" : "\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430", "lesson-hint", "", lessonHelp >= 3) : ""}${btn("\u0412\u0441\u0435 \u0443\u0440\u043E\u043A\u0438", "lesson-list", lessonDone ? "primary" : "quiet")}${btn("\u041E\u0431\u044A\u044F\u0441\u043D\u0438\u0442\u044C \u0432\u0441\u043B\u0443\u0445", "lesson-speak", "quiet")}</div></section></div>`;
 }
 function calibrationControls() {
   return `<section class="calibration-controls">${resetOpen ? `<h3>\u041D\u0430\u0447\u0430\u0442\u044C \u043E\u0446\u0435\u043D\u043A\u0443 \u0437\u0430\u043D\u043E\u0432\u043E?</h3><p class="small muted">\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u0438 \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043D\u0430\u0432\u044B\u043A\u043E\u0432 \u043D\u0430\u0447\u043D\u0443\u0442\u0441\u044F \u0441 \u0447\u0438\u0441\u0442\u043E\u0433\u043E \u043B\u0438\u0441\u0442\u0430. \u0418\u0441\u0442\u043E\u0440\u0438\u044F \u043F\u0430\u0440\u0442\u0438\u0439 \u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u0439 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F. \u041F\u0440\u043E\u0439\u0434\u0438\u0442\u0435 \u0442\u0440\u0438 \u043D\u043E\u0432\u044B\u0435 \u043F\u0430\u0440\u0442\u0438\u0438 \u2014 \u043F\u0440\u0435\u0436\u043D\u0438\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B \u043D\u0435 \u043F\u043E\u0432\u043B\u0438\u044F\u044E\u0442 \u043D\u0430 \u043D\u043E\u0432\u0443\u044E \u043E\u0446\u0435\u043D\u043A\u0443.</p><div class="actions">${btn("\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u043E\u0446\u0435\u043D\u043A\u0443", "calibration-reset", "primary", !!state.active)}${btn("\u041E\u0442\u043C\u0435\u043D\u0430", "calibration-cancel", "quiet")}</div>${state.active ? '<p class="notice">\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0435 \u0442\u0435\u043A\u0443\u0449\u0443\u044E \u043F\u0430\u0440\u0442\u0438\u044E.</p>' : ""}` : btn("\u041F\u0440\u043E\u0439\u0442\u0438 \u043E\u0446\u0435\u043D\u043A\u0443 \u0437\u0430\u043D\u043E\u0432\u043E", "calibration-open", "quiet")}</section>`;
@@ -4854,6 +5170,7 @@ async function startStudy(id) {
   if (!unit || !canOpenUnit(state, course, id)) throw Error("\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0435 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0438\u0439 \u0443\u0440\u043E\u043A.");
   await leaveStudy();
   study = new OpeningSession(course, unit);
+  last = null;
   render();
   narrateCurrent();
 }
@@ -4904,8 +5221,11 @@ async function courseAction(action) {
       render();
       break;
     case "course-demo-next": {
-      const text = s.demoNext();
+      const copy = loadPosition(s.game.fen()), m = copy.move(s.unit.moves[s.index]), text = s.demoNext();
+      last = [m.from, m.to];
+      queueMove(m.from, m.to);
       render();
+      await waitForMove();
       say(text, { key: "course:" + course.id + ":" + s.unit.id + ":demo:" + s.index });
       break;
     }
@@ -4919,26 +5239,35 @@ async function courseAction(action) {
       break;
     case "course-hint": {
       if (s.phase !== "train" || s.busy) return;
+      const key = s.game.fen();
+      if (s.hintFen !== key) {
+        s.hintFen = key;
+        s.hintLevel = 0;
+      }
+      if (s.hintLevel >= 3) {
+        toast("\u0412\u0441\u0435 \u0442\u0440\u0438 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0438 \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0445\u043E\u0434\u0430 \u0443\u0436\u0435 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u044B.");
+        return;
+      }
       s.hints++;
-      let text;
-      if (s.unit.type === "line") text = "\u0425\u043E\u0434 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u0430: " + spokenMove(s.game, (() => {
-        const copy = loadPosition(s.game.fen()), m = copy.move(s.unit.moves[s.index]);
-        return m.from + m.to + (m.promotion || "");
-      })()) + ".";
-      else {
+      let u;
+      if (s.unit.type === "line") {
+        const copy = loadPosition(key), m = copy.move(s.unit.moves[s.index]);
+        u = m.from + m.to + (m.promotion || "");
+      } else {
         s.busy = true;
         render();
         try {
-          const result = await engine.search(s.game.fen(), { time: 250 });
+          const result = await engine.search(key, { time: 300 });
           if (study !== s) return;
-          text = "\u041F\u043E\u0434\u0441\u043A\u0430\u0437\u043A\u0430: " + spokenMove(s.game, result.move) + ".";
+          u = result.move;
         } finally {
           s.busy = false;
         }
       }
+      const text = puzzleHint({ fen: key, line: [u] }, 0, s.hintLevel++);
       s.feedback = text;
       render();
-      say(text, { key: "course:" + course.id + ":" + s.unit.id + ":hint:" + s.index + ":" + s.decisions });
+      say(text);
       break;
     }
     case "course-next":
@@ -4958,7 +5287,7 @@ function courseSquare(sq, promotion) {
 }
 async function courseSquareMove(sq, promotion) {
   const s = study;
-  if (!s || s.leaving || s.phase !== "train" || s.busy || s.game.turn() !== s.course.side) return;
+  if (!s || moving || s.leaving || s.phase !== "train" || s.busy || s.game.turn() !== s.course.side) return;
   const c = s.game, p = c.get(sq);
   if (pendingPromotion && !promotion) return;
   if (!selected) {
@@ -4974,9 +5303,9 @@ async function courseSquareMove(sq, promotion) {
   const u = selected + sq + (promotion || ""), candidates = c.moves({ square: selected, verbose: true }).filter((m) => m.to === sq);
   if (!candidates.length) {
     s.errors.push({ kind: "illegal", fen: c.fen(), attempted: u });
-    s.feedback = phrases.illegal;
+    s.feedback = explainIllegal(c, selected, sq, promotion);
     render();
-    say(phrases.illegal, { key: "course:" + course.id + ":illegal" });
+    say(s.feedback, { key: "course:" + course.id + ":illegal" });
     return;
   }
   if (candidates.some((m) => m.promotion) && !promotion) {
@@ -4993,8 +5322,11 @@ async function courseSquareMove(sq, promotion) {
     if (s.unit.type === "sparring") before = await engine.search(c.fen(), { time: 180 });
     if (study !== s) return;
     queueMove(u.slice(0, 2), u.slice(2, 4));
-    const result = s.attempt(u);
+    const result = s.attempt(u, { deferReply: true });
     last = [result.move.from, result.move.to];
+    if (!result.correct) pendingMove = null;
+    render();
+    await waitForMove();
     if (s.unit.type === "sparring") {
       const after = c.isCheckmate() ? { score: -1e5 } : c.isDraw() ? { score: 0 } : await engine.search(c.fen(), { time: 180 });
       if (study !== s) return;
@@ -5005,6 +5337,16 @@ async function courseSquareMove(sq, promotion) {
       } else s.feedback = assessment.reason;
     }
     if (study !== s) return;
+    if (s.unit.type === "line" && result.correct && s.phase === "train" && s.game.turn() !== s.course.side) {
+      await pause(REPLY_PAUSE);
+      const next = s.unit.moves[s.index], copy = loadPosition(s.game.fen()), reply = copy.move(next);
+      s.autoLine();
+      last = [reply.from, reply.to];
+      queueMove(reply.from, reply.to);
+      render();
+      await waitForMove();
+      if (s.index >= s.unit.moves.length) s.phase = "done";
+    }
     render();
     say(s.feedback, { key: "course:" + course.id + ":" + s.unit.id + ":move:" + s.index + ":" + s.decisions + ":" + result.correct });
     if (s.phase === "done") {
@@ -5029,11 +5371,15 @@ async function courseComputerMove(s) {
   if (study !== s || s.phase !== "train" || s.game.turn() === s.course.side) return;
   s.busy = true;
   try {
+    await waitForMove();
+    await pause(REPLY_PAUSE);
     const result = await engine.search(s.game.fen(), { time: 230, skill: Math.max(0, Math.min(20, Math.round((opponentRating(state) - 550) / 75))) });
     if (study !== s) return;
     const move = s.reply(result.move);
     last = [move.from, move.to];
     queueMove(move.from, move.to);
+    render();
+    await waitForMove();
     if (s.phase === "done") await finishStudy(s);
   } finally {
     s.busy = false;
@@ -5049,6 +5395,7 @@ window.coach?.onCloseRequest(async () => {
     return;
   }
   try {
+    await taskOperation;
     await leaveStudy();
   } catch (e) {
     closeFlushed = false;

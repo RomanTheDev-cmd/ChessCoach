@@ -1,0 +1,9 @@
+✔ all catalog solutions and every player-ply hint render from legal board states with no engine prose (10671.127209ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10756.420416

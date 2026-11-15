@@ -1,0 +1,16 @@
+{
+  "version": "1.5.0",
+  "backup": "/Users/roman/.local/share/chess-coach/backups/1.4.2-before-1.5.0-20261116-003138.app",
+  "matches": {
+    "main.cjs": true,
+    "preload.cjs": true,
+    "src/store.cjs": true,
+    "dist/app.js": true,
+    "dist/style.css": true,
+    "scripts/voice.py": true
+  },
+  "progressUnchanged": true,
+  "progressSha256": "a3e56c6994c2c9f2f90a84fb3030af14a7c8d63a5feb65053c08248bd932a982",
+  "finalCloseFixInstalled": true,
+  "installedUiLaunch": "not checked: Mac locked"
+}

@@ -1,3 +1,4 @@
+import {explainSolution,puzzleHint} from './coach-feedback.mjs';
 export const themes={tactics:'Тактика',mate:'Матовые угрозы',opening:'Дебют',endgame:'Эндшпиль'};
 export const fresh=()=>({version:1,calibration:{id:"initial",startedAt:0},rating:900,games:[],attempts:[],mistakes:[],skills:Object.fromEntries(Object.keys(themes).map(t=>[t,{ok:1,total:2}])),puzzleRatings:{tactics:900,mate:900,opening:900,endgame:900},openingProgress:{},seen:{},presentations:[],appearance:{pieces:"minimal",board:"graphite"},active:null,voice:true});
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -16,6 +17,18 @@ export function opponentRating(s){
  const shift=unique.length?clamp((unique.reduce((v,a)=>v+a.score,0)/unique.length-.5)*160,-80,80):0;
  return Math.round(clamp(s.rating+shift,400,2400)/25)*25;
 }
+// Ignore FEN counters and compare occupied squares: adjacent game positions are one exercise family.
+function placement(fen){
+ const board=[];for(const ch of (fen||'').split(' ')[0]){if(/[1-8]/.test(ch))board.push(...Array(Number(ch)).fill(''));else if(/[prnbqkPRNBQK]/.test(ch))board.push(ch);}
+ return board.length===64?board:null;
+}
+function similarPosition(a,b){
+ const x=placement(a.fen),y=placement(b.fen);if(!x||!y)return false;
+ let same=0,total=0;for(let i=0;i<64;i++){if(x[i]||y[i])total++;if(x[i]&&x[i]===y[i])same++;}
+ return total>0&&same/total>=.8;
+}
+const generalTags=new Set(['crushing','advantage','equality','short','long','veryLong','oneMove','middlegame','opening','endgame','master','masterVsMaster','superGM']);
+const motif=t=>(t.tags||[]).filter(tag=>!generalTags.has(tag)).sort().join(',')||t.theme;
 export function chooseTask(s,tasks){
  const all=[...s.mistakes.filter(m=>currentEvidence(s,m)),...tasks],target=opponentRating(s),now=Date.now(),recent=new Set([...(s.presentations||[]).slice(-60),...s.attempts.slice(-20).map(a=>a.id)]),lastAttempt=new Map();
  for(const a of s.attempts)lastAttempt.set(a.id,a);
@@ -27,10 +40,21 @@ export function chooseTask(s,tasks){
  if(!pool.length)pool=all.filter(t=>eligible(t));
  if(!pool.length)pool=all.filter(t=>!recent.has(t.id));
  if(!pool.length)pool=all;
+ // Apply diversity only inside the already selected skill band; never trade it for excessive difficulty.
+ const catalog=new Map(all.map(t=>[t.id,t]));
+ const ownIds=new Set(s.mistakes.filter(m=>currentEvidence(s,m)).map(t=>t.id));
+ const details=new Map((s.presentationDetails||[]).map(t=>[t.id,t]));
+ const shown=(s.presentations||[]).slice(-8).map(id=>details.get(id)||catalog.get(id)).filter(Boolean);
+ const narrow=predicate=>{const alternatives=pool.filter(predicate);if(alternatives.length)pool=alternatives;};
+ narrow(t=>!shown.some(previous=>similarPosition(t,previous)));
+ if(shown.slice(-2).some(t=>t.own||ownIds.has(t.id)))narrow(t=>!ownIds.has(t.id));
+ const lastTwo=shown.slice(-2);
+ if(lastTwo.length===2&&motif(lastTwo[0])===motif(lastTwo[1]))narrow(t=>motif(t)!==motif(lastTwo[0]));
+ if(lastTwo.length===2&&lastTwo.every(t=>t.theme===lastTwo[0].theme))narrow(t=>t.theme!==lastTwo[0].theme);
  function priority(t){const a=lastAttempt.get(t.id),skill=s.skills[t.theme],own=s.mistakes.some(m=>m.id===t.id);return (own&&!a?.correct?4:0)+(1-skill.ok/skill.total)*2-Math.abs(t.rating-targetFor(t))/250+(a&&!a.correct?.5:0)+(lastSeen(t)?Math.min(1,(now-lastSeen(t))/86400000/30)-.6:0);}
  return pool.toSorted((a,b)=>priority(b)-priority(a)||a.id.localeCompare(b.id))[0];
 }
-export function presentTask(s,t){s.seen??={};s.presentations??=[];s.seen[t.id]=Date.now();s.presentations.push(t.id);s.presentations=s.presentations.slice(-1000);}
+export function presentTask(s,t){s.seen??={};s.presentations??=[];s.seen[t.id]=Date.now();s.presentations.push(t.id);s.presentations=s.presentations.slice(-1000);s.presentationDetails??=[];s.presentationDetails.push({id:t.id,fen:t.fen,theme:t.theme,tags:t.tags,own:s.mistakes.some(m=>m.id===t.id),date:Date.now()});s.presentationDetails=s.presentationDetails.slice(-1000);}
 export function classify(fen,best,ply){if(Math.abs(best.score)>9000)return'mate';if(fen.split(' ')[0].replace(/[^prnbqPRNBQ]/g,'').length<=6)return'endgame';return ply<16?'opening':'tactics';}
 export function commitGame(s,g,review){
  if(s.games.some(x=>x.id===g.id))return;
@@ -39,7 +63,7 @@ export function commitGame(s,g,review){
  const old=s.rating;
  if(counted){const quality=clamp(2100-loss*7,400,2200),expected=1/(1+10**((g.opponent-old)/400));s.rating=Math.round(clamp(old+(g.result-expected)*55+(quality-old)*.17,400,2400));}
  for(const row of rows){const sk=s.skills[row.theme];sk.ok+=row.loss<60?1:row.loss<160?.4:0;sk.total++;
- if(row.loss>=90&&row.best&&row.best!==row.uci&&!s.mistakes.some(t=>t.fen===row.fen&&currentEvidence(s,t)))s.mistakes.unshift({id:g.id+'-'+row.ply,calibrationId:g.calibrationId??'initial',fen:row.fen,line:[row.best],theme:row.theme,rating:Math.round(clamp(old,400,2200)),title:'Позиция из вашей партии',text:'Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.',hint:'Сначала проверьте шахи, взятия и угрозы.',explanation:row.reason,source:'Ваша партия'});}
+ if(row.loss>=90&&row.best&&row.best!==row.uci&&!s.mistakes.some(t=>t.fen===row.fen&&currentEvidence(s,t)))s.mistakes.unshift({id:g.id+'-'+row.ply,calibrationId:g.calibrationId??'initial',fen:row.fen,line:[row.best],theme:row.theme,rating:Math.round(clamp(old,400,2200)),title:'Позиция из вашей партии',text:'Найдите сильнейший ход. В партии здесь было упущено лучшее продолжение.',hint:puzzleHint({fen:row.fen,line:[row.best]}),explanation:explainSolution({fen:row.fen,line:[row.best]}),source:'Ваша партия'});}
  s.mistakes=s.mistakes.slice(0,300);s.games.unshift({...g,review,loss:Math.round(loss),counted,ratingBefore:old,ratingAfter:s.rating});s.active=null;
 }
 

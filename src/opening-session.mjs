@@ -9,9 +9,9 @@ export class OpeningSession{
  demoNext(){if(this.phase!=='demo'||this.index>=this.unit.moves.length)throw Error('Показ варианта завершён.');const note=this.unit.notes[this.index];this.game.move(this.unit.moves[this.index++]);this.feedback=note;return note;}
  practice(){if(this.unit.type==='theory')throw Error('Сначала пройдите вопросы урока.');this.game=new Chess();for(const m of this.unit.startMoves||[])this.game.move(m);this.startPly=this.game.history().length;this.index=0;this.decisions=0;this.errors=[];this.hints=0;this.feedback='';this.phase='train';if(this.unit.type==='line')this.autoLine();}
  autoLine(){if(this.index<this.unit.moves.length&&this.game.turn()!==this.course.side){this.game.move(this.unit.moves[this.index++]);}}
- attempt(uci){if(this.phase!=='train'||this.game.turn()!==this.course.side)throw Error('Сейчас ход соперника.');const fen=this.game.fen();let move;try{move=uciMove(this.game,uci);}catch(error){this.errors.push({kind:'illegal',fen,attempted:uci,ply:this.index});throw error;}
+ attempt(uci,{deferReply=false}={}){if(this.phase!=='train'||this.game.turn()!==this.course.side)throw Error('Сейчас ход соперника.');const fen=this.game.fen();let move;try{move=uciMove(this.game,uci);}catch(error){this.errors.push({kind:'illegal',fen,attempted:uci,ply:this.index});throw error;}
  if(this.unit.type==='line'){const expected=this.unit.moves[this.index];if(move.san!==expected){this.game.undo();this.errors.push({kind:'other-line',fen,attempted:move.san,expected,ply:this.index});this.feedback='Этот ход допустим по правилам, но относится к другому варианту. Найдите ход изученной линии.';return{correct:false,move};}
- this.feedback=this.unit.notes[this.index];this.index++;this.decisions++;this.autoLine();if(this.index>=this.unit.moves.length)this.phase='done';
+ this.feedback=this.unit.notes[this.index];this.index++;this.decisions++;if(!deferReply)this.autoLine();if(this.index>=this.unit.moves.length)this.phase='done';
  }else{this.decisions++;this.feedback='Ход принят. Соперник отвечает.';if(this.game.isGameOver()||this.decisions>=this.unit.turns)this.phase='done';}
  return{correct:true,move};}
  reply(uci){if(this.unit.type!=='sparring'||this.phase!=='train'||this.game.turn()===this.course.side)throw Error('Сейчас не ход соперника.');const move=uciMove(this.game,uci);if(this.game.isGameOver())this.phase='done';return move;}

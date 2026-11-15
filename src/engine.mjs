@@ -1,7 +1,35 @@
 import {Chess} from 'chess.js';
 export class Engine{
- constructor(worker){this.chain=Promise.resolve();this.worker=worker??new Worker('./engine/stockfish-19-lite-single.js');this.ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Движок не загрузился за 30 секунд. Перезапустите приложение.')),30000);this.worker.onerror=()=>{clearTimeout(timer);reject(Error('Не удалось загрузить шахматный движок.'));};this.worker.onmessage=e=>{const line=String(e.data);if(line==='uciok'){clearTimeout(timer);this.worker.postMessage('setoption name Hash value 32');resolve();}this.receive?.(line);};this.worker.postMessage('uci');});}
- search(fen,{time=180,skill=20,multi=1}={}){const job=async()=>{await this.ready;return new Promise((resolve,reject)=>{let rows={};const timer=setTimeout(()=>{this.worker.postMessage('stop');this.receive=null;reject(Error('Движок не ответил. Повторите действие.'));},15000);this.receive=line=>{let m=line.match(/info depth (\d+).*?(?:multipv (\d+) )?score (cp|mate) (-?\d+).*? pv (.+)/);if(m){const idx=Number(m[2]||1),score=m[3]==='mate'?Math.sign(Number(m[4]))*(100000-Math.abs(Number(m[4]))*100):Number(m[4]);rows[idx]={depth:Number(m[1]),score,pv:m[5].trim().split(' ')};}if(line.startsWith('bestmove ')){clearTimeout(timer);this.receive=null;resolve({...rows[1],move:line.split(' ')[1],rows:Object.values(rows)});}};this.worker.postMessage('setoption name Skill Level value '+skill);this.worker.postMessage('setoption name MultiPV value '+multi);this.worker.postMessage('position fen '+fen);this.worker.postMessage('go movetime '+time);});};const out=this.chain.then(job);this.chain=out.catch(()=>{});return out;}
+ constructor(worker){this.chain=Promise.resolve();this.worker=worker??new Worker('./engine/stockfish-19-lite-single.js');this.ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Движок не загрузился за 30 секунд. Перезапустите приложение.')),30000);this.worker.onerror=()=>{clearTimeout(timer);this.failure=Error('Не удалось загрузить шахматный движок. Перезапустите приложение.');this.fail?.(this.failure);reject(this.failure);};this.worker.onmessage=e=>{const line=String(e.data);if(line==='uciok'){clearTimeout(timer);this.worker.postMessage('setoption name Hash value 32');resolve();}this.receive?.(line);};this.worker.postMessage('uci');});}
+ search(fen,{time=180,skill=20,multi=1}={}){
+  const job=async()=>{
+   await this.ready;if(this.failure)throw this.failure;
+   return new Promise((resolve,reject)=>{
+    const rows={};let draining=false,awaitingReady=false,drainTimer;
+    const finish=(error,result)=>{clearTimeout(timer);clearTimeout(drainTimer);this.receive=null;this.fail=null;error?reject(error):resolve(result);};
+    this.fail=error=>finish(error);
+    const timer=setTimeout(()=>{
+     // STOP still produces a bestmove for the old position. Consume it and the
+     // ready barrier before allowing any queued position to use this worker.
+     draining=true;
+     drainTimer=setTimeout(()=>{this.failure=Error('Движок перестал отвечать. Перезапустите приложение.');finish(this.failure);},5000);
+     this.worker.postMessage('stop');
+    },15000);
+    this.receive=line=>{
+     if(draining){
+      if(line.startsWith('bestmove ')&&!awaitingReady){awaitingReady=true;this.worker.postMessage('isready');}
+      else if(line==='readyok'&&awaitingReady)finish(Error('Движок не ответил вовремя. Повторите действие.'));
+      return;
+     }
+     const m=line.match(/info depth (\d+).*?(?:multipv (\d+) )?score (cp|mate) (-?\d+).*? pv (.+)/);
+     if(m){const idx=Number(m[2]||1),score=m[3]==='mate'?Math.sign(Number(m[4]))*(100000-Math.abs(Number(m[4]))*100):Number(m[4]);rows[idx]={depth:Number(m[1]),score,pv:m[5].trim().split(' ')};}
+     if(line.startsWith('bestmove '))finish(null,{...rows[1],move:line.split(' ')[1],rows:Object.values(rows)});
+    };
+    this.worker.postMessage('setoption name Skill Level value '+skill);this.worker.postMessage('setoption name MultiPV value '+multi);this.worker.postMessage('position fen '+fen);this.worker.postMessage('go movetime '+time);
+   });
+  };
+  const out=this.chain.then(job);this.chain=out.catch(()=>{});return out;
+ }
 }
 export function uciMove(game,uci){
  if(typeof uci!=='string'||!/^([a-h][1-8]){2}[qrbn]?$/.test(uci))throw Error('Некорректная запись хода.');

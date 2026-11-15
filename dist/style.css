@@ -12,3 +12,11 @@
 .square.last:after{background:#c9e39a59;box-shadow:inset 0 0 0 3px #6f9a4f66}
 .square.selected{background:#bcd8a0}
 .square img{width:80%;height:80%;filter:drop-shadow(0 1px 1px #14201a1c);animation:none}
+
+/* Last move stays visible until the next move; shape distinguishes it from selection. */
+.square.last{box-shadow:inset 0 0 0 4px rgba(187,139,28,.85)!important;background-image:linear-gradient(rgba(255,221,100,.30),rgba(255,221,100,.30))}
+.square.last::after{content:'';position:absolute;left:5px;bottom:5px;width:8px;height:8px;border-radius:50%;background:#785910;pointer-events:none}
+.square{position:relative;overflow:visible}.square img{position:relative;pointer-events:none;will-change:transform}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.head-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.audio-control{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--line);border-radius:8px}.audio-control:hover{background:var(--light)}

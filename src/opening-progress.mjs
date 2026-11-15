@@ -1,3 +1,4 @@
+import {explainSolution,puzzleHint} from './coach-feedback.mjs';
 import {Chess} from 'chess.js';
 import {uciMove,loadPosition} from './engine.mjs';
 import {recordAttempt,currentEvidence} from './core.mjs';
@@ -23,7 +24,7 @@ export function recordCourseSession(s,c,unit,result){
  if(session.passed&&u.type==='sparring'){
  const additions=[];for(const [index,error] of errors.entries())if(error.kind==='evaluation'&&error.loss>=100&&error.bestUci){
   const position=loadPosition(error.fen);uciMove(position,error.bestUci);
-  if(!s.mistakes.some(m=>m.fen===error.fen&&currentEvidence(s,m)))additions.push({id:'course-'+session.id+'-'+index,calibrationId:session.calibrationId,fen:error.fen,line:[error.bestUci],theme:error.theme||'opening',rating:s.rating,title:c.name+' — ваша позиция',text:'Найдите более сильный ход в позиции из вашей практики дебюта.',hint:'Сначала проверьте шахи, взятия и угрозы.',explanation:error.reason||'Сравните своё решение с более сильным продолжением.',source:'Практика дебюта'});
+  if(!s.mistakes.some(m=>m.fen===error.fen&&currentEvidence(s,m)))additions.push({id:'course-'+session.id+'-'+index,calibrationId:session.calibrationId,fen:error.fen,line:[error.bestUci],theme:error.theme||'opening',rating:s.rating,title:c.name+' — ваша позиция',text:'Найдите более сильный ход в позиции из вашей практики дебюта.',hint:puzzleHint({fen:error.fen,line:[error.bestUci]}),explanation:explainSolution({fen:error.fen,line:[error.bestUci]}),source:'Практика дебюта'});
  }s.mistakes.unshift(...additions);s.mistakes=s.mistakes.slice(0,300);
  }
  data.history.unshift(session);

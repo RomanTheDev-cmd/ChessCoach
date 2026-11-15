@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {assessDecision} from '../src/decision.mjs';
+test('review names actual capture squares in notation and never describes program internals',()=>{const row=assessDecision('6k1/5pp1/7p/8/8/8/3Q1PPP/6K1 w - - 0 1','d2g5',{score:800,move:'d2d3',pv:['d2d3']},{score:0,pv:['h6g5']});assert.match(row.reason,/G5/);assert.doesNotMatch(row.reason,/движ|жэ пять|расчётн/i);});
