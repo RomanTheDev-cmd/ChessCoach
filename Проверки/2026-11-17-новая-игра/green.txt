@@ -1,0 +1,14 @@
+✔ the rendered New Game button really starts another game and preserves the previous board (4.521667ms)
+✔ continue keeps the active game, while a saved interrupted game can be restored (1.4545ms)
+✔ New Game does not replace a game while the opponent or review is working (0.620667ms)
+✔ save rejection rolls back the new-game transition without losing the previous game (0.593958ms)
+✔ a finished game awaiting analysis is preserved when another game starts (0.501042ms)
+✔ the interrupted-game button restores the saved game through the actual click handler (8.170084ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 107.832875

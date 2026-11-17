@@ -1,0 +1,13 @@
+{
+  "version": "1.5.1",
+  "backup": "/Users/roman/.local/share/chess-coach/backups/1.5.0-before-1.5.1-20261117-220331.app",
+  "matches": {
+    "main.cjs": true,
+    "preload.cjs": true,
+    "src/store.cjs": true,
+    "dist/app.js": true,
+    "dist/style.css": true
+  },
+  "progressUnchanged": true,
+  "progressSha256": "1e99d490c908258fc31eecf84f91818716df1b8d5a7a50f94cd1a71e9ab27484"
+}

@@ -9,7 +9,7 @@
     "esbuild": "^0.28.2"
   },
   "name": "chess-coach",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Личный шахматный тренер",
   "main": "main.cjs",
   "author": "Roman",

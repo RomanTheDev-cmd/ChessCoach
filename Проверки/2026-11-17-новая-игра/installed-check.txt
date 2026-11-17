@@ -1,0 +1,1 @@
+PASS: actual installed startGame creates new position, saves interrupted game to ProgressStore and restores it. No GUI was launched.

@@ -1,0 +1,35 @@
+✖ the rendered New Game button really starts another game and preserves the previous board (4.459541ms)
+✖ continue keeps the active game, while a saved interrupted game can be restored (0.596292ms)
+✔ New Game does not replace a game while the opponent or review is working (0.486625ms)
+✔ save rejection rolls back the new-game transition without losing the previous game (1.285292ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 95.746875
+
+✖ failing tests:
+
+test at tests/new-game.test.mjs:12:1
+✖ the rendered New Game button really starts another game and preserves the previous board (4.459541ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 'old'
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/new-game.test.mjs:14:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'old',
+    expected: 'old',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/new-game.test.mjs:17:1
+✖ continue keeps the active game, while a saved interrupted game can be restored (0.596292ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'length')
+      at TestContext.<anonymous> (file:///Users/roman/Library/Mobile%20Documents/com%7Eapple%7ECloudDocs/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D0%98%D0%98/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D0%BD%D0%B5%D1%80/tests/new-game.test.mjs:17:486)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
